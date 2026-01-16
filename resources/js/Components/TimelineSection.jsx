@@ -17,6 +17,15 @@ import {
     ImageIcon,
 } from "lucide-react";
 
+import infografis from "/public/images/Infografis.png";
+import lcc from "/public/images/LCC.png";
+import lkti from "/public/images/LKTI.png";
+import Line from "/public/images/Line-Fol.png";
+import sumobot from "/public/images/Sumo.png";
+import networking from "/public/images/Networking.png";
+import essay from "/public/images/Essay.png";
+import lkct from "/public/images/LKCT.png";
+
 const timelineData = {
     sumobot: [
         {
@@ -313,22 +322,14 @@ const timelineData = {
 };
 
 const tabs = [
-    { id: "sumobot", label: "Sumobot", icon: <Bot className="w-4 h-4" /> },
-    { id: "lf", label: "Line Follower", icon: <Zap className="w-4 h-4" /> },
-    {
-        id: "networking",
-        label: "Networking",
-        icon: <Network className="w-4 h-4" />,
-    },
-    { id: "lkti", label: "LKTI", icon: <FileText className="w-4 h-4" /> },
-    { id: "lkct", label: "LKCT", icon: <Cpu className="w-4 h-4" /> },
-    { id: "lcc", label: "LCC", icon: <BrainCircuit className="w-4 h-4" /> },
-    { id: "essay", label: "Essay", icon: <PenTool className="w-4 h-4" /> },
-    {
-        id: "infografis",
-        label: "Infografis",
-        icon: <ImageIcon className="w-4 h-4" />,
-    },
+    { id: "sumobot", label: "Sumobot", image: sumobot },
+    { id: "lf", label: "Line Follower", image: Line },
+    { id: "networking", label: "Networking", image: networking },
+    { id: "lkti", label: "LKTI", image: lkti },
+    { id: "lkct", label: "LKCT", image: lkct },
+    { id: "lcc", label: "LCC", image: lcc },
+    { id: "essay", label: "Essay", image: essay },
+    { id: "infografis", label: "Infografis", image: infografis },
 ];
 
 const TimelineSection = () => {
@@ -339,17 +340,27 @@ const TimelineSection = () => {
             id="timeline"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
+            <style>{`
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                }
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
+
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent hidden md:block"></div>
             <div className="absolute top-0 left-8 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent md:hidden"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 <div className="text-center mb-16" data-aos="fade-down">
                     <span className="text-frosted-mint-400 font-bold uppercase tracking-[0.3em] text-sm">
-                        Elcco 2026
+                        Mission Roadmap
                     </span>
                     <h2 className="mt-3 text-3xl md:text-5xl font-extrabold text-frosted-mint-50">
-                        Competitions{" "}
-                        <span className="text-ivory-mist-400">Timeline</span>
+                        Flight{" "}
+                        <span className="text-ivory-mist-400">Schedule</span>
                     </h2>
                 </div>
 
@@ -358,13 +369,17 @@ const TimelineSection = () => {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 border ${
+                            className={`flex items-center gap-3 px-6 py-3 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 border ${
                                 activeTab === tab.id
                                     ? "bg-frosted-mint-500 text-dark-spruce-950 border-frosted-mint-500 shadow-[0_0_15px_rgba(81,186,69,0.4)]"
                                     : "bg-dark-spruce-900/50 text-muted-olive-400 border-frosted-mint-500/20 hover:border-frosted-mint-500/50 hover:text-frosted-mint-300"
                             }`}
                         >
-                            {tab.icon}
+                            <img
+                                src={tab.image}
+                                alt={tab.label}
+                                className="w-5 h-5 object-contain"
+                            />
                             {tab.label}
                         </button>
                     ))}
