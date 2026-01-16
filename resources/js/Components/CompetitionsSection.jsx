@@ -15,6 +15,14 @@ import {
     ChevronRight,
     Filter,
 } from "lucide-react";
+import infografis from "/public/images/Infografis.png";
+import lcc from "/public/images/LCC.png";
+import lkti from "/public/images/LKTI.png";
+import Line from "/public/images/Line-Fol.png";
+import sumobot from "/public/images/Sumo.png";
+import networking from "/public/images/Networking.png";
+import essay from "/public/images/Essay.png";
+import lkct from "/public/images/LKCT.png";
 
 const competitionsData = [
     {
@@ -23,7 +31,7 @@ const competitionsData = [
         slug: "sumobot",
         target: "Umum",
         category: "Robotics",
-        image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=2070&auto=format&fit=crop",
+        image: sumobot,
         desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
         icon: <Bot className="w-5 h-5" />,
         registerLink: "https://bit.ly/Sumo26ELCCO",
@@ -50,7 +58,7 @@ const competitionsData = [
         slug: "line-follower",
         target: "Umum",
         category: "Robotics",
-        image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=2069&auto=format&fit=crop",
+        image: Line,
         desc: "Kompetisi robot otonom yang dirancang khusus untuk bergerak mengikuti garis panduan di lantai menggunakan sensor cahaya dan mikrokontroler. Kecepatan dan akurasi robot mengikuti jalur adalah yang utama.",
         icon: <Zap className="w-5 h-5" />,
         registerLink: "https://bit.ly/LF26ELCCO",
@@ -77,7 +85,7 @@ const competitionsData = [
         slug: "networking",
         target: "SMA/SMK",
         category: "IT Network",
-        image: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=2071&auto=format&fit=crop",
+        image: networking,
         desc: "Kompetisi yang menantang peserta untuk merancang dan mengonfigurasi jaringan menggunakan Cisco Packet Tracer. Penilaian dilakukan berdasarkan completion rate dan ketepatan skenario jaringan.",
         icon: <Network className="w-5 h-5" />,
         registerLink: "https://bit.ly/Networking26ELCCO",
@@ -104,7 +112,7 @@ const competitionsData = [
         slug: "lkti",
         target: "SMA/SMK",
         category: "Research",
-        image: "https://images.unsplash.com/photo-1456324504439-367cee110fa2?q=80&w=2070&auto=format&fit=crop",
+        image: lkti,
         desc: "Kompetisi ilmiah tingkat nasional untuk mewadahi gagasan kritis, inovatif, dan berbasis penelitian guna menjawab tantangan Era Society 5.0 dengan tema 'Smart Youth for Smart Nation'.",
         icon: <FileText className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKTI26ELCCO",
@@ -143,7 +151,7 @@ const competitionsData = [
         slug: "lkct",
         target: "Mahasiswa",
         category: "Innovation",
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+        image: lkct,
         desc: "Kompetisi merancang prototipe fungsional (hardware/software) yang human-centric sebagai respons terhadap era Society 5.0. Wadah pencetak inovator muda untuk akselerasi Indonesia Emas 2045.",
         icon: <Cpu className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKCT26Elcco",
@@ -176,7 +184,7 @@ const competitionsData = [
         slug: "lcc",
         target: "SMA/SMK",
         category: "Academic",
-        image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?q=80&w=2070&auto=format&fit=crop",
+        image: lcc,
         desc: "Kompetisi adu cepat dan tepat dalam menjawab soal pengetahuan kelistrikan, elektronika, dan sains umum. Mengasah berpikir kritis, kerja sama tim, dan kecepatan analisis peserta.",
         icon: <BrainCircuit className="w-5 h-5" />,
         registerLink: "https://bit.ly/LCC26ELCCO",
@@ -203,7 +211,7 @@ const competitionsData = [
         slug: "essay",
         target: "Umum",
         category: "Writing",
-        image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop",
+        image: essay,
         desc: "Ajang kompetisi menulis untuk menuangkan gagasan kritis, kreatif, dan solutif terhadap isu aktual. Mendorong ide inovatif berbasis data yang berdampak positif bagi masyarakat.",
         icon: <PenTool className="w-5 h-5" />,
         registerLink: "https://bit.ly/Essay26ELCCO",
@@ -242,7 +250,7 @@ const competitionsData = [
         slug: "infografis",
         target: "Umum",
         category: "Creative",
-        image: "https://images.unsplash.com/photo-1626785774573-4b799312afc2?q=80&w=2060&auto=format&fit=crop",
+        image: infografis,
         desc: "Kompetisi menyampaikan informasi melalui perpaduan narasi dan visualisasi data kreatif. Mengasah kemampuan komunikasi visual untuk menjawab tantangan era Society 5.0.",
         icon: <ImageIcon className="w-5 h-5" />,
         registerLink: "https://bit.ly/Infografis26ELCCO",
@@ -397,7 +405,7 @@ const CompetitionsSection = () => {
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="h-10rem w-10rem object-cover object-center transition-transform duration-700 group-hover:scale-110"
                                     />
 
                                     <div
