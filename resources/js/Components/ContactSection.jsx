@@ -1,194 +1,169 @@
 import React from "react";
-import {
-    Mail,
-    MapPin,
-    MessageCircle,
-    Instagram,
-    Globe,
-    Phone,
-} from "lucide-react";
+import { Mail, MapPin, MessageCircle, User, Phone, Users } from "lucide-react";
 
-const contactPersons = [
-    {
-        id: 1,
-        name: "Officer Sarah",
-        role: "Competition Division",
-        number: "+62 812-3456-7890",
-        status: "online",
-    },
-    {
-        id: 2,
-        name: "Officer Alex",
-        role: "Sponsorship & Media",
-        number: "+62 821-9876-5432",
-        status: "busy",
-    },
-    {
-        id: 3,
-        name: "Officer Rian",
-        role: "General Inquiry",
-        number: "+62 851-5555-6666",
-        status: "online",
-    },
+const competitionCPs = [
+    { id: 1, name: "Intan Sintya", role: "LKTI", number: "081339281377" },
+    { id: 2, name: "Irfan", role: "LKCT", number: "082146823161" },
+    { id: 3, name: "Ega", role: "Infografis", number: "085858925010" },
+    { id: 4, name: "Dito", role: "LCC", number: "082281060852" },
+    { id: 5, name: "Bram", role: "Essay", number: "081237809269" },
+    { id: 6, name: "Ali", role: "Networking", number: "082125593110" },
+    { id: 7, name: "Diva", role: "Sumo Bot", number: "087776062214" },
+    { id: 8, name: "Deari", role: "Line Follower", number: "085338715789" },
 ];
 
+const chairman = {
+    name: "Deva",
+    role: "Ketua Panitia",
+    number: "081353514501",
+};
+
 const ContactSection = () => {
+    // Helper untuk format link WA
+    const getWaLink = (number) => {
+        // Hapus karakter non-digit, pastikan format 62...
+        const cleanNumber = number.replace(/[^0-9]/g, "");
+        if (cleanNumber.startsWith("0")) {
+            return `https://wa.me/62${cleanNumber.slice(1)}`;
+        }
+        return `https://wa.me/${cleanNumber}`;
+    };
+
     return (
         <section
             id="contact"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden border-t border-frosted-mint-500/10"
         >
-            {/* Background Map Decoration */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] opacity-5 pointer-events-none mask-gradient-left"></div>
-
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 <div className="flex flex-col lg:flex-row gap-16">
-                    {/* Left Side: General Info */}
-                    <div className="w-full lg:w-1/2" data-aos="fade-right">
-                        <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase flex items-center gap-2 mb-4">
-                            <div className="w-2 h-2 bg-frosted-mint-500 rounded-full animate-ping"></div>
-                            Secure Channel
-                        </span>
+                    {/* --- KIRI: Informasi Umum & Ketua --- */}
+                    <div className="w-full lg:w-5/12" data-aos="fade-right">
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="h-px w-8 bg-frosted-mint-500"></span>
+                            <span className="text-frosted-mint-500 font-bold text-sm uppercase tracking-wider">
+                                Pusat Informasi
+                            </span>
+                        </div>
 
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-frosted-mint-50 mb-6">
-                            ELCCO 2026 Contact <br />
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-frosted-mint-50 mb-6 leading-tight">
+                            Hubungi <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
-                                Persons
+                                Panitia ELCCO
                             </span>
                         </h2>
 
                         <p className="text-muted-olive-200 text-lg mb-10 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam.
+                            Jika Anda memiliki pertanyaan terkait pendaftaran,
+                            teknis lomba, atau kerjasama, silakan hubungi
+                            narahubung kami.
                         </p>
 
                         <div className="space-y-6">
-                            {/* Address Box */}
-                            <div className="flex items-start gap-4 p-4 rounded-xl bg-frosted-mint-900/10 border border-frosted-mint-500/20">
-                                <div className="p-3 bg-dark-spruce-900 rounded-lg text-frosted-mint-400">
-                                    <MapPin className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h4 className="text-frosted-mint-100 font-bold mb-1">
-                                        Base Coordinates
-                                    </h4>
-                                    <p className="text-muted-olive-300 text-sm">
-                                        Faculty of Engineering, Udayana
-                                        University
-                                        <br />
-                                        Jimbaran Hill, Bali - Earth
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Email Box */}
-                            <div className="flex items-start gap-4 p-4 rounded-xl bg-frosted-mint-900/10 border border-frosted-mint-500/20">
-                                <div className="p-3 bg-dark-spruce-900 rounded-lg text-frosted-mint-400">
-                                    <Mail className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h4 className="text-frosted-mint-100 font-bold mb-1">
-                                        Electronic Mail
-                                    </h4>
-                                    <p className="text-muted-olive-300 text-sm">
-                                        official@elcco2026.com
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Social Links */}
-                        <div className="mt-10 flex gap-4">
-                            {[Instagram, Globe, MessageCircle].map(
-                                (Icon, idx) => (
-                                    <a
-                                        key={idx}
-                                        href="#"
-                                        className="w-12 h-12 flex items-center justify-center rounded-full bg-dark-spruce-900 border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500 hover:text-dark-spruce-950 transition-all hover:scale-110"
-                                    >
-                                        <Icon className="w-5 h-5" />
-                                    </a>
-                                )
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Right Side: CP Cards (Operator Style) */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-center gap-4">
-                        <div className="mb-4 flex items-center justify-between">
-                            <h3 className="text-xl font-bold text-ivory-mist-100">
-                                Active Operators
-                            </h3>
-                            <div className="flex gap-2">
-                                <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                <span className="text-xs font-mono text-muted-olive-400">
-                                    SYSTEM ONLINE
-                                </span>
-                            </div>
-                        </div>
-
-                        {contactPersons.map((cp, index) => (
-                            <div
-                                key={cp.id}
-                                className="group relative flex items-center justify-between p-4 md:p-6 rounded-2xl bg-dark-spruce-900/40 border border-frosted-mint-500/10 hover:border-frosted-mint-500/50 hover:bg-dark-spruce-900/80 backdrop-blur-md transition-all duration-300 hover:translate-x-2"
-                                data-aos="fade-left"
-                                data-aos-delay={index * 100}
-                            >
-                                {/* Left: Avatar & Info */}
-                                <div className="flex items-center gap-4">
-                                    <div className="relative">
-                                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-frosted-mint-500 to-dark-spruce-800 flex items-center justify-center text-dark-spruce-950 font-bold text-lg">
-                                            {cp.name.charAt(8)}
-                                        </div>
-                                        {/* Status Dot */}
-                                        <div
-                                            className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-dark-spruce-900 ${
-                                                cp.status === "online"
-                                                    ? "bg-green-500"
-                                                    : "bg-yellow-500"
-                                            }`}
-                                        ></div>
+                            {/* Card Ketua Panitia */}
+                            <div className="p-6 rounded-2xl bg-dark-spruce-900 border border-frosted-mint-500/20 shadow-lg group hover:border-frosted-mint-500/40 transition-all">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 rounded-full bg-frosted-mint-500/10 text-frosted-mint-400">
+                                        <User size={24} />
                                     </div>
-                                    <div>
-                                        <h4 className="text-frosted-mint-50 font-bold text-lg group-hover:text-frosted-mint-300 transition-colors">
-                                            {cp.name}
+                                    <div className="flex-1">
+                                        <h4 className="text-white font-bold text-lg mb-1">
+                                            {chairman.name}
                                         </h4>
-                                        <p className="text-muted-olive-400 text-sm font-mono flex items-center gap-1">
-                                            <span className="hidden md:inline text-frosted-mint-500/50">
-                                                ///
-                                            </span>
-                                            {cp.role}
+                                        <p className="text-frosted-mint-500 text-sm font-medium mb-1 uppercase tracking-wide">
+                                            {chairman.role}
+                                        </p>
+                                        <p className="text-muted-olive-300 font-mono text-sm mb-4">
+                                            {chairman.number}
+                                        </p>
+
+                                        <a
+                                            href={getWaLink(chairman.number)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 px-4 py-2 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white rounded-lg font-bold text-sm transition-all"
+                                        >
+                                            <MessageCircle size={16} />
+                                            Chat WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Info Sekretariat */}
+                            <div className="space-y-4 pt-4 border-t border-frosted-mint-500/10">
+                                <div className="flex items-start gap-3">
+                                    <MapPin className="w-5 h-5 text-muted-olive-400 mt-1" />
+                                    <div>
+                                        <h5 className="text-frosted-mint-50 font-bold text-sm">
+                                            Teknik Elektro Universitas Udayana
+                                        </h5>
+                                        <p className="text-muted-olive-300 text-sm mt-1">
+                                            Prodi Teknik Elektro, Fakultas
+                                            Teknik Universitas Udayana,
+                                            Jimbaran, Bali.
                                         </p>
                                     </div>
                                 </div>
-
-                                {/* Right: Action Button */}
-                                <a
-                                    href={`https://wa.me/${cp.number.replace(
-                                        /[^0-9]/g,
-                                        ""
-                                    )}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-frosted-mint-500/10 text-frosted-mint-400 border border-frosted-mint-500/20 group-hover:bg-frosted-mint-500 group-hover:text-dark-spruce-950 transition-all font-bold text-sm"
-                                >
-                                    <MessageCircle className="w-4 h-4" />
-                                    <span className="hidden md:block">
-                                        Chat
-                                    </span>
-                                </a>
                             </div>
-                        ))}
+                        </div>
+                    </div>
 
-                        {/* Decoration Box */}
-                        <div className="mt-4 p-4 rounded-xl bg-ivory-mist-500/5 border border-ivory-mist-500/10 text-center">
-                            <p className="text-ivory-mist-200 text-sm font-mono">
-                                <span className="text-ivory-mist-500 font-bold">
-                                    WARNING:
-                                </span>{" "}
-                                Please contact during operational hours (0900 -
-                                1700 GMT+8)
+                    {/* --- KANAN: Grid Narahubung Lomba --- */}
+                    <div className="w-full lg:w-7/12" data-aos="fade-left">
+                        <div className="flex items-center justify-between mb-6 border-b border-frosted-mint-500/10 pb-4">
+                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                <Users className="w-5 h-5 text-frosted-mint-500" />
+                                Narahubung Cabang Lomba
+                            </h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {competitionCPs.map((cp, index) => (
+                                <div
+                                    key={cp.id}
+                                    className="group flex flex-col p-5 rounded-xl bg-dark-spruce-900/50 border border-frosted-mint-500/10 hover:border-frosted-mint-500/30 hover:bg-dark-spruce-900 transition-all duration-300"
+                                    data-aos="fade-up"
+                                    data-aos-delay={index * 50}
+                                >
+                                    <div className="flex justify-between items-start mb-3">
+                                        <div>
+                                            <span className="text-xs font-bold text-frosted-mint-500 uppercase tracking-wider mb-1 block">
+                                                {cp.role}
+                                            </span>
+                                            <h4 className="text-white font-bold text-base">
+                                                {cp.name}
+                                            </h4>
+                                        </div>
+                                        <a
+                                            href={getWaLink(cp.number)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="p-2 rounded-lg bg-frosted-mint-500/10 text-frosted-mint-400 hover:bg-frosted-mint-500 hover:text-white transition-colors"
+                                            title="Chat WhatsApp"
+                                        >
+                                            <MessageCircle size={20} />
+                                        </a>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 mt-auto pt-3 border-t border-frosted-mint-500/5">
+                                        <Phone
+                                            size={14}
+                                            className="text-muted-olive-400"
+                                        />
+                                        <span className="text-muted-olive-200 font-mono text-sm tracking-wide">
+                                            {cp.number}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Note Operasional */}
+                        <div className="mt-8 text-center">
+                            <p className="text-muted-olive-400 text-xs italic">
+                                *Harap menghubungi narahubung pada jam
+                                operasional (09.00 - 21.00 WITA) untuk respon
+                                yang lebih cepat.
                             </p>
                         </div>
                     </div>

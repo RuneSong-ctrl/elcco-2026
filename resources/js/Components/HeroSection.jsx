@@ -15,7 +15,7 @@ const HeroSection = () => {
     }, []);
 
     return (
-        <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-space-gradient">
+        <section className="pt-10 relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-space-gradient">
             <div className="stars absolute inset-0 z-0 pointer-events-none opacity-40"></div>
             <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-dark-spruce-950/80 to-transparent z-10"></div>
             <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-dark-spruce-950/50 to-transparent z-10"></div>
@@ -65,7 +65,7 @@ const HeroSection = () => {
                             size="lg"
                             className="bg-frosted-mint-500 hover:bg-frosted-mint-400 text-dark-spruce-950 border-frosted-mint-600 border-b-[5px] font-extrabold text-base px-10 py-6 rounded-2xl transition-all hover:-translate-y-1 active:border-b-0 active:translate-y-1 shadow-lg shadow-frosted-mint-900/50"
                         >
-                            <a href="#competitions">Register Now</a>
+                            <a href="#competitions">How To Register</a>
                         </Button>
                         <Button
                             size="lg"

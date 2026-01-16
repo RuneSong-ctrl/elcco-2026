@@ -1,170 +1,465 @@
-import React from "react";
-import { Flag, Calendar, Rocket, Target, Trophy, Clock } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Flag,
+    Calendar,
+    Rocket,
+    Target,
+    Trophy,
+    Clock,
+    Bot,
+    Zap,
+    Network,
+    FileText,
+    Cpu,
+    BrainCircuit,
+    PenTool,
+    ImageIcon,
+} from "lucide-react";
 
-const events = [
+const timelineData = {
+    sumobot: [
+        {
+            date: "17 Jan - 07 Mar",
+            title: "Pendaftaran Normal",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Masa Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "14 Mar 2026",
+            title: "Technical Meeting",
+            icon: <Calendar />,
+            status: "upcoming",
+        },
+        {
+            date: "10 - 12 Apr 2026",
+            title: "Pelaksanaan Lomba",
+            icon: <Bot />,
+            status: "upcoming",
+        },
+        {
+            date: "12 Apr 2026",
+            title: "Pengumuman Juara",
+            icon: <Trophy />,
+            status: "upcoming",
+        },
+    ],
+    lf: [
+        {
+            date: "17 Jan - 07 Mar",
+            title: "Pendaftaran Normal",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Masa Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "14 Mar 2026",
+            title: "Technical Meeting",
+            icon: <Calendar />,
+            status: "upcoming",
+        },
+        {
+            date: "10 Apr 2026",
+            title: "Running Test",
+            icon: <Zap />,
+            status: "upcoming",
+        },
+        {
+            date: "11 - 12 Apr 2026",
+            title: "Race Day",
+            icon: <Rocket />,
+            status: "upcoming",
+        },
+    ],
+    lkti: [
+        {
+            date: "17 Jan - 02 Feb",
+            title: "Pendaftaran Gel 1",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "03 Feb - 18 Feb",
+            title: "Pendaftaran Gel 2",
+            icon: <Flag />,
+            status: "upcoming",
+        },
+        {
+            date: "19 Feb - 07 Mar",
+            title: "Pendaftaran Gel 3",
+            icon: <Flag />,
+            status: "upcoming",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Masa Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "13 Mar - 17 Mar",
+            title: "Seleksi Full Paper",
+            icon: <FileText />,
+            status: "upcoming",
+        },
+        {
+            date: "18 Mar 2026",
+            title: "Pengumuman Finalis",
+            icon: <Target />,
+            status: "upcoming",
+        },
+        {
+            date: "10 Apr 2026",
+            title: "Grand Final",
+            icon: <Rocket />,
+            status: "upcoming",
+        },
+    ],
+    lkct: [
+        {
+            date: "17 Jan - 13 Feb",
+            title: "Pendaftaran & Abstrak",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "19 Feb 2026",
+            title: "Pengumuman Abstrak",
+            icon: <Target />,
+            status: "upcoming",
+        },
+        {
+            date: "19 Feb - 27 Feb",
+            title: "Full Paper Gel 1",
+            icon: <FileText />,
+            status: "upcoming",
+        },
+        {
+            date: "28 Feb - 07 Mar",
+            title: "Full Paper Gel 2",
+            icon: <FileText />,
+            status: "upcoming",
+        },
+        {
+            date: "08 Mar - 13 Mar",
+            title: "Extend Full Paper",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "18 Mar 2026",
+            title: "Pengumuman Finalis",
+            icon: <Target />,
+            status: "upcoming",
+        },
+        {
+            date: "11 Apr 2026",
+            title: "Grand Final",
+            icon: <Cpu />,
+            status: "upcoming",
+        },
+    ],
+    lcc: [
+        {
+            date: "17 Jan - 07 Mar",
+            title: "Pendaftaran",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Masa Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "13 Mar 2026",
+            title: "Technical Meeting",
+            icon: <Calendar />,
+            status: "upcoming",
+        },
+        {
+            date: "15 Mar 2026",
+            title: "Penyisihan (Online)",
+            icon: <BrainCircuit />,
+            status: "upcoming",
+        },
+        {
+            date: "12 Apr 2026",
+            title: "Semifinal & Final",
+            icon: <Trophy />,
+            status: "upcoming",
+        },
+    ],
+    essay: [
+        {
+            date: "10 Jan - 02 Feb",
+            title: "Pendaftaran Gel 1",
+            icon: <Flag />,
+            status: "active",
+        },
+        {
+            date: "03 Feb - 18 Feb",
+            title: "Pendaftaran Gel 2",
+            icon: <Flag />,
+            status: "upcoming",
+        },
+        {
+            date: "19 Feb - 07 Mar",
+            title: "Pendaftaran Gel 3",
+            icon: <Flag />,
+            status: "upcoming",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "18 Mar 2026",
+            title: "Pengumuman Finalis",
+            icon: <Target />,
+            status: "upcoming",
+        },
+        {
+            date: "29 Mar 2026",
+            title: "Presentasi & Awarding",
+            icon: <Trophy />,
+            status: "upcoming",
+        },
+    ],
+    infografis: [
+        {
+            date: "17 Jan - 02 Feb",
+            title: "Pendaftaran Gel 1",
+            icon: <ImageIcon />,
+            status: "active",
+        },
+        {
+            date: "03 Feb - 18 Feb",
+            title: "Pendaftaran Gel 2",
+            icon: <ImageIcon />,
+            status: "upcoming",
+        },
+        {
+            date: "19 Feb - 07 Mar",
+            title: "Pendaftaran Gel 3",
+            icon: <ImageIcon />,
+            status: "upcoming",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "18 Mar 2026",
+            title: "Pengumuman Finalis",
+            icon: <Target />,
+            status: "upcoming",
+        },
+        {
+            date: "29 Mar 2026",
+            title: "Presentasi & Awarding",
+            icon: <Trophy />,
+            status: "upcoming",
+        },
+    ],
+    networking: [
+        {
+            date: "17 Jan - 07 Mar",
+            title: "Pendaftaran",
+            icon: <Network />,
+            status: "active",
+        },
+        {
+            date: "08 Mar - 12 Mar",
+            title: "Masa Extend",
+            icon: <Clock />,
+            status: "upcoming",
+        },
+        {
+            date: "13 Mar 2026",
+            title: "TM Penyisihan",
+            icon: <Calendar />,
+            status: "upcoming",
+        },
+        {
+            date: "15 Mar 2026",
+            title: "Penyisihan",
+            icon: <Zap />,
+            status: "upcoming",
+        },
+        {
+            date: "10 Apr 2026",
+            title: "Grand Final",
+            icon: <Rocket />,
+            status: "upcoming",
+        },
+    ],
+};
+
+const tabs = [
+    { id: "sumobot", label: "Sumobot", icon: <Bot className="w-4 h-4" /> },
+    { id: "lf", label: "Line Follower", icon: <Zap className="w-4 h-4" /> },
     {
-        id: 1,
-        date: "01 Feb 2026",
-        title: "Registration Open",
-        desc: "Pendaftaran dibuka untuk seluruh divisi kompetisi. Siapkan tim dan mecha terbaikmu.",
-        icon: <Flag className="w-5 h-5" />,
-        status: "completed", // completed, active, upcoming
+        id: "networking",
+        label: "Networking",
+        icon: <Network className="w-4 h-4" />,
     },
+    { id: "lkti", label: "LKTI", icon: <FileText className="w-4 h-4" /> },
+    { id: "lkct", label: "LKCT", icon: <Cpu className="w-4 h-4" /> },
+    { id: "lcc", label: "LCC", icon: <BrainCircuit className="w-4 h-4" /> },
+    { id: "essay", label: "Essay", icon: <PenTool className="w-4 h-4" /> },
     {
-        id: 2,
-        date: "20 Feb 2026",
-        title: "Technical Meeting",
-        desc: "Penjelasan aturan teknis dan sesi tanya jawab live streaming via Holo-Net (Zoom).",
-        icon: <Calendar className="w-5 h-5" />,
-        status: "active",
-    },
-    {
-        id: 3,
-        date: "01 Mar 2026",
-        title: "Project Submission",
-        desc: "Batas akhir pengumpulan proposal, kode program, dan blueprint desain.",
-        icon: <Clock className="w-5 h-5" />,
-        status: "upcoming",
-    },
-    {
-        id: 4,
-        date: "10 Mar 2026",
-        title: "Finalist Announcement",
-        desc: "Pengumuman 5 besar tim terbaik yang akan melaju ke babak Grand Final.",
-        icon: <Target className="w-5 h-5" />,
-        status: "upcoming",
-    },
-    {
-        id: 5,
-        date: "15 Mar 2026",
-        title: "Grand Final & Awarding",
-        desc: "Presentasi offline di markas pusat dan penyerahan gelar juara galaksi.",
-        icon: <Trophy className="w-5 h-5" />,
-        status: "upcoming",
+        id: "infografis",
+        label: "Infografis",
+        icon: <ImageIcon className="w-4 h-4" />,
     },
 ];
 
 const TimelineSection = () => {
+    const [activeTab, setActiveTab] = useState("sumobot");
+
     return (
         <section
             id="timeline"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            {/* Background Elements */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent hidden md:block"></div>
-
-            {/* Mobile Line (Left Aligned) */}
             <div className="absolute top-0 left-8 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent md:hidden"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
-                {/* Header */}
-                <div className="text-center mb-20" data-aos="fade-down">
+                <div className="text-center mb-16" data-aos="fade-down">
                     <span className="text-frosted-mint-400 font-bold uppercase tracking-[0.3em] text-sm">
-                        Mission Roadmap
+                        Elcco 2026
                     </span>
                     <h2 className="mt-3 text-3xl md:text-5xl font-extrabold text-frosted-mint-50">
-                        Flight{" "}
-                        <span className="text-ivory-mist-400">Schedule</span>
+                        Competitions{" "}
+                        <span className="text-ivory-mist-400">Timeline</span>
                     </h2>
                 </div>
 
-                {/* Timeline Items */}
-                <div className="relative flex flex-col gap-12 md:gap-0">
-                    {events.map((item, index) => (
-                        <div
-                            key={item.id}
-                            className={`flex flex-col md:flex-row items-start md:items-center w-full ${
-                                index % 2 === 0 ? "md:flex-row-reverse" : ""
+                <div className="flex justify-start md:justify-center overflow-x-auto pb-4 mb-20 gap-3 scrollbar-hide px-2">
+                    {tabs.map((tab) => (
+                        <button
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 border ${
+                                activeTab === tab.id
+                                    ? "bg-frosted-mint-500 text-dark-spruce-950 border-frosted-mint-500 shadow-[0_0_15px_rgba(81,186,69,0.4)]"
+                                    : "bg-dark-spruce-900/50 text-muted-olive-400 border-frosted-mint-500/20 hover:border-frosted-mint-500/50 hover:text-frosted-mint-300"
                             }`}
                         >
-                            {/* 1. Content Side (Empty for balancing on Desktop) */}
-                            <div className="hidden md:block md:w-5/12"></div>
+                            {tab.icon}
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
 
-                            {/* 2. Center Node (The Glowing Dot) */}
-                            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center">
-                                {/* Outer Ring */}
+                <div className="relative min-h-[500px]">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex flex-col gap-20 md:gap-24"
+                        >
+                            {timelineData[activeTab].map((item, index) => (
                                 <div
-                                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center bg-dark-spruce-950 z-20 transition-all duration-500 ${
-                                        item.status === "completed"
-                                            ? "border-frosted-mint-500 shadow-[0_0_15px_rgba(81,186,69,0.5)]"
-                                            : item.status === "active"
-                                            ? "border-ivory-mist-400 shadow-[0_0_15px_rgba(255,187,0,0.5)] animate-pulse"
-                                            : "border-frosted-mint-900"
+                                    key={index}
+                                    className={`flex flex-col md:flex-row items-start md:items-center w-full ${
+                                        index % 2 === 0
+                                            ? "md:flex-row-reverse"
+                                            : ""
                                     }`}
                                 >
-                                    {/* Inner Dot */}
-                                    <div
-                                        className={`w-3 h-3 rounded-full ${
-                                            item.status === "completed"
-                                                ? "bg-frosted-mint-500"
-                                                : item.status === "active"
-                                                ? "bg-ivory-mist-400"
-                                                : "bg-frosted-mint-900"
-                                        }`}
-                                    ></div>
-                                </div>
-                            </div>
+                                    <div className="hidden md:block md:w-5/12"></div>
 
-                            {/* 3. Card Content Side */}
-                            <div
-                                className="w-full pl-16 md:pl-0 md:w-5/12 relative"
-                                data-aos={
-                                    index % 2 === 0 ? "fade-left" : "fade-right"
-                                }
-                            >
-                                <div
-                                    className={`p-6 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${
-                                        item.status === "active"
-                                            ? "bg-frosted-mint-900/30 border-frosted-mint-500/50 shadow-lg shadow-frosted-mint-900/20"
-                                            : "bg-dark-spruce-900/40 border-frosted-mint-500/10 hover:border-frosted-mint-500/30"
-                                    }`}
-                                >
-                                    {/* Date Badge */}
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <span
-                                            className={`px-3 py-1 text-xs font-bold rounded-full border ${
-                                                item.status === "active"
-                                                    ? "bg-ivory-mist-500/20 text-ivory-mist-300 border-ivory-mist-500/30"
-                                                    : "bg-frosted-mint-500/10 text-frosted-mint-400 border-frosted-mint-500/20"
-                                            }`}
-                                        >
-                                            {item.date}
-                                        </span>
-                                    </div>
-
-                                    {/* Title & Icon */}
-                                    <div className="flex items-start justify-between gap-4 mb-2">
-                                        <h3
-                                            className={`text-xl font-bold ${
-                                                item.status === "active"
-                                                    ? "text-ivory-mist-100"
-                                                    : "text-frosted-mint-50"
-                                            }`}
-                                        >
-                                            {item.title}
-                                        </h3>
+                                    <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center">
                                         <div
-                                            className={`p-2 rounded-lg ${
+                                            className={`w-10 h-10 rounded-full border-4 flex items-center justify-center bg-dark-spruce-950 z-20 transition-all duration-500 ${
                                                 item.status === "active"
-                                                    ? "bg-ivory-mist-500/20 text-ivory-mist-400"
-                                                    : "bg-dark-spruce-950 text-frosted-mint-500"
+                                                    ? "border-ivory-mist-400 shadow-[0_0_20px_rgba(255,187,0,0.6)] animate-pulse"
+                                                    : "border-frosted-mint-900"
                                             }`}
                                         >
-                                            {item.icon}
+                                            <div
+                                                className={`w-3 h-3 rounded-full ${
+                                                    item.status === "active"
+                                                        ? "bg-ivory-mist-400"
+                                                        : "bg-frosted-mint-900"
+                                                }`}
+                                            ></div>
                                         </div>
                                     </div>
 
-                                    {/* Description */}
-                                    <p className="text-muted-olive-200 text-sm leading-relaxed">
-                                        {item.desc}
-                                    </p>
-                                </div>
+                                    <div className="w-full pl-20 md:pl-0 md:w-5/12 relative">
+                                        <div
+                                            className={`flex items-center gap-5 p-5 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${
+                                                item.status === "active"
+                                                    ? "bg-frosted-mint-900/30 border-frosted-mint-500/50 shadow-lg shadow-frosted-mint-900/20"
+                                                    : "bg-dark-spruce-900/40 border-frosted-mint-500/10 hover:border-frosted-mint-500/30"
+                                            }`}
+                                        >
+                                            <div
+                                                className={`p-3 rounded-xl flex-shrink-0 ${
+                                                    item.status === "active"
+                                                        ? "bg-ivory-mist-500/20 text-ivory-mist-400"
+                                                        : "bg-dark-spruce-950 text-frosted-mint-500 border border-frosted-mint-500/10"
+                                                }`}
+                                            >
+                                                {React.cloneElement(item.icon, {
+                                                    className: "w-6 h-6",
+                                                })}
+                                            </div>
 
-                                {/* Connector Line for Mobile (Horizontal connector to the main vertical line) */}
-                                <div className="absolute top-8 left-8 w-8 h-[2px] bg-frosted-mint-500/20 md:hidden"></div>
-                            </div>
-                        </div>
-                    ))}
+                                            <div>
+                                                <div className="mb-1">
+                                                    <span
+                                                        className={`text-xs font-bold uppercase tracking-wider ${
+                                                            item.status ===
+                                                            "active"
+                                                                ? "text-ivory-mist-300"
+                                                                : "text-muted-olive-400"
+                                                        }`}
+                                                    >
+                                                        {item.date}
+                                                    </span>
+                                                </div>
+                                                <h3
+                                                    className={`text-xl font-bold leading-tight ${
+                                                        item.status === "active"
+                                                            ? "text-ivory-mist-50"
+                                                            : "text-frosted-mint-50"
+                                                    }`}
+                                                >
+                                                    {item.title}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        <div className="absolute top-1/2 left-8 w-12 h-[2px] bg-frosted-mint-500/20 md:hidden -translate-y-1/2"></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </section>
