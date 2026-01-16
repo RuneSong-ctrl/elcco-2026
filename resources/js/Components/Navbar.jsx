@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Rocket } from "lucide-react";
+import ElccoLogo from "/public/images/logo.png";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -52,7 +53,11 @@ export default function Navbar() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
                         <div className="bg-frosted-mint-500/20 p-1.5 rounded-full group-hover:bg-frosted-mint-500/40 transition-colors">
-                            <Rocket className="w-5 h-5 text-frosted-mint-400" />
+                            <img
+                                src={ElccoLogo}
+                                alt="ELCCO Logo"
+                                className="w-[29px] h-[29px] scale-150 object-contain rounded-full drop-shadow-[0_0_15px_rgba(81,186,69,0.4)]"
+                            />
                         </div>
                         <span className="font-bold text-lg text-frosted-mint-50 tracking-wider">
                             ELCCO<span className="text-ivory-mist-400">26</span>

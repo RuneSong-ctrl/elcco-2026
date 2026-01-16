@@ -3,17 +3,14 @@ import { motion } from "framer-motion";
 
 const SponsorsSection = () => {
     const sponsors = [
-        "Galactic Corp",
-        "Neo Zeon Ind",
-        "Anaheim Electronics",
-        "Tekkadan",
-        "Celestial Being",
-        "Zaft Systems",
-        "Londo Bell",
-        "Titans Group",
+        "Sponsor ELCCO",
+        "Sponsor ELCCO",
+        "Sponsor ELCCO",
+        "Sponsor ELCCO",
+        "Sponsor ELCCO",
+        "Sponsor ELCCO",
     ];
 
-    // Fungsi untuk merender logo box
     const LogoItem = ({ name }) => (
         <div className="flex items-center justify-center min-w-[200px] h-24 mx-4 bg-frosted-mint-900/10 border border-frosted-mint-500/20 rounded-xl backdrop-blur-sm group hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500/50 transition-all duration-300 cursor-pointer">
             <span className="text-frosted-mint-400/60 font-bold text-xl uppercase tracking-widest group-hover:text-frosted-mint-300 transition-colors">
@@ -32,7 +29,7 @@ const SponsorsSection = () => {
                     Supported By
                 </p>
                 <h3 className="text-ivory-mist-100 font-bold text-xl">
-                    Official Partners
+                    Our Partners
                 </h3>
             </div>
 

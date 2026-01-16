@@ -14,7 +14,7 @@ const contactPersons = [
         name: "Officer Sarah",
         role: "Competition Division",
         number: "+62 812-3456-7890",
-        status: "online", // online, offline
+        status: "online",
     },
     {
         id: 2,

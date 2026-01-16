@@ -9,6 +9,7 @@ import {
     ArrowUp,
     ChevronRight,
 } from "lucide-react";
+import ElccoLogo from "/public/images/logo.png";
 
 const FooterSection = () => {
     const scrollToTop = () => {
@@ -51,7 +52,11 @@ const FooterSection = () => {
                             className="flex items-center gap-2 group"
                         >
                             <div className="bg-frosted-mint-500/20 p-2 rounded-lg group-hover:bg-frosted-mint-500/40 transition-colors border border-frosted-mint-500/30">
-                                <Rocket className="w-6 h-6 text-frosted-mint-400" />
+                                <img
+                                    src={ElccoLogo}
+                                    alt="ELCCO Logo"
+                                    className="w-10 h-10 scale-150 object-contain"
+                                />
                             </div>
                             <span className="font-extrabold text-2xl text-frosted-mint-50 tracking-wider">
                                 ELCCO
@@ -59,9 +64,8 @@ const FooterSection = () => {
                             </span>
                         </Link>
                         <p className="text-muted-olive-300 text-sm leading-relaxed">
-                            Kompetisi teknologi dan mecha terbesar di galaksi
-                            ini. Bergabunglah dengan para inovator muda untuk
-                            membangun masa depan.
+                            Fostering Youth Creativity and Innovation through
+                            the Demographic Bonus in the Era of Society 5.0
                         </p>
                         <div className="flex gap-4">
                             {[Instagram, Twitter, Github, Mail].map(
@@ -124,24 +128,19 @@ const FooterSection = () => {
                     <div>
                         <h4 className="text-ivory-mist-100 font-bold mb-6 text-lg flex items-center gap-2">
                             <span className="w-1 h-4 bg-frosted-mint-500 rounded-full"></span>
-                            Mission Updates
+                            Bug Report
                         </h4>
                         <p className="text-muted-olive-300 text-sm mb-4">
-                            Dapatkan info rahasia dan update terbaru langsung ke
-                            inbox komunikator Anda.
+                            Hubungi kami jika Anda menemukan bug atau masalah di
+                            situs ini
+                            <br></br>
+                            <a
+                                href="#contact"
+                                className="text-frosted-mint-400 hover:text-frosted-mint-300 transition-colors"
+                            >
+                                Whatsapp
+                            </a>
                         </p>
-                        <form className="space-y-3">
-                            <div className="relative">
-                                <input
-                                    type="email"
-                                    placeholder="Enter email frequency..."
-                                    className="w-full bg-dark-spruce-900/50 border border-frosted-mint-500/30 rounded-lg px-4 py-3 text-sm text-frosted-mint-100 placeholder:text-muted-olive-500 focus:outline-none focus:border-frosted-mint-500 focus:ring-1 focus:ring-frosted-mint-500 transition-all"
-                                />
-                            </div>
-                            <button className="w-full bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold py-2.5 rounded-lg transition-all shadow-lg hover:shadow-frosted-mint-500/20 text-sm tracking-wide uppercase">
-                                Subscribe
-                            </button>
-                        </form>
                     </div>
                 </div>
 

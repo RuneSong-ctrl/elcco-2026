@@ -52,9 +52,8 @@ const HeroSection = () => {
                         data-aos="fade-right"
                         data-aos-delay="400"
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud.
+                        Fostering Youth Creativity and Innovation through the
+                        Demographic Bonus in the Era of Society 5.0
                     </p>
 
                     <div
@@ -66,14 +65,14 @@ const HeroSection = () => {
                             size="lg"
                             className="bg-frosted-mint-500 hover:bg-frosted-mint-400 text-dark-spruce-950 border-frosted-mint-600 border-b-[5px] font-extrabold text-base px-10 py-6 rounded-2xl transition-all hover:-translate-y-1 active:border-b-0 active:translate-y-1 shadow-lg shadow-frosted-mint-900/50"
                         >
-                            Register Now
+                            <a href="#competitions">Register Now</a>
                         </Button>
                         <Button
                             size="lg"
                             variant="outline"
                             className="border-2 border-frosted-mint-500/50 text-frosted-mint-300 hover:bg-frosted-mint-500/10 hover:text-frosted-mint-100 hover:border-frosted-mint-400 font-bold text-base px-10 py-6 rounded-2xl backdrop-blur-sm transition-all"
                         >
-                            Learn More
+                            <a href="#about">Learn More</a>
                         </Button>
                     </div>
                 </div>
