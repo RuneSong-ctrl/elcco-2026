@@ -9,6 +9,7 @@ import {
     BrainCircuit, // LCC
     ImageIcon, // Infografis
 } from "lucide-react";
+import about from "/public/images/about.jpeg";
 
 const AboutSection = () => {
     const competitions = [
@@ -86,7 +87,7 @@ const AboutSection = () => {
                             </div>
 
                             <img
-                                src="https://images.unsplash.com/photo-1535378437323-9555f3e7f6aa?q=80&w=2000&auto=format&fit=crop"
+                                src={about}
                                 alt="About Illustration"
                                 className="w-full h-auto rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 object-cover aspect-[4/5]"
                             />
