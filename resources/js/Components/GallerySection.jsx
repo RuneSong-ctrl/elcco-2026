@@ -1,55 +1,60 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn, Image as ImageIcon } from "lucide-react";
+import { X, ZoomIn } from "lucide-react";
+import galeri1 from "/public/images/galeri1.jpeg";
+import galeri2 from "/public/images/galeri2.jpeg";
+import galeri3 from "/public/images/galeri3.jpeg";
+import galeri4 from "/public/images/galeri4.jpeg";
+import galeri5 from "/public/images/galeri5.jpeg";
+import galeri6 from "/public/images/galeri6.jpeg";
 
-// Data Dummy Archive (Foto Dokumentasi)
 const archives = [
     {
         id: 1,
-        title: "Grand Final 2025",
+        title: "Lomba LKCT",
         year: "2025",
-        category: "Ceremony",
-        src: "https://images.unsplash.com/photo-1540575467063-17e6fc8a6a44?q=80&w=1000&auto=format&fit=crop",
-        colSpan: "col-span-1 md:col-span-2", // Ukuran Grid Besar
+        category: "Innovation",
+        src: galeri1,
+        colSpan: "col-span-1 md:col-span-2",
     },
     {
         id: 2,
-        title: "Robotics Assembly",
-        year: "2024",
-        category: "Competition",
-        src: "https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?q=80&w=1000&auto=format&fit=crop",
+        title: "Lomba Line Follower",
+        year: "2025",
+        category: "Robotics",
+        src: galeri2,
         colSpan: "col-span-1",
     },
     {
         id: 3,
-        title: "Hackathon Night",
-        year: "2024",
-        category: "Coding",
-        src: "https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=1000&auto=format&fit=crop",
+        title: "Lomba LCC",
+        year: "2025",
+        category: "Academic",
+        src: galeri3,
         colSpan: "col-span-1",
     },
     {
         id: 4,
-        title: "Awarding Session",
-        year: "2023",
-        category: "Stage",
-        src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1000&auto=format&fit=crop",
+        title: "Lomba Line Follower",
+        year: "2025",
+        category: "Robotics",
+        src: galeri4,
         colSpan: "col-span-1",
     },
     {
         id: 5,
-        title: "Guest Star Performance",
+        title: "Lomba Sumo Bot",
         year: "2025",
-        category: "Entertainment",
-        src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop",
+        category: "Robotics",
+        src: galeri5,
         colSpan: "col-span-1 md:col-span-2",
     },
     {
         id: 6,
-        title: "UI/UX Presentation",
-        year: "2024",
-        category: "Design",
-        src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1000&auto=format&fit=crop",
+        title: "Lomba Line Follower",
+        year: "2025",
+        category: "Robotics",
+        src: galeri6,
         colSpan: "col-span-1",
     },
 ];
@@ -62,11 +67,9 @@ const GallerySection = () => {
             id="gallery"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            {/* Background Texture */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(11,26,10,0.9),rgba(11,26,10,0.9)),url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
-                {/* Header */}
                 <div
                     className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
                     data-aos="fade-down"
@@ -92,11 +95,10 @@ const GallerySection = () => {
                     </div>
                 </div>
 
-                {/* Grid Gallery */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px]">
                     {archives.map((item) => (
                         <motion.div
-                            layoutId={`card-${item.id}`} // Kunci animasi smooth transisi
+                            layoutId={`card-${item.id}`}
                             key={item.id}
                             onClick={() => setSelectedId(item.id)}
                             className={`relative group cursor-pointer overflow-hidden rounded-2xl border border-frosted-mint-500/10 bg-dark-spruce-900 ${item.colSpan}`}
@@ -108,7 +110,6 @@ const GallerySection = () => {
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             />
 
-                            {/* Overlay Hologram Effect */}
                             <motion.div className="absolute inset-0 bg-dark-spruce-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 backdrop-blur-[2px]">
                                 <div className="absolute top-4 right-4 text-frosted-mint-400">
                                     <ZoomIn className="w-6 h-6" />
@@ -127,11 +128,9 @@ const GallerySection = () => {
                     ))}
                 </div>
 
-                {/* Lightbox / Modal */}
                 <AnimatePresence>
                     {selectedId && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-                            {/* Backdrop Blur */}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -140,7 +139,6 @@ const GallerySection = () => {
                                 className="absolute inset-0 bg-dark-spruce-950/90 backdrop-blur-md"
                             />
 
-                            {/* Expanded Image Card */}
                             {archives.map(
                                 (item) =>
                                     item.id === selectedId && (
@@ -151,7 +149,7 @@ const GallerySection = () => {
                                         >
                                             <button
                                                 onClick={(e) => {
-                                                    e.stopPropagation(); // Mencegah klik tembus ke backdrop
+                                                    e.stopPropagation();
                                                     setSelectedId(null);
                                                 }}
                                                 className="absolute top-4 right-4 z-50 p-2 bg-dark-spruce-950/50 hover:bg-frosted-mint-500 rounded-full text-white transition-colors"
@@ -166,7 +164,6 @@ const GallerySection = () => {
                                                     className="w-full h-full object-cover"
                                                 />
 
-                                                {/* Details Bar */}
                                                 <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-dark-spruce-950 to-transparent">
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <span className="px-2 py-1 text-xs font-bold bg-frosted-mint-500 text-dark-spruce-950 rounded">
