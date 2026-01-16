@@ -19,11 +19,13 @@ jobs:
         
           script: |
             cd /home/elccounud2026/htdocs/elccounud2026.com/
+            
             git pull origin main
-            composer install
-            composer update
+            composer install --no-dev --optimize-autoloader --no-interaction
             php artisan migrate --force
-            npm install
+            npm install --no-audit --no-fund
             npm run build
-            php artisan optimize
-           
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+  
