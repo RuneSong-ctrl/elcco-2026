@@ -23,11 +23,10 @@ export default function Welcome() {
                 <SponsorsSection />
                 <CompetitionsSection />
                 <TimelineSection />
-                <FAQSection />
                 <GallerySection />
+                <FAQSection />
                 <ContactSection />
                 <FooterSection />
-
                 <MerchModal />
             </main>
         </>
