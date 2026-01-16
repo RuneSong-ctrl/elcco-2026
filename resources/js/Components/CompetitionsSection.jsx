@@ -433,7 +433,7 @@ const CompetitionsSection = () => {
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="h-10rem w-10rem object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
 
                                     <div
