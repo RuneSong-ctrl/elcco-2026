@@ -27,7 +27,7 @@ export default function Welcome() {
                 <FAQSection />
                 <ContactSection />
                 <FooterSection />
-                <MerchModal />
+                {/*<MerchModal />*/}
             </main>
         </>
     );

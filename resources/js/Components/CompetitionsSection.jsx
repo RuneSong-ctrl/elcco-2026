@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@inertiajs/react";
 import {
     Bot,
     PenTool,
@@ -14,7 +13,12 @@ import {
     Download,
     ChevronRight,
     Filter,
+    X,
+    Calendar,
+    ExternalLink,
 } from "lucide-react";
+
+// Import images (Pastikan path ini benar sesuai struktur projectmu)
 import infografis from "/public/images/Infografis.png";
 import lcc from "/public/images/LCC.png";
 import lkti from "/public/images/LKTI.png";
@@ -28,11 +32,15 @@ const competitionsData = [
     {
         id: "C-01",
         title: "Lomba Sumobot",
-        slug: "sumobot",
         target: "Umum",
         category: "Robotics",
         image: sumobot,
         desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
+        keyFeatures: [
+            "Autonomous Battle",
+            "Mechanical Strategy",
+            "Open for All",
+        ],
         icon: <Bot className="w-5 h-5" />,
         registerLink: "https://bit.ly/Sumo26ELCCO",
         guidebookLink:
@@ -55,11 +63,11 @@ const competitionsData = [
     {
         id: "C-02",
         title: "Line Follower",
-        slug: "line-follower",
         target: "Umum",
         category: "Robotics",
         image: Line,
-        desc: "Kompetisi robot otonom yang dirancang khusus untuk bergerak mengikuti garis panduan di lantai menggunakan sensor cahaya dan mikrokontroler. Kecepatan dan akurasi robot mengikuti jalur adalah yang utama.",
+        desc: "Lomba robot line follower adalah kompetisi di mana robot otonom dirancang khusus untuk bergerak mengikuti garis panduan di lantai, biasanya garis hitam di permukaan putih atau sebaliknya, menggunakan sensor cahaya untuk mendeteksi perbedaan warna dan mikrokontroler untuk mengontrol motor roda agar tetap berada di jalur. Kecepatan dan akurasi robot mengikuti jalur adalah yang utama. Kompetisi ini melatih keterampilan mekanik & elektronik, pengendalian terhadap robot dan kemampuan pemecahan masalah peserta.",
+        keyFeatures: ["Speed & Accuracy", "PID Control", "Line Tracking"],
         icon: <Zap className="w-5 h-5" />,
         registerLink: "https://bit.ly/LF26ELCCO",
         guidebookLink:
@@ -82,11 +90,11 @@ const competitionsData = [
     {
         id: "C-03",
         title: "Networking Cisco",
-        slug: "networking",
         target: "SMA/SMK",
         category: "IT Network",
         image: networking,
-        desc: "Kompetisi yang menantang peserta untuk merancang dan mengonfigurasi jaringan menggunakan Cisco Packet Tracer. Penilaian dilakukan berdasarkan completion rate dan ketepatan skenario jaringan.",
+        desc: "Lomba Networking Cisco Packet Tracer adalah kompetisi yang menantang peserta untuk merancang dan mengonfigurasi jaringan menggunakan cisco packet tracer. penilaian dilakukan berdasarkan completion rate, yaitu seberapa lengkap dan benar peserta menyelesaikan tugas atau skenario jaringan yang diberikan.",
+        keyFeatures: ["Packet Tracer", "Network Config", "Topology Design"],
         icon: <Network className="w-5 h-5" />,
         registerLink: "https://bit.ly/Networking26ELCCO",
         guidebookLink:
@@ -109,11 +117,11 @@ const competitionsData = [
     {
         id: "C-04",
         title: "Karya Tulis (LKTI)",
-        slug: "lkti",
         target: "SMA/SMK",
         category: "Research",
         image: lkti,
-        desc: "Kompetisi ilmiah tingkat nasional untuk mewadahi gagasan kritis, inovatif, dan berbasis penelitian guna menjawab tantangan Era Society 5.0 dengan tema 'Smart Youth for Smart Nation'.",
+        desc: "Lomba Karya Tulis Ilmiah (LKTI) ELCCO 2026 merupakan kompetisi ilmiah tingkat nasional yang bertujuan mewadahi generasi muda dalam mengembangkan gagasan kritis, inovatif, dan berbasis penelitian guna menjawab tantangan pembangunan di Era Society 5.0, dengan mengusung tema “Smart Youth for Smart Nation: Optimalisasi Bonus Demografi di Era Society 5.0” yang menekankan peran strategis pemuda dalam memanfaatkan ilmu pengetahuan dan teknologi untuk mengoptimalkan potensi bonus demografi Indonesia melalui solusi yang aplikatif, berkelanjutan, dan berorientasi pada kesejahteraan masyarakat.",
+        keyFeatures: ["Research Based", "Scientific Paper", "Society 5.0"],
         icon: <FileText className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKTI26ELCCO",
         guidebookLink:
@@ -148,11 +156,11 @@ const competitionsData = [
     {
         id: "C-05",
         title: "Karya Cipta (LKCT)",
-        slug: "lkct",
         target: "Mahasiswa",
         category: "Innovation",
         image: lkct,
-        desc: "Kompetisi merancang prototipe fungsional (hardware/software) yang human-centric sebagai respons terhadap era Society 5.0. Wadah pencetak inovator muda untuk akselerasi Indonesia Emas 2045.",
+        desc: "Lomba Karya Cipta Teknologi (LKCT) ELCCO 2026 adalah kompetisi ilmiah tingkat nasional yang dirancang sebagai respons terhadap era Society 5.0, di mana teknologi tidak lagi sekadar alat industri, melainkan solusi yang berpusat pada manusia (human-centric). Kompetisi ini mewajibkan peserta untuk merancang prototipe fungsional (baik berupa alat/perangkat keras maupun perangkat lunak) yang didukung oleh analisis akademis dalam bentuk Karya Tulis Ilmiah. LKCT hadir sebagai wadah utama untuk mencetak inovator muda yang mampu menciptakan teknologi inklusif guna mengakselerasi potensi Generasi Emas Indonesia 2045.",
+        keyFeatures: ["Prototyping", "Hardware/Software", "Innovation"],
         icon: <Cpu className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKCT26Elcco",
         guidebookLink:
@@ -181,11 +189,11 @@ const competitionsData = [
     {
         id: "C-06",
         title: "Cerdas Cermat (LCC)",
-        slug: "lcc",
         target: "SMA/SMK",
         category: "Academic",
         image: lcc,
-        desc: "Kompetisi adu cepat dan tepat dalam menjawab soal pengetahuan kelistrikan, elektronika, dan sains umum. Mengasah berpikir kritis, kerja sama tim, dan kecepatan analisis peserta.",
+        desc: "Lomba Cerdas Cermat (LCC) merupakan kompetisi adu cepat dan tepat dalam menjawab soal-soal pengetahuan di bidang kelistrikan (power, elektronika, komputer, dan telekomunikasi) serta pengetahuan umum sains dan logika. Lomba ini bertujuan untuk mengasah kemampuan berpikir kritis, kerja sama tim, dan kecepatan analisis peserta melalui beberapa babak kompetitif yang menantang dan edukatif.",
+        keyFeatures: ["Quiz Battle", "Critical Thinking", "Teamwork"],
         icon: <BrainCircuit className="w-5 h-5" />,
         registerLink: "https://bit.ly/LCC26ELCCO",
         guidebookLink:
@@ -208,11 +216,11 @@ const competitionsData = [
     {
         id: "C-07",
         title: "Lomba Essay",
-        slug: "essay",
         target: "Umum",
         category: "Writing",
         image: essay,
-        desc: "Ajang kompetisi menulis untuk menuangkan gagasan kritis, kreatif, dan solutif terhadap isu aktual. Mendorong ide inovatif berbasis data yang berdampak positif bagi masyarakat.",
+        desc: "Lomba Essay adalah ajang kompetisi menulis yang mendorong generasi muda untuk menuangkan gagasan kritis, kreatif, dan solutif terhadap berbagai isu aktual. Melalui tulisan berbasis data dan pemikiran logis, peserta diajak menyampaikan ide yang inovatif serta berdampak positif bagi masyarakat dan masa depan.",
+        keyFeatures: ["Critical Writing", "Problem Solving", "Idea Pitching"],
         icon: <PenTool className="w-5 h-5" />,
         registerLink: "https://bit.ly/Essay26ELCCO",
         guidebookLink:
@@ -247,11 +255,11 @@ const competitionsData = [
     {
         id: "C-08",
         title: "Lomba Infografis",
-        slug: "infografis",
         target: "Umum",
         category: "Creative",
         image: infografis,
-        desc: "Kompetisi menyampaikan informasi melalui perpaduan narasi dan visualisasi data kreatif. Mengasah kemampuan komunikasi visual untuk menjawab tantangan era Society 5.0.",
+        desc: "Lomba Infografis ELCCO 2026 adalah kompetisi nasional bagi mahasiswa untuk menyampaikan informasi secara efektif melalui perpaduan narasi dan visualisasi data yang kreatif. Ajang ini bertujuan mengasah kemampuan berpikir kritis serta keterampilan komunikasi visual peserta dalam mengolah data yang akurat guna menjawab tantangan era Society 5.0. Melalui tema 'Solving Problem with Elegance through The Pen Stroke of The Youth', kompetisi ini mendorong generasi muda menjadi agen perubahan yang inovatif menuju Indonesia Emas 2045.",
+        keyFeatures: ["Visual Design", "Data Storytelling", "Creativity"],
         icon: <ImageIcon className="w-5 h-5" />,
         registerLink: "https://bit.ly/Infografis26ELCCO",
         guidebookLink:
@@ -288,28 +296,26 @@ const competitionsData = [
 const CompetitionsSection = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [filter, setFilter] = useState("All");
+    const [selectedCompetition, setSelectedCompetition] = useState(null);
 
     useEffect(() => {
         setCurrentDate(new Date());
     }, []);
 
-    // --- FIX: PARSE TANGGAL SECARA LOKAL ---
+    // Parse Tanggal Lokal (WITA Compatible)
     const parseLocalDate = (dateStr) => {
-        // Memecah string "YYYY-MM-DD" dan membuat Date object manual (Local Time)
-        // new Date(y, m-1, d) -> Bulan di JS mulai dari 0 (Januari = 0)
         const [year, month, day] = dateStr.split("-").map(Number);
         const date = new Date(year, month - 1, day);
-        date.setHours(0, 0, 0, 0); // Set ke awal hari (00:00:00)
+        date.setHours(0, 0, 0, 0);
         return date;
     };
 
     const getPriceInfo = (waves) => {
         const now = currentDate;
-
         const activeWave = waves.find((wave) => {
             const start = parseLocalDate(wave.start);
             const end = parseLocalDate(wave.end);
-            end.setHours(23, 59, 59); // Set ke akhir hari
+            end.setHours(23, 59, 59);
             return now >= start && now <= end;
         });
 
@@ -324,17 +330,25 @@ const CompetitionsSection = () => {
         const firstStart = parseLocalDate(waves[0].start);
         if (now < firstStart) {
             return {
-                price: waves[0].price,
+                price: null,
                 label: `Opens ${waves[0].start.split("-")[2]} Jan`,
                 status: "upcoming",
             };
         }
 
-        return {
-            price: "Closed",
-            label: "Registration Closed",
-            status: "closed",
-        };
+        return { price: null, label: "Registration Closed", status: "closed" };
+    };
+
+    // Fungsi cek status per gelombang untuk Modal
+    const getWaveStatus = (wave) => {
+        const now = currentDate;
+        const start = parseLocalDate(wave.start);
+        const end = parseLocalDate(wave.end);
+        end.setHours(23, 59, 59);
+
+        if (now >= start && now <= end) return "active";
+        if (now < start) return "upcoming";
+        return "closed";
     };
 
     const filteredCompetitions = competitionsData.filter((item) => {
@@ -342,11 +356,14 @@ const CompetitionsSection = () => {
         return item.target === filter;
     });
 
+    const closeModal = () => setSelectedCompetition(null);
+
     return (
         <section
             id="competitions"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
+            {/* Background */}
             <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <div className="absolute top-20 left-0 w-full h-px bg-frosted-mint-500"></div>
                 <div className="absolute bottom-20 left-0 w-full h-px bg-frosted-mint-500"></div>
@@ -355,6 +372,7 @@ const CompetitionsSection = () => {
             </div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
+                {/* Header */}
                 <div className="text-center mb-16" data-aos="fade-up">
                     <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1 rounded-full border border-frosted-mint-500/30">
                         8 Divisions
@@ -362,7 +380,7 @@ const CompetitionsSection = () => {
                     <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-frosted-mint-50">
                         Choose Your{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
-                            Competition
+                            Battlefield
                         </span>
                     </h2>
                     <p className="mt-4 text-muted-olive-200 max-w-2xl mx-auto">
@@ -371,6 +389,7 @@ const CompetitionsSection = () => {
                     </p>
                 </div>
 
+                {/* Filter */}
                 <div
                     className="flex flex-wrap justify-center gap-3 mb-12"
                     data-aos="fade-up"
@@ -391,6 +410,7 @@ const CompetitionsSection = () => {
                     ))}
                 </div>
 
+                {/* Grid Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {filteredCompetitions.map((item, index) => {
                         const { price, label, status } = getPriceInfo(
@@ -408,10 +428,7 @@ const CompetitionsSection = () => {
                                 data-aos="fade-up"
                                 data-aos-delay={index * 50}
                             >
-                                <Link
-                                    href={`/competitions/${item.slug}`}
-                                    className="relative h-48 overflow-hidden block"
-                                >
+                                <div className="relative h-48 overflow-hidden block">
                                     <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 to-transparent z-10"></div>
                                     <img
                                         src={item.image}
@@ -443,67 +460,60 @@ const CompetitionsSection = () => {
                                                 : "CLOSED"}
                                         </div>
                                     )}
-                                </Link>
+                                </div>
 
                                 <div className="flex flex-1 flex-col p-5">
-                                    <Link
-                                        href={`/competitions/${item.slug}`}
-                                        className="block"
-                                    >
+                                    <div className="block">
                                         <h3 className="mb-2 text-lg font-bold text-frosted-mint-50 group-hover:text-frosted-mint-400 transition-colors leading-tight">
                                             {item.title}
                                         </h3>
-
                                         <p className="mb-4 text-xs text-muted-olive-200 leading-relaxed line-clamp-3">
                                             {item.desc}
                                         </p>
-                                    </Link>
+                                    </div>
 
                                     <div className="mt-auto pt-4 border-t border-frosted-mint-500/10">
-                                        <div className="flex justify-between items-end mb-4">
-                                            <div>
-                                                <span
-                                                    className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                                                        status === "active"
-                                                            ? "bg-frosted-mint-500/20 text-frosted-mint-400"
-                                                            : "bg-muted-olive-500/20 text-muted-olive-400"
-                                                    }`}
-                                                >
-                                                    {label}
-                                                </span>
-                                                <p className="font-mono text-lg font-bold text-ivory-mist-300 mt-1">
-                                                    {price}
-                                                </p>
+                                        {/* Tampilkan harga HANYA jika status Active */}
+                                        {status === "active" && (
+                                            <div className="flex justify-between items-end mb-4">
+                                                <div>
+                                                    <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-frosted-mint-500/20 text-frosted-mint-400">
+                                                        {label}
+                                                    </span>
+                                                    <p className="font-mono text-lg font-bold text-ivory-mist-300 mt-1">
+                                                        {price}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        )}
 
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <a
-                                                href={item.guidebookLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 transition-all text-xs font-bold"
+                                        <div className="flex flex-col gap-2">
+                                            <button
+                                                onClick={() =>
+                                                    setSelectedCompetition(item)
+                                                }
+                                                className="w-full py-2.5 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all text-xs font-bold flex items-center justify-center gap-2"
                                             >
-                                                <Download className="w-3.5 h-3.5" />
-                                                Guidebook
-                                            </a>
+                                                Lihat Detail
+                                                <ChevronRight className="w-3.5 h-3.5" />
+                                            </button>
 
                                             <a
                                                 href={item.registerLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-dark-spruce-950 font-bold transition-all text-xs shadow-lg ${
+                                                className={`w-full py-2.5 rounded-xl text-dark-spruce-950 font-bold transition-all text-xs shadow-lg flex items-center justify-center gap-2 ${
                                                     status === "closed"
                                                         ? "bg-gray-600 cursor-not-allowed text-gray-400"
                                                         : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
                                                 }`}
-                                                onClick={(e) => {
-                                                    if (status === "closed")
-                                                        e.preventDefault();
-                                                }}
+                                                onClick={(e) =>
+                                                    status === "closed" &&
+                                                    e.preventDefault()
+                                                }
                                             >
-                                                Register
-                                                <ChevronRight className="w-3.5 h-3.5" />
+                                                <ExternalLink className="w-3.5 h-3.5" />
+                                                Daftar Sekarang
                                             </a>
                                         </div>
                                     </div>
@@ -521,6 +531,150 @@ const CompetitionsSection = () => {
                     </div>
                 )}
             </div>
+
+            {/* --- MODAL DETAIL --- */}
+            {selectedCompetition && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-spruce-950/80 backdrop-blur-md animate-in fade-in duration-200"
+                    onClick={closeModal}
+                >
+                    <div
+                        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-dark-spruce-900 border border-frosted-mint-500/20 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close Button */}
+                        <button
+                            onClick={closeModal}
+                            className="absolute top-4 right-4 z-50 p-2 bg-dark-spruce-950/50 rounded-full text-frosted-mint-400 hover:bg-frosted-mint-500 hover:text-dark-spruce-950 transition-colors"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+
+                        {/* Left: Image (Cover) */}
+                        <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-dark-spruce-950">
+                            <img
+                                src={selectedCompetition.image}
+                                alt={selectedCompetition.title}
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
+
+                            <div className="absolute bottom-4 left-4 right-4">
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-frosted-mint-500 text-dark-spruce-950 flex items-center gap-1">
+                                        {selectedCompetition.icon}
+                                        {selectedCompetition.category}
+                                    </span>
+                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-dark-spruce-950/80 text-frosted-mint-400 border border-frosted-mint-500/30">
+                                        {selectedCompetition.target}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right: Details */}
+                        <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col">
+                            <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-4">
+                                {selectedCompetition.title}
+                            </h2>
+
+                            <div className="prose prose-invert prose-sm mb-6 text-muted-olive-200 leading-relaxed text-justify">
+                                <p>{selectedCompetition.desc}</p>
+                            </div>
+
+                            {/* Key Features */}
+                            <div className="mb-6">
+                                <h4 className="text-sm font-bold text-frosted-mint-500 uppercase tracking-wider mb-3">
+                                    Key Features
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {selectedCompetition.keyFeatures.map(
+                                        (feature, i) => (
+                                            <span
+                                                key={i}
+                                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-frosted-mint-500/10 text-frosted-mint-300 border border-frosted-mint-500/20 flex items-center gap-2"
+                                            >
+                                                <ChevronRight className="w-3 h-3" />
+                                                {feature}
+                                            </span>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Waves / Pricing in Modal */}
+                            <div className="mb-8 p-4 rounded-xl bg-dark-spruce-950/50 border border-frosted-mint-500/10">
+                                <h4 className="text-sm font-bold text-ivory-mist-200 mb-3 flex items-center gap-2">
+                                    <Calendar className="w-4 h-4 text-frosted-mint-500" />
+                                    Timeline & Biaya Pendaftaran
+                                </h4>
+                                <div className="space-y-2">
+                                    {selectedCompetition.waves.map(
+                                        (wave, i) => {
+                                            const waveStatus =
+                                                getWaveStatus(wave);
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className={`flex justify-between items-center text-xs border-b border-frosted-mint-500/10 pb-2 last:border-0 last:pb-0 ${
+                                                        waveStatus !== "active"
+                                                            ? "opacity-50"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <span className="text-muted-olive-300">
+                                                        {wave.name} (
+                                                        {wave.start} -{" "}
+                                                        {wave.end})
+                                                    </span>
+                                                    <span className="font-bold text-frosted-mint-400 font-mono">
+                                                        {waveStatus ===
+                                                        "upcoming"
+                                                            ? "Coming Soon"
+                                                            : wave.price}
+                                                    </span>
+                                                </div>
+                                            );
+                                        }
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="mt-auto grid grid-cols-2 gap-3">
+                                <a
+                                    href={selectedCompetition.guidebookLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all font-bold text-sm"
+                                >
+                                    <Download className="w-4 h-4" />
+                                    Download Juklak
+                                </a>
+                                <a
+                                    href={selectedCompetition.registerLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-dark-spruce-950 font-bold transition-all text-sm shadow-lg ${
+                                        getPriceInfo(selectedCompetition.waves)
+                                            .status === "closed"
+                                            ? "bg-gray-600 cursor-not-allowed text-gray-400"
+                                            : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30"
+                                    }`}
+                                    onClick={(e) =>
+                                        getPriceInfo(selectedCompetition.waves)
+                                            .status === "closed" &&
+                                        e.preventDefault()
+                                    }
+                                >
+                                    Daftar Sekarang
+                                    <ChevronRight className="w-4 h-4" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
