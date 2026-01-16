@@ -293,17 +293,23 @@ const CompetitionsSection = () => {
         setCurrentDate(new Date());
     }, []);
 
-    const filteredCompetitions = competitionsData.filter((item) => {
-        if (filter === "All") return true;
-        return item.target === filter;
-    });
+    // --- FIX: PARSE TANGGAL SECARA LOKAL ---
+    const parseLocalDate = (dateStr) => {
+        // Memecah string "YYYY-MM-DD" dan membuat Date object manual (Local Time)
+        // new Date(y, m-1, d) -> Bulan di JS mulai dari 0 (Januari = 0)
+        const [year, month, day] = dateStr.split("-").map(Number);
+        const date = new Date(year, month - 1, day);
+        date.setHours(0, 0, 0, 0); // Set ke awal hari (00:00:00)
+        return date;
+    };
 
     const getPriceInfo = (waves) => {
         const now = currentDate;
+
         const activeWave = waves.find((wave) => {
-            const start = new Date(wave.start);
-            const end = new Date(wave.end);
-            end.setHours(23, 59, 59);
+            const start = parseLocalDate(wave.start);
+            const end = parseLocalDate(wave.end);
+            end.setHours(23, 59, 59); // Set ke akhir hari
             return now >= start && now <= end;
         });
 
@@ -315,7 +321,7 @@ const CompetitionsSection = () => {
             };
         }
 
-        const firstStart = new Date(waves[0].start);
+        const firstStart = parseLocalDate(waves[0].start);
         if (now < firstStart) {
             return {
                 price: waves[0].price,
@@ -330,6 +336,11 @@ const CompetitionsSection = () => {
             status: "closed",
         };
     };
+
+    const filteredCompetitions = competitionsData.filter((item) => {
+        if (filter === "All") return true;
+        return item.target === filter;
+    });
 
     return (
         <section
@@ -346,7 +357,7 @@ const CompetitionsSection = () => {
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 <div className="text-center mb-16" data-aos="fade-up">
                     <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1 rounded-full border border-frosted-mint-500/30">
-                        8 Competitions
+                        8 Divisions
                     </span>
                     <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-frosted-mint-50">
                         Choose Your{" "}
@@ -405,7 +416,7 @@ const CompetitionsSection = () => {
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="h-10rem w-10rem object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
 
                                     <div
@@ -486,10 +497,10 @@ const CompetitionsSection = () => {
                                                         ? "bg-gray-600 cursor-not-allowed text-gray-400"
                                                         : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
                                                 }`}
-                                                onClick={(e) =>
-                                                    status === "closed" &&
-                                                    e.preventDefault()
-                                                }
+                                                onClick={(e) => {
+                                                    if (status === "closed")
+                                                        e.preventDefault();
+                                                }}
                                             >
                                                 Register
                                                 <ChevronRight className="w-3.5 h-3.5" />
