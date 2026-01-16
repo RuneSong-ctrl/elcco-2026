@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import {
-    ArrowRight,
     Bot,
     PenTool,
     Network,
@@ -12,6 +11,8 @@ import {
     Zap,
     Clock,
     AlertCircle,
+    Download,
+    ExternalLink,
 } from "lucide-react";
 
 const competitionsData = [
@@ -23,6 +24,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=2070&auto=format&fit=crop",
         desc: "Pertarungan robot otonom di arena sumo. Dorong lawan keluar ring dengan strategi mekanik terbaik.",
         icon: <Bot className="w-5 h-5" />,
+        registerLink: "https://bit.ly/Sumo26ELCCO",
+        guidebookLink: "#", // Masukkan link PDF Juklak disini nanti
         waves: [
             {
                 name: "Normal",
@@ -46,6 +49,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=2069&auto=format&fit=crop",
         desc: "Adu kecepatan dan presisi robot dalam menelusuri lintasan garis. Tuning PID adalah kunci kemenangan.",
         icon: <Zap className="w-5 h-5" />,
+        registerLink: "https://bit.ly/LF26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Normal",
@@ -69,6 +74,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=2071&auto=format&fit=crop",
         desc: "Uji kemampuan konfigurasi jaringan, troubleshooting, dan packet tracing menggunakan standar Cisco.",
         icon: <Network className="w-5 h-5" />,
+        registerLink: "https://bit.ly/Networking26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Normal",
@@ -92,6 +99,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1456324504439-367cee110fa2?q=80&w=2070&auto=format&fit=crop",
         desc: "Kompetisi riset ilmiah untuk memecahkan masalah nyata dengan solusi inovatif dan metodologi tepat.",
         icon: <FileText className="w-5 h-5" />,
+        registerLink: "https://bit.ly/LKTI26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Gelombang 1",
@@ -127,6 +136,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
         desc: "Wadah inovasi produk teknologi tepat guna. Wujudkan ide liar menjadi prototipe yang bermanfaat.",
         icon: <Cpu className="w-5 h-5" />,
+        registerLink: "https://bit.ly/LKCT26Elcco",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Gelombang 1",
@@ -156,6 +167,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?q=80&w=2070&auto=format&fit=crop",
         desc: "Adu wawasan dan kecepatan berpikir dalam bidang fisika, matematika, dan teknologi elektro.",
         icon: <BrainCircuit className="w-5 h-5" />,
+        registerLink: "https://bit.ly/LCC26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Normal",
@@ -179,6 +192,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop",
         desc: "Tuangkan gagasan kritis dan solutif melalui tulisan yang tajam untuk merespon isu teknologi.",
         icon: <PenTool className="w-5 h-5" />,
+        registerLink: "https://bit.ly/Essay26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Gelombang 1",
@@ -214,6 +229,8 @@ const competitionsData = [
         image: "https://images.unsplash.com/photo-1626785774573-4b799312afc2?q=80&w=2060&auto=format&fit=crop",
         desc: "Sajikan data kompleks menjadi visual yang menarik, informatif, dan estetik dalam poster digital.",
         icon: <ImageIcon className="w-5 h-5" />,
+        registerLink: "https://bit.ly/Infografis26ELCCO",
+        guidebookLink: "#",
         waves: [
             {
                 name: "Gelombang 1",
@@ -320,79 +337,115 @@ const CompetitionsSection = () => {
                         );
 
                         return (
-                            <Link
+                            <div
                                 key={item.id}
-                                href={`/competitions/${item.slug}`}
-                                className={`group relative h-full flex ${
-                                    status === "closed"
-                                        ? "pointer-events-none opacity-60"
-                                        : ""
+                                className={`group relative h-full flex flex-col overflow-hidden rounded-2xl border border-frosted-mint-500/20 bg-dark-spruce-900/60 backdrop-blur-md transition-all duration-300 hover:border-frosted-mint-500 hover:shadow-[0_0_30px_rgba(81,186,69,0.2)] ${
+                                    status === "closed" ? "opacity-60" : ""
                                 }`}
                                 data-aos="fade-up"
                                 data-aos-delay={index * 50}
                             >
-                                <div className="relative w-full flex flex-col overflow-hidden rounded-2xl border border-frosted-mint-500/20 bg-dark-spruce-900/60 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-frosted-mint-500 hover:shadow-[0_0_30px_rgba(81,186,69,0.2)]">
-                                    <div className="relative h-48 overflow-hidden">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 to-transparent z-10"></div>
-                                        <img
-                                            src={item.image}
-                                            alt={item.title}
-                                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                                        />
-                                        <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-dark-spruce-950/90 backdrop-blur-sm border border-frosted-mint-500/30 px-3 py-1 rounded-full text-[10px] font-bold text-frosted-mint-300 uppercase tracking-wide">
-                                            {item.icon}
-                                            {item.category}
-                                        </div>
-                                        <div className="absolute top-3 left-3 z-20 font-mono text-xs text-frosted-mint-500 font-bold bg-dark-spruce-950/80 px-2 py-0.5 rounded">
-                                            {item.id}
-                                        </div>
-
-                                        {status !== "active" && (
-                                            <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1 px-2 py-1 bg-ivory-mist-500 text-dark-spruce-950 text-[10px] font-bold rounded shadow-lg">
-                                                {status === "upcoming" ? (
-                                                    <Clock className="w-3 h-3" />
-                                                ) : (
-                                                    <AlertCircle className="w-3 h-3" />
-                                                )}
-                                                {status === "upcoming"
-                                                    ? "OPENS SOON"
-                                                    : "CLOSED"}
-                                            </div>
-                                        )}
+                                {/* Clickable Top Area (Image) */}
+                                <Link
+                                    href={`/competitions/${item.slug}`}
+                                    className="relative h-48 overflow-hidden block"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 to-transparent z-10"></div>
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                    />
+                                    <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-dark-spruce-950/90 backdrop-blur-sm border border-frosted-mint-500/30 px-3 py-1 rounded-full text-[10px] font-bold text-frosted-mint-300 uppercase tracking-wide">
+                                        {item.icon}
+                                        {item.category}
+                                    </div>
+                                    <div className="absolute top-3 left-3 z-20 font-mono text-xs text-frosted-mint-500 font-bold bg-dark-spruce-950/80 px-2 py-0.5 rounded">
+                                        {item.id}
                                     </div>
 
-                                    <div className="flex flex-1 flex-col p-5">
+                                    {status !== "active" && (
+                                        <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1 px-2 py-1 bg-ivory-mist-500 text-dark-spruce-950 text-[10px] font-bold rounded shadow-lg">
+                                            {status === "upcoming" ? (
+                                                <Clock className="w-3 h-3" />
+                                            ) : (
+                                                <AlertCircle className="w-3 h-3" />
+                                            )}
+                                            {status === "upcoming"
+                                                ? "OPENS SOON"
+                                                : "CLOSED"}
+                                        </div>
+                                    )}
+                                </Link>
+
+                                {/* Content Area */}
+                                <div className="flex flex-1 flex-col p-5">
+                                    <Link
+                                        href={`/competitions/${item.slug}`}
+                                        className="block"
+                                    >
                                         <h3 className="mb-2 text-lg font-bold text-frosted-mint-50 group-hover:text-frosted-mint-400 transition-colors leading-tight">
                                             {item.title}
                                         </h3>
-                                        <p className="mb-6 text-xs text-muted-olive-200 leading-relaxed line-clamp-3 flex-1">
+                                        <p className="mb-4 text-xs text-muted-olive-200 leading-relaxed line-clamp-3">
                                             {item.desc}
                                         </p>
+                                    </Link>
 
-                                        <div className="flex items-center justify-between border-t border-frosted-mint-500/10 pt-4 mt-auto">
-                                            <div>
-                                                <div className="flex items-center gap-1.5 mb-0.5">
-                                                    <span
-                                                        className={`text-[10px] font-bold uppercase px-1.5 rounded ${
-                                                            status === "active"
-                                                                ? "bg-frosted-mint-500/20 text-frosted-mint-400"
-                                                                : "bg-muted-olive-500/20 text-muted-olive-400"
-                                                        }`}
-                                                    >
-                                                        {label}
-                                                    </span>
-                                                </div>
-                                                <p className="font-mono text-sm font-bold text-ivory-mist-300">
-                                                    {price}
-                                                </p>
+                                    {/* Price Info */}
+                                    <div className="flex items-center justify-between border-t border-frosted-mint-500/10 pt-4 mb-4 mt-auto">
+                                        <div>
+                                            <div className="flex items-center gap-1.5 mb-0.5">
+                                                <span
+                                                    className={`text-[10px] font-bold uppercase px-1.5 rounded ${
+                                                        status === "active"
+                                                            ? "bg-frosted-mint-500/20 text-frosted-mint-400"
+                                                            : "bg-muted-olive-500/20 text-muted-olive-400"
+                                                    }`}
+                                                >
+                                                    {label}
+                                                </span>
                                             </div>
-                                            <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-frosted-mint-500/10 text-frosted-mint-400 transition-all group-hover:bg-frosted-mint-500 group-hover:text-dark-spruce-950">
-                                                <ArrowRight className="w-4 h-4" />
-                                            </div>
+                                            <p className="font-mono text-sm font-bold text-ivory-mist-300">
+                                                {price}
+                                            </p>
                                         </div>
                                     </div>
+
+                                    {/* Dual Action Buttons */}
+                                    <div className="grid grid-cols-2 gap-2 mt-auto">
+                                        {/* Guidebook Button */}
+                                        <a
+                                            href={item.guidebookLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all text-xs font-bold"
+                                        >
+                                            <Download className="w-3.5 h-3.5" />
+                                            Guidebook
+                                        </a>
+
+                                        {/* Register Button */}
+                                        <a
+                                            href={item.registerLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-dark-spruce-950 font-bold transition-all text-xs shadow-lg ${
+                                                status === "closed"
+                                                    ? "bg-gray-600 cursor-not-allowed text-gray-400"
+                                                    : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/20"
+                                            }`}
+                                            onClick={(e) => {
+                                                if (status === "closed")
+                                                    e.preventDefault();
+                                            }}
+                                        >
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                            Register
+                                        </a>
+                                    </div>
                                 </div>
-                            </Link>
+                            </div>
                         );
                     })}
                 </div>
