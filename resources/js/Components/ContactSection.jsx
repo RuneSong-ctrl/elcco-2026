@@ -41,7 +41,7 @@ const ContactSection = () => {
                         <div className="flex items-center gap-3 mb-4">
                             <span className="h-px w-8 bg-frosted-mint-500"></span>
                             <span className="text-frosted-mint-500 font-bold text-sm uppercase tracking-wider">
-                                Pusat Informasi
+                                COntact Person
                             </span>
                         </div>
 

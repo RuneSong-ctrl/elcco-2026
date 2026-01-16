@@ -12,7 +12,8 @@ import {
     Clock,
     AlertCircle,
     Download,
-    ExternalLink,
+    ChevronRight,
+    Filter,
 } from "lucide-react";
 
 const competitionsData = [
@@ -20,12 +21,14 @@ const competitionsData = [
         id: "C-01",
         title: "Lomba Sumobot",
         slug: "sumobot",
+        target: "Umum",
         category: "Robotics",
         image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=2070&auto=format&fit=crop",
-        desc: "Pertarungan robot otonom di arena sumo. Dorong lawan keluar ring dengan strategi mekanik terbaik.",
+        desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
         icon: <Bot className="w-5 h-5" />,
         registerLink: "https://bit.ly/Sumo26ELCCO",
-        guidebookLink: "#", // Masukkan link PDF Juklak disini nanti
+        guidebookLink:
+            "https://drive.google.com/file/d/1SmT4Fl6Mk5-ot5J9Uvjx5VDBHdgHgYp5/view?usp=drive_link",
         waves: [
             {
                 name: "Normal",
@@ -43,14 +46,16 @@ const competitionsData = [
     },
     {
         id: "C-02",
-        title: "Robot Line Follower",
+        title: "Line Follower",
         slug: "line-follower",
+        target: "Umum",
         category: "Robotics",
         image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=2069&auto=format&fit=crop",
-        desc: "Adu kecepatan dan presisi robot dalam menelusuri lintasan garis. Tuning PID adalah kunci kemenangan.",
+        desc: "Kompetisi robot otonom yang dirancang khusus untuk bergerak mengikuti garis panduan di lantai menggunakan sensor cahaya dan mikrokontroler. Kecepatan dan akurasi robot mengikuti jalur adalah yang utama.",
         icon: <Zap className="w-5 h-5" />,
         registerLink: "https://bit.ly/LF26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/1gV4kp-OTEO3wXtjeLyGJqAzsv36b6c_4/view?usp=drive_link",
         waves: [
             {
                 name: "Normal",
@@ -70,12 +75,14 @@ const competitionsData = [
         id: "C-03",
         title: "Networking Cisco",
         slug: "networking",
+        target: "SMA/SMK",
         category: "IT Network",
         image: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=2071&auto=format&fit=crop",
-        desc: "Uji kemampuan konfigurasi jaringan, troubleshooting, dan packet tracing menggunakan standar Cisco.",
+        desc: "Kompetisi yang menantang peserta untuk merancang dan mengonfigurasi jaringan menggunakan Cisco Packet Tracer. Penilaian dilakukan berdasarkan completion rate dan ketepatan skenario jaringan.",
         icon: <Network className="w-5 h-5" />,
         registerLink: "https://bit.ly/Networking26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/16g4jzY-gHRU-miYKqNkUXXtvXaThKaSJ/view?usp=drive_link",
         waves: [
             {
                 name: "Normal",
@@ -93,29 +100,31 @@ const competitionsData = [
     },
     {
         id: "C-04",
-        title: "Karya Tulis Ilmiah (LKTI)",
+        title: "Karya Tulis (LKTI)",
         slug: "lkti",
+        target: "SMA/SMK",
         category: "Research",
         image: "https://images.unsplash.com/photo-1456324504439-367cee110fa2?q=80&w=2070&auto=format&fit=crop",
-        desc: "Kompetisi riset ilmiah untuk memecahkan masalah nyata dengan solusi inovatif dan metodologi tepat.",
+        desc: "Kompetisi ilmiah tingkat nasional untuk mewadahi gagasan kritis, inovatif, dan berbasis penelitian guna menjawab tantangan Era Society 5.0 dengan tema 'Smart Youth for Smart Nation'.",
         icon: <FileText className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKTI26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/1ecdMyxIjbfWfl342mZXpEWyZ6DvtuRhm/view?usp=drive_link",
         waves: [
             {
-                name: "Gelombang 1",
+                name: "Gel 1",
                 start: "2026-01-17",
                 end: "2026-02-02",
                 price: "IDR 60.000",
             },
             {
-                name: "Gelombang 2",
+                name: "Gel 2",
                 start: "2026-02-03",
                 end: "2026-02-18",
                 price: "IDR 80.000",
             },
             {
-                name: "Gelombang 3",
+                name: "Gel 3",
                 start: "2026-02-19",
                 end: "2026-03-07",
                 price: "IDR 100.000",
@@ -132,21 +141,23 @@ const competitionsData = [
         id: "C-05",
         title: "Karya Cipta (LKCT)",
         slug: "lkct",
+        target: "Mahasiswa",
         category: "Innovation",
         image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
-        desc: "Wadah inovasi produk teknologi tepat guna. Wujudkan ide liar menjadi prototipe yang bermanfaat.",
+        desc: "Kompetisi merancang prototipe fungsional (hardware/software) yang human-centric sebagai respons terhadap era Society 5.0. Wadah pencetak inovator muda untuk akselerasi Indonesia Emas 2045.",
         icon: <Cpu className="w-5 h-5" />,
         registerLink: "https://bit.ly/LKCT26Elcco",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/16pewxH9i7CFEAFnoQ9pHdwhv_4d91Itd/view?usp=drive_link",
         waves: [
             {
-                name: "Gelombang 1",
+                name: "Gel 1",
                 start: "2026-01-17",
                 end: "2026-02-27",
                 price: "IDR 75.000",
             },
             {
-                name: "Gelombang 2",
+                name: "Gel 2",
                 start: "2026-02-28",
                 end: "2026-03-07",
                 price: "IDR 100.000",
@@ -163,12 +174,14 @@ const competitionsData = [
         id: "C-06",
         title: "Cerdas Cermat (LCC)",
         slug: "lcc",
+        target: "SMA/SMK",
         category: "Academic",
         image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?q=80&w=2070&auto=format&fit=crop",
-        desc: "Adu wawasan dan kecepatan berpikir dalam bidang fisika, matematika, dan teknologi elektro.",
+        desc: "Kompetisi adu cepat dan tepat dalam menjawab soal pengetahuan kelistrikan, elektronika, dan sains umum. Mengasah berpikir kritis, kerja sama tim, dan kecepatan analisis peserta.",
         icon: <BrainCircuit className="w-5 h-5" />,
         registerLink: "https://bit.ly/LCC26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/1RVCS1vYkayfA-pPN9DNvwQ8wILhB8mOD/view?usp=drive_link",
         waves: [
             {
                 name: "Normal",
@@ -188,27 +201,29 @@ const competitionsData = [
         id: "C-07",
         title: "Lomba Essay",
         slug: "essay",
+        target: "Umum",
         category: "Writing",
         image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop",
-        desc: "Tuangkan gagasan kritis dan solutif melalui tulisan yang tajam untuk merespon isu teknologi.",
+        desc: "Ajang kompetisi menulis untuk menuangkan gagasan kritis, kreatif, dan solutif terhadap isu aktual. Mendorong ide inovatif berbasis data yang berdampak positif bagi masyarakat.",
         icon: <PenTool className="w-5 h-5" />,
         registerLink: "https://bit.ly/Essay26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/13fgjEzR2gAXv3aprE0u7LMR4E64wIsfO/view?usp=drive_link",
         waves: [
             {
-                name: "Gelombang 1",
+                name: "Gel 1",
                 start: "2026-01-10",
                 end: "2026-02-02",
                 price: "IDR 50.000",
             },
             {
-                name: "Gelombang 2",
+                name: "Gel 2",
                 start: "2026-02-03",
                 end: "2026-02-18",
                 price: "IDR 65.000",
             },
             {
-                name: "Gelombang 3",
+                name: "Gel 3",
                 start: "2026-02-19",
                 end: "2026-03-07",
                 price: "IDR 80.000",
@@ -225,27 +240,29 @@ const competitionsData = [
         id: "C-08",
         title: "Lomba Infografis",
         slug: "infografis",
+        target: "Umum",
         category: "Creative",
         image: "https://images.unsplash.com/photo-1626785774573-4b799312afc2?q=80&w=2060&auto=format&fit=crop",
-        desc: "Sajikan data kompleks menjadi visual yang menarik, informatif, dan estetik dalam poster digital.",
+        desc: "Kompetisi menyampaikan informasi melalui perpaduan narasi dan visualisasi data kreatif. Mengasah kemampuan komunikasi visual untuk menjawab tantangan era Society 5.0.",
         icon: <ImageIcon className="w-5 h-5" />,
         registerLink: "https://bit.ly/Infografis26ELCCO",
-        guidebookLink: "#",
+        guidebookLink:
+            "https://drive.google.com/file/d/1aJYFcAc_Rwo45zPiCLzuTJ9ylopDSh4R/view?usp=drive_link",
         waves: [
             {
-                name: "Gelombang 1",
+                name: "Gel 1",
                 start: "2026-01-17",
                 end: "2026-02-02",
                 price: "IDR 50.000",
             },
             {
-                name: "Gelombang 2",
+                name: "Gel 2",
                 start: "2026-02-03",
                 end: "2026-02-18",
                 price: "IDR 65.000",
             },
             {
-                name: "Gelombang 3",
+                name: "Gel 3",
                 start: "2026-02-19",
                 end: "2026-03-07",
                 price: "IDR 80.000",
@@ -262,14 +279,19 @@ const competitionsData = [
 
 const CompetitionsSection = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [filter, setFilter] = useState("All");
 
     useEffect(() => {
         setCurrentDate(new Date());
     }, []);
 
+    const filteredCompetitions = competitionsData.filter((item) => {
+        if (filter === "All") return true;
+        return item.target === filter;
+    });
+
     const getPriceInfo = (waves) => {
         const now = currentDate;
-
         const activeWave = waves.find((wave) => {
             const start = new Date(wave.start);
             const end = new Date(wave.end);
@@ -325,13 +347,33 @@ const CompetitionsSection = () => {
                         </span>
                     </h2>
                     <p className="mt-4 text-muted-olive-200 max-w-2xl mx-auto">
-                        Siapkan tim terbaikmu untuk menghadapi perlombaan di
-                        ELCCO 2026. Pilih jenis lomba dan buktikan kemampuanmu.
+                        Tentukan targetmu! Pilih kategori yang sesuai dengan
+                        jenjang pendidikan atau keahlianmu.
                     </p>
                 </div>
 
+                <div
+                    className="flex flex-wrap justify-center gap-3 mb-12"
+                    data-aos="fade-up"
+                >
+                    {["All", "SMA/SMK", "Mahasiswa", "Umum"].map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setFilter(cat)}
+                            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${
+                                filter === cat
+                                    ? "bg-frosted-mint-500 text-dark-spruce-950 border-frosted-mint-500 shadow-lg shadow-frosted-mint-500/20 scale-105"
+                                    : "bg-dark-spruce-900/50 text-muted-olive-400 border-frosted-mint-500/20 hover:border-frosted-mint-500/50 hover:text-frosted-mint-300"
+                            }`}
+                        >
+                            {cat === "All" && <Filter className="w-4 h-4" />}
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {competitionsData.map((item, index) => {
+                    {filteredCompetitions.map((item, index) => {
                         const { price, label, status } = getPriceInfo(
                             item.waves
                         );
@@ -339,13 +381,14 @@ const CompetitionsSection = () => {
                         return (
                             <div
                                 key={item.id}
-                                className={`group relative h-full flex flex-col overflow-hidden rounded-2xl border border-frosted-mint-500/20 bg-dark-spruce-900/60 backdrop-blur-md transition-all duration-300 hover:border-frosted-mint-500 hover:shadow-[0_0_30px_rgba(81,186,69,0.2)] ${
-                                    status === "closed" ? "opacity-60" : ""
+                                className={`group relative h-full flex flex-col overflow-hidden rounded-2xl border border-frosted-mint-500/20 bg-dark-spruce-900/60 backdrop-blur-md transition-all duration-300 hover:border-frosted-mint-500 hover:shadow-[0_0_30px_rgba(81,186,69,0.15)] hover:-translate-y-1 ${
+                                    status === "closed"
+                                        ? "opacity-60 grayscale"
+                                        : ""
                                 }`}
                                 data-aos="fade-up"
                                 data-aos-delay={index * 50}
                             >
-                                {/* Clickable Top Area (Image) */}
                                 <Link
                                     href={`/competitions/${item.slug}`}
                                     className="relative h-48 overflow-hidden block"
@@ -354,14 +397,19 @@ const CompetitionsSection = () => {
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
-                                    <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-dark-spruce-950/90 backdrop-blur-sm border border-frosted-mint-500/30 px-3 py-1 rounded-full text-[10px] font-bold text-frosted-mint-300 uppercase tracking-wide">
-                                        {item.icon}
-                                        {item.category}
-                                    </div>
-                                    <div className="absolute top-3 left-3 z-20 font-mono text-xs text-frosted-mint-500 font-bold bg-dark-spruce-950/80 px-2 py-0.5 rounded">
-                                        {item.id}
+
+                                    <div
+                                        className={`absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border shadow-lg backdrop-blur-md ${
+                                            item.target === "SMA/SMK"
+                                                ? "bg-blue-500/20 text-blue-300 border-blue-500/30"
+                                                : item.target === "Mahasiswa"
+                                                ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                                                : "bg-frosted-mint-500/20 text-frosted-mint-300 border-frosted-mint-500/30"
+                                        }`}
+                                    >
+                                        {item.target}
                                     </div>
 
                                     {status !== "active" && (
@@ -378,7 +426,6 @@ const CompetitionsSection = () => {
                                     )}
                                 </Link>
 
-                                {/* Content Area */}
                                 <div className="flex flex-1 flex-col p-5">
                                     <Link
                                         href={`/competitions/${item.slug}`}
@@ -387,17 +434,17 @@ const CompetitionsSection = () => {
                                         <h3 className="mb-2 text-lg font-bold text-frosted-mint-50 group-hover:text-frosted-mint-400 transition-colors leading-tight">
                                             {item.title}
                                         </h3>
+
                                         <p className="mb-4 text-xs text-muted-olive-200 leading-relaxed line-clamp-3">
                                             {item.desc}
                                         </p>
                                     </Link>
 
-                                    {/* Price Info */}
-                                    <div className="flex items-center justify-between border-t border-frosted-mint-500/10 pt-4 mb-4 mt-auto">
-                                        <div>
-                                            <div className="flex items-center gap-1.5 mb-0.5">
+                                    <div className="mt-auto pt-4 border-t border-frosted-mint-500/10">
+                                        <div className="flex justify-between items-end mb-4">
+                                            <div>
                                                 <span
-                                                    className={`text-[10px] font-bold uppercase px-1.5 rounded ${
+                                                    className={`text-[10px] font-bold uppercase px-1.5 py-0.5 rounded ${
                                                         status === "active"
                                                             ? "bg-frosted-mint-500/20 text-frosted-mint-400"
                                                             : "bg-muted-olive-500/20 text-muted-olive-400"
@@ -405,50 +452,55 @@ const CompetitionsSection = () => {
                                                 >
                                                     {label}
                                                 </span>
+                                                <p className="font-mono text-lg font-bold text-ivory-mist-300 mt-1">
+                                                    {price}
+                                                </p>
                                             </div>
-                                            <p className="font-mono text-sm font-bold text-ivory-mist-300">
-                                                {price}
-                                            </p>
                                         </div>
-                                    </div>
 
-                                    {/* Dual Action Buttons */}
-                                    <div className="grid grid-cols-2 gap-2 mt-auto">
-                                        {/* Guidebook Button */}
-                                        <a
-                                            href={item.guidebookLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all text-xs font-bold"
-                                        >
-                                            <Download className="w-3.5 h-3.5" />
-                                            Guidebook
-                                        </a>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <a
+                                                href={item.guidebookLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 transition-all text-xs font-bold"
+                                            >
+                                                <Download className="w-3.5 h-3.5" />
+                                                Guidebook
+                                            </a>
 
-                                        {/* Register Button */}
-                                        <a
-                                            href={item.registerLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-dark-spruce-950 font-bold transition-all text-xs shadow-lg ${
-                                                status === "closed"
-                                                    ? "bg-gray-600 cursor-not-allowed text-gray-400"
-                                                    : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/20"
-                                            }`}
-                                            onClick={(e) => {
-                                                if (status === "closed")
-                                                    e.preventDefault();
-                                            }}
-                                        >
-                                            <ExternalLink className="w-3.5 h-3.5" />
-                                            Register
-                                        </a>
+                                            <a
+                                                href={item.registerLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-dark-spruce-950 font-bold transition-all text-xs shadow-lg ${
+                                                    status === "closed"
+                                                        ? "bg-gray-600 cursor-not-allowed text-gray-400"
+                                                        : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
+                                                }`}
+                                                onClick={(e) =>
+                                                    status === "closed" &&
+                                                    e.preventDefault()
+                                                }
+                                            >
+                                                Register
+                                                <ChevronRight className="w-3.5 h-3.5" />
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         );
                     })}
                 </div>
+
+                {filteredCompetitions.length === 0 && (
+                    <div className="text-center py-20">
+                        <p className="text-muted-olive-400">
+                            Tidak ada kompetisi di kategori ini.
+                        </p>
+                    </div>
+                )}
             </div>
         </section>
     );
