@@ -356,11 +356,11 @@ const TimelineSection = () => {
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 <div className="text-center mb-16" data-aos="fade-down">
                     <span className="text-frosted-mint-400 font-bold uppercase tracking-[0.3em] text-sm">
-                        Mission Roadmap
+                        ELCCO 2026
                     </span>
                     <h2 className="mt-3 text-3xl md:text-5xl font-extrabold text-frosted-mint-50">
-                        Flight{" "}
-                        <span className="text-ivory-mist-400">Schedule</span>
+                        Competition{" "}
+                        <span className="text-ivory-mist-400">Timeline</span>
                     </h2>
                 </div>
 
