@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import GundamFull from "/public/images/maskot.png";
 import ElccoLogo from "/public/images/logo.png";
 
