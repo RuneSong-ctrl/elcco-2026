@@ -28,9 +28,9 @@ const competitionsData = [
         target: "Umum",
         category: "Robotics",
         image: sumobot,
-        desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
+        desc: "Lomba Sumobot merupakan kompetisi robotika dengan tujuan mengalahkan robot lawan dengan mendorongnya sehingga keluar dari arena pertandingan. Robot dikendalikan oleh pemain dengan menggunakan remote control dan dirakit sesuai desain sendiri. Kompetisi ini melatih kreativitas, pengendalian, dan pemahaman mekanika serta elektronika peserta.",
         keyFeatures: [
-            "Autonomous Battle",
+            
             "Mechanical Strategy",
             "Open for All",
         ],
@@ -397,7 +397,7 @@ const CompetitionsSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {filteredCompetitions.map((item, index) => {
                         const { price, label, status } = getPriceInfo(
-                            item.waves
+                            item.waves,
                         );
 
                         return (
@@ -424,8 +424,8 @@ const CompetitionsSection = () => {
                                             item.target === "SMA/SMK"
                                                 ? "bg-blue-500/20 text-blue-300 border-blue-500/30"
                                                 : item.target === "Mahasiswa"
-                                                ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
-                                                : "bg-frosted-mint-500/20 text-frosted-mint-300 border-frosted-mint-500/30"
+                                                  ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                                                  : "bg-frosted-mint-500/20 text-frosted-mint-300 border-frosted-mint-500/30"
                                         }`}
                                     >
                                         <img
@@ -589,7 +589,7 @@ const CompetitionsSection = () => {
                                                 <ChevronRight className="w-3 h-3 text-frosted-mint-500" />
                                                 {feature}
                                             </span>
-                                        )
+                                        ),
                                     )}
                                 </div>
                             </div>
@@ -638,7 +638,7 @@ const CompetitionsSection = () => {
                                                     </span>
                                                 </div>
                                             );
-                                        }
+                                        },
                                     )}
                                 </div>
                             </div>
