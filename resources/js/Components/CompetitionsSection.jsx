@@ -36,11 +36,7 @@ const competitionsData = [
         category: "Robotics",
         image: sumobot,
         desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
-        keyFeatures: [
-            "Autonomous Battle",
-            "Mechanical Strategy",
-            "Open for All",
-        ],
+        keyFeatures: ["Mechanical Strategy", "Open for All"],
         icon: <Bot className="w-5 h-5" />,
         registerLink: "https://bit.ly/Sumo26ELCCO",
         guidebookLink:
