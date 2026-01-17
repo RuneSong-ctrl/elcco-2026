@@ -358,12 +358,12 @@ const CompetitionsSection = () => {
                 {/* Header */}
                 <div className="text-center mb-16" data-aos="fade-up">
                     <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1 rounded-full border border-frosted-mint-500/30">
-                        8 Divisions
+                        8 Competitions
                     </span>
                     <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-frosted-mint-50">
                         Choose Your{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
-                            Battlefield
+                            Competitions
                         </span>
                     </h2>
                     <p className="mt-4 text-muted-olive-200 max-w-2xl mx-auto">
