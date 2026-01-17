@@ -29,11 +29,7 @@ const competitionsData = [
         category: "Robotics",
         image: sumobot,
         desc: "Lomba Sumobot merupakan kompetisi robotika dengan tujuan mengalahkan robot lawan dengan mendorongnya sehingga keluar dari arena pertandingan. Robot dikendalikan oleh pemain dengan menggunakan remote control dan dirakit sesuai desain sendiri. Kompetisi ini melatih kreativitas, pengendalian, dan pemahaman mekanika serta elektronika peserta.",
-        keyFeatures: [
-            
-            "Mechanical Strategy",
-            "Open for All",
-        ],
+        keyFeatures: ["Mechanical Strategy", "Open for All"],
         registerLink: "https://bit.ly/Sumo26ELCCO",
         guidebookLink:
             "https://drive.google.com/file/d/1SmT4Fl6Mk5-ot5J9Uvjx5VDBHdgHgYp5/view?usp=drive_link",
@@ -114,7 +110,7 @@ const competitionsData = [
         keyFeatures: ["Research Based", "Scientific Paper", "Society 5.0"],
         registerLink: "https://bit.ly/LKTI26ELCCO",
         guidebookLink:
-            "https://drive.google.com/file/d/1ecdMyxIjbfWfl342mZXpEWyZ6DvtuRhm/view?usp=drive_link",
+            "https://drive.google.com/file/d/1JOqpg-dSgQqkPJERLGQfoOX5lEczpWZd/view?usp=sharing",
         waves: [
             {
                 name: "Gel 1",
