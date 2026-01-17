@@ -94,7 +94,7 @@ const competitionsData = [
         icon: <Network className="w-5 h-5" />,
         registerLink: "https://bit.ly/Networking26ELCCO",
         guidebookLink:
-            "https://drive.google.com/file/d/16g4jzY-gHRU-miYKqNkUXXtvXaThKaSJ/view?usp=drive_link",
+            "https://drive.google.com/file/d/1N8tzqk8Hxh5MZfmVGOINEOi9QaBjUeaC/view?usp=sharing",
         waves: [
             {
                 name: "Normal",
