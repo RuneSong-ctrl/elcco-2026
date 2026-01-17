@@ -18,7 +18,7 @@ import {
     ExternalLink,
 } from "lucide-react";
 
-// Import images (Pastikan path ini benar sesuai struktur projectmu)
+
 import infografis from "/public/images/Infografis.png";
 import lcc from "/public/images/LCC.png";
 import lkti from "/public/images/LKTI.png";
@@ -33,7 +33,7 @@ const competitionsData = [
         id: "C-01",
         title: "Lomba Sumobot",
         target: "Umum",
-        category: "Robotics",
+        
         image: sumobot,
         desc: "Kompetisi di mana robot otonom dirancang khusus untuk mendorong lawan keluar dari ring sumo. Menguji strategi mekanik, kekuatan pendorong, dan sensor otonom dalam pertarungan sengit.",
         keyFeatures: ["Mechanical Strategy", "Open for All"],
@@ -60,7 +60,6 @@ const competitionsData = [
         id: "C-02",
         title: "Line Follower",
         target: "Umum",
-        category: "Robotics",
         image: Line,
         desc: "Lomba robot line follower adalah kompetisi di mana robot otonom dirancang khusus untuk bergerak mengikuti garis panduan di lantai, biasanya garis hitam di permukaan putih atau sebaliknya, menggunakan sensor cahaya untuk mendeteksi perbedaan warna dan mikrokontroler untuk mengontrol motor roda agar tetap berada di jalur. Kecepatan dan akurasi robot mengikuti jalur adalah yang utama. Kompetisi ini melatih keterampilan mekanik & elektronik, pengendalian terhadap robot dan kemampuan pemecahan masalah peserta.",
         keyFeatures: ["Speed & Accuracy", "PID Control", "Line Tracking"],
@@ -87,7 +86,6 @@ const competitionsData = [
         id: "C-03",
         title: "Networking Cisco",
         target: "SMA/SMK",
-        category: "IT Network",
         image: networking,
         desc: "Lomba Networking Cisco Packet Tracer adalah kompetisi yang menantang peserta untuk merancang dan mengonfigurasi jaringan menggunakan cisco packet tracer. penilaian dilakukan berdasarkan completion rate, yaitu seberapa lengkap dan benar peserta menyelesaikan tugas atau skenario jaringan yang diberikan.",
         keyFeatures: ["Packet Tracer", "Network Config", "Topology Design"],
@@ -114,7 +112,7 @@ const competitionsData = [
         id: "C-04",
         title: "Karya Tulis (LKTI)",
         target: "SMA/SMK",
-        category: "Research",
+        
         image: lkti,
         desc: "Lomba Karya Tulis Ilmiah (LKTI) ELCCO 2026 merupakan kompetisi ilmiah tingkat nasional yang bertujuan mewadahi generasi muda dalam mengembangkan gagasan kritis, inovatif, dan berbasis penelitian guna menjawab tantangan pembangunan di Era Society 5.0, dengan mengusung tema “Smart Youth for Smart Nation: Optimalisasi Bonus Demografi di Era Society 5.0” yang menekankan peran strategis pemuda dalam memanfaatkan ilmu pengetahuan dan teknologi untuk mengoptimalkan potensi bonus demografi Indonesia melalui solusi yang aplikatif, berkelanjutan, dan berorientasi pada kesejahteraan masyarakat.",
         keyFeatures: ["Research Based", "Scientific Paper", "Society 5.0"],
@@ -153,7 +151,7 @@ const competitionsData = [
         id: "C-05",
         title: "Karya Cipta (LKCT)",
         target: "Mahasiswa",
-        category: "Innovation",
+        
         image: lkct,
         desc: "Lomba Karya Cipta Teknologi (LKCT) ELCCO 2026 adalah kompetisi ilmiah tingkat nasional yang dirancang sebagai respons terhadap era Society 5.0, di mana teknologi tidak lagi sekadar alat industri, melainkan solusi yang berpusat pada manusia (human-centric). Kompetisi ini mewajibkan peserta untuk merancang prototipe fungsional (baik berupa alat/perangkat keras maupun perangkat lunak) yang didukung oleh analisis akademis dalam bentuk Karya Tulis Ilmiah. LKCT hadir sebagai wadah utama untuk mencetak inovator muda yang mampu menciptakan teknologi inklusif guna mengakselerasi potensi Generasi Emas Indonesia 2045.",
         keyFeatures: ["Prototyping", "Hardware/Software", "Innovation"],
@@ -186,7 +184,7 @@ const competitionsData = [
         id: "C-06",
         title: "Cerdas Cermat (LCC)",
         target: "SMA/SMK",
-        category: "Academic",
+      
         image: lcc,
         desc: "Lomba Cerdas Cermat (LCC) merupakan kompetisi adu cepat dan tepat dalam menjawab soal-soal pengetahuan di bidang kelistrikan (power, elektronika, komputer, dan telekomunikasi) serta pengetahuan umum sains dan logika. Lomba ini bertujuan untuk mengasah kemampuan berpikir kritis, kerja sama tim, dan kecepatan analisis peserta melalui beberapa babak kompetitif yang menantang dan edukatif.",
         keyFeatures: ["Quiz Battle", "Critical Thinking", "Teamwork"],
@@ -213,7 +211,7 @@ const competitionsData = [
         id: "C-07",
         title: "Lomba Essay",
         target: "Umum",
-        category: "Writing",
+        
         image: essay,
         desc: "Lomba Essay adalah ajang kompetisi menulis yang mendorong generasi muda untuk menuangkan gagasan kritis, kreatif, dan solutif terhadap berbagai isu aktual. Melalui tulisan berbasis data dan pemikiran logis, peserta diajak menyampaikan ide yang inovatif serta berdampak positif bagi masyarakat dan masa depan.",
         keyFeatures: ["Critical Writing", "Problem Solving", "Idea Pitching"],
@@ -252,7 +250,7 @@ const competitionsData = [
         id: "C-08",
         title: "Lomba Infografis",
         target: "Umum",
-        category: "Creative",
+        
         image: infografis,
         desc: "Lomba Infografis ELCCO 2026 adalah kompetisi nasional bagi mahasiswa untuk menyampaikan informasi secara efektif melalui perpaduan narasi dan visualisasi data yang kreatif. Ajang ini bertujuan mengasah kemampuan berpikir kritis serta keterampilan komunikasi visual peserta dalam mengolah data yang akurat guna menjawab tantangan era Society 5.0. Melalui tema 'Solving Problem with Elegance through The Pen Stroke of The Youth', kompetisi ini mendorong generasi muda menjadi agen perubahan yang inovatif menuju Indonesia Emas 2045.",
         keyFeatures: ["Visual Design", "Data Storytelling", "Creativity"],
