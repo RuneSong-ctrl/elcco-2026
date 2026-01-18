@@ -342,27 +342,23 @@ const CompetitionsSection = () => {
             id="competitions"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            {/* Background */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
-                <div className="absolute top-20 left-0 w-full h-px bg-frosted-mint-500"></div>
-                <div className="absolute bottom-20 left-0 w-full h-px bg-frosted-mint-500"></div>
-                <div className="absolute top-0 left-1/4 w-px h-full bg-frosted-mint-500"></div>
-                <div className="absolute top-0 right-1/4 w-px h-full bg-frosted-mint-500"></div>
-            </div>
+            {/* Background Atmosphere */}
+            <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 {/* Header */}
                 <div className="text-center mb-16" data-aos="fade-up">
-                    <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1 rounded-full border border-frosted-mint-500/30">
+                    <span className="text-frosted-mint-400 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1.5 rounded-full border border-frosted-mint-500/20 backdrop-blur-sm">
                         8 Competitions
                     </span>
-                    <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-frosted-mint-50">
+                    <h2 className="mt-6 text-4xl md:text-5xl font-extrabold text-white">
                         Choose Your{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-white">
                             Competitions
                         </span>
                     </h2>
-                    <p className="mt-4 text-muted-olive-200 max-w-2xl mx-auto">
+                    <p className="mt-4 text-slate-300 max-w-2xl mx-auto text-lg">
                         Tentukan targetmu! Pilih kategori yang sesuai dengan
                         jenjang pendidikan atau keahlianmu.
                     </p>
@@ -379,8 +375,8 @@ const CompetitionsSection = () => {
                             onClick={() => setFilter(cat)}
                             className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${
                                 filter === cat
-                                    ? "bg-frosted-mint-500 text-dark-spruce-950 border-frosted-mint-500 shadow-lg shadow-frosted-mint-500/20 scale-105"
-                                    : "bg-dark-spruce-900/50 text-muted-olive-400 border-frosted-mint-500/20 hover:border-frosted-mint-500/50 hover:text-frosted-mint-300"
+                                    ? "bg-frosted-mint-600 text-white border-frosted-mint-500 shadow-lg shadow-frosted-mint-500/20 scale-105"
+                                    : "bg-white/5 text-slate-400 border-white/5 hover:bg-white/10 hover:border-white/20 hover:text-white"
                             }`}
                         >
                             {cat === "All" && <Filter className="w-4 h-4" />}
@@ -399,7 +395,7 @@ const CompetitionsSection = () => {
                         return (
                             <div
                                 key={item.id}
-                                className={`group relative h-full flex flex-col overflow-hidden rounded-2xl border border-frosted-mint-500/20 bg-dark-spruce-900/60 backdrop-blur-md transition-all duration-300 hover:border-frosted-mint-500 hover:shadow-[0_0_30px_rgba(81,186,69,0.15)] hover:-translate-y-1 ${
+                                className={`group relative h-full flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-dark-spruce-900/40 backdrop-blur-md transition-all duration-300 hover:border-frosted-mint-500/50 hover:shadow-2xl hover:shadow-frosted-mint-900/20 hover:-translate-y-1 ${
                                     status === "closed"
                                         ? "opacity-60 grayscale"
                                         : ""
@@ -407,33 +403,29 @@ const CompetitionsSection = () => {
                                 data-aos="fade-up"
                                 data-aos-delay={index * 50}
                             >
-                                <div className="relative h-48 overflow-hidden block">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 to-transparent z-10"></div>
+                                {/* Image Container (Centered & Proportional) */}
+                                <div className="relative h-56 w-full bg-dark-spruce-950/50 flex items-center justify-center p-6 border-b border-white/5 group-hover:bg-dark-spruce-900/60 transition-colors">
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="h-10rem w-10rem object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-xl"
                                     />
 
+                                    {/* Badges */}
                                     <div
-                                        className={`absolute top-3 right-3 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border shadow-lg backdrop-blur-md flex items-center gap-2 ${
+                                        className={`absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border shadow-lg backdrop-blur-md flex items-center gap-2 ${
                                             item.target === "SMA/SMK"
-                                                ? "bg-blue-500/20 text-blue-300 border-blue-500/30"
+                                                ? "bg-blue-500/10 text-blue-300 border-blue-500/20"
                                                 : item.target === "Mahasiswa"
-                                                  ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
-                                                  : "bg-frosted-mint-500/20 text-frosted-mint-300 border-frosted-mint-500/30"
+                                                  ? "bg-purple-500/10 text-purple-300 border-purple-500/20"
+                                                  : "bg-frosted-mint-500/10 text-frosted-mint-300 border-frosted-mint-500/20"
                                         }`}
                                     >
-                                        <img
-                                            src={item.image}
-                                            alt="Icon"
-                                            className="w-4 h-4 object-contain"
-                                        />
                                         {item.target}
                                     </div>
 
                                     {status !== "active" && (
-                                        <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1 px-2 py-1 bg-ivory-mist-500 text-dark-spruce-950 text-[10px] font-bold rounded shadow-lg">
+                                        <div className="absolute bottom-4 left-4 z-20 flex items-center gap-1 px-2.5 py-1 bg-white text-dark-spruce-950 text-[10px] font-bold rounded shadow-lg">
                                             {status === "upcoming" ? (
                                                 <Clock className="w-3 h-3" />
                                             ) : (
@@ -446,36 +438,36 @@ const CompetitionsSection = () => {
                                     )}
                                 </div>
 
-                                <div className="flex flex-1 flex-col p-5">
+                                <div className="flex flex-1 flex-col p-6">
                                     <div className="block">
-                                        <h3 className="mb-2 text-lg font-bold text-frosted-mint-50 group-hover:text-frosted-mint-400 transition-colors leading-tight">
+                                        <h3 className="mb-2 text-lg font-bold text-white group-hover:text-frosted-mint-400 transition-colors leading-tight">
                                             {item.title}
                                         </h3>
-                                        <p className="mb-4 text-xs text-muted-olive-200 leading-relaxed line-clamp-3">
+                                        <p className="mb-4 text-xs text-slate-400 leading-relaxed line-clamp-3">
                                             {item.desc}
                                         </p>
                                     </div>
 
-                                    <div className="mt-auto pt-4 border-t border-frosted-mint-500/10">
+                                    <div className="mt-auto pt-4 border-t border-white/10">
                                         {status === "active" && (
                                             <div className="flex justify-between items-end mb-4">
                                                 <div>
-                                                    <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-frosted-mint-500/20 text-frosted-mint-400">
+                                                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-frosted-mint-500/10 text-frosted-mint-400 border border-frosted-mint-500/20">
                                                         {label}
                                                     </span>
-                                                    <p className="font-mono text-lg font-bold text-ivory-mist-300 mt-1">
+                                                    <p className="font-mono text-lg font-bold text-white mt-1">
                                                         {price}
                                                     </p>
                                                 </div>
                                             </div>
                                         )}
 
-                                        <div className="flex flex-col gap-2">
+                                        <div className="flex flex-col gap-3">
                                             <button
                                                 onClick={() =>
                                                     setSelectedCompetition(item)
                                                 }
-                                                className="w-full py-2.5 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all text-xs font-bold flex items-center justify-center gap-2"
+                                                className="w-full py-3 rounded-xl border border-white/10 text-slate-300 hover:bg-white/5 hover:text-white hover:border-white/30 transition-all text-xs font-bold flex items-center justify-center gap-2"
                                             >
                                                 Lihat Detail
                                                 <ChevronRight className="w-3.5 h-3.5" />
@@ -485,10 +477,10 @@ const CompetitionsSection = () => {
                                                 href={item.registerLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`w-full py-2.5 rounded-xl text-dark-spruce-950 font-bold transition-all text-xs shadow-lg flex items-center justify-center gap-2 ${
+                                                className={`w-full py-3 rounded-xl text-white font-bold transition-all text-xs shadow-lg flex items-center justify-center gap-2 ${
                                                     status === "closed"
-                                                        ? "bg-gray-600 cursor-not-allowed text-gray-400"
-                                                        : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
+                                                        ? "bg-gray-700 cursor-not-allowed text-gray-400 border border-gray-600"
+                                                        : "bg-frosted-mint-600 hover:bg-frosted-mint-500 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5 border border-frosted-mint-500"
                                                 }`}
                                                 onClick={(e) =>
                                                     status === "closed" &&
@@ -508,70 +500,72 @@ const CompetitionsSection = () => {
 
                 {filteredCompetitions.length === 0 && (
                     <div className="text-center py-20">
-                        <p className="text-muted-olive-400">
+                        <p className="text-slate-500">
                             Tidak ada kompetisi di kategori ini.
                         </p>
                     </div>
                 )}
             </div>
 
-            {/* --- MODAL DETAIL (FIXED IMAGE CUT OFF) --- */}
+            {/* --- MODAL DETAIL --- */}
             {selectedCompetition && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-spruce-950/80 backdrop-blur-md animate-in fade-in duration-200"
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-spruce-950/90 backdrop-blur-md animate-in fade-in duration-200"
                     onClick={closeModal}
                 >
                     <div
-                        className="relative w-full max-w-5xl h-[85vh] bg-dark-spruce-900 border border-frosted-mint-500/20 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+                        className="relative w-full max-w-5xl h-[85vh] bg-dark-spruce-900 border border-white/10 rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Close Button */}
                         <button
                             onClick={closeModal}
-                            className="absolute top-4 right-4 z-50 p-2 bg-dark-spruce-950/50 rounded-full text-frosted-mint-400 hover:bg-frosted-mint-500 hover:text-dark-spruce-950 transition-colors"
+                            className="absolute top-4 right-4 z-50 p-2 bg-black/40 rounded-full text-white/70 hover:bg-frosted-mint-500 hover:text-white transition-colors backdrop-blur-sm"
                         >
                             <X className="w-5 h-5" />
                         </button>
 
-                        {/* Left: Image (Full Height, No Scroll) */}
-                        <div className="w-full md:w-5/12 h-64 md:h-full relative bg-dark-spruce-950 flex-shrink-0">
+                        {/* Left: Image (Centered Container) */}
+                        <div className="w-full md:w-5/12 h-64 md:h-full relative bg-dark-spruce-950 flex items-center justify-center p-8 flex-shrink-0 border-r border-white/5">
+                            {/* Background Glow behind Image */}
+                            <div className="absolute inset-0 bg-frosted-mint-500/5 blur-3xl"></div>
+
                             <img
                                 src={selectedCompetition.image}
                                 alt={selectedCompetition.title}
-                                className="w-full h-full object-cover"
+                                className="relative w-full h-full object-contain drop-shadow-2xl"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
 
                             <div className="absolute bottom-6 left-6 right-6">
-                                <div className="flex flex-wrap gap-2">
-                                    <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-frosted-mint-500 text-dark-spruce-950 flex items-center gap-2 shadow-lg">
+                                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                                    <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-frosted-mint-500 text-white flex items-center gap-2 shadow-lg">
                                         <img
                                             src={selectedCompetition.image}
                                             alt="icon"
-                                            className="w-4 h-4 object-contain brightness-0"
+                                            className="w-4 h-4 object-contain brightness-0 invert"
                                         />
                                         {selectedCompetition.category}
                                     </span>
-                                    <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-dark-spruce-950/90 text-frosted-mint-400 border border-frosted-mint-500/30 backdrop-blur-sm">
+                                    <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-black/40 text-frosted-mint-300 border border-frosted-mint-500/30 backdrop-blur-sm">
                                         {selectedCompetition.target}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Right: Details (Scrollable Independent) */}
-                        <div className="w-full md:w-7/12 h-full overflow-y-auto custom-scrollbar bg-dark-spruce-900 p-6 md:p-8 flex flex-col">
+                        {/* Right: Details */}
+                        <div className="w-full md:w-7/12 h-full overflow-y-auto custom-scrollbar bg-dark-spruce-900 p-6 md:p-10 flex flex-col">
                             <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
                                 {selectedCompetition.title}
                             </h2>
 
-                            <div className="prose prose-invert prose-sm mb-8 text-muted-olive-200 leading-relaxed text-justify border-l-2 border-frosted-mint-500/20 pl-4">
+                            <div className="prose prose-invert prose-sm mb-8 text-slate-300 leading-relaxed text-justify border-l-2 border-frosted-mint-500/50 pl-5">
                                 <p>{selectedCompetition.desc}</p>
                             </div>
 
                             {/* Key Features */}
                             <div className="mb-8">
-                                <h4 className="text-xs font-bold text-frosted-mint-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <h4 className="text-xs font-bold text-frosted-mint-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <Tag className="w-3 h-3" />
                                     Key Features
                                 </h4>
@@ -580,7 +574,7 @@ const CompetitionsSection = () => {
                                         (feature, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-frosted-mint-500/5 text-frosted-mint-300 border border-frosted-mint-500/10 flex items-center gap-2 hover:bg-frosted-mint-500/10 transition-colors"
+                                                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-slate-200 border border-white/10 flex items-center gap-2 hover:bg-white/10 transition-colors"
                                             >
                                                 <ChevronRight className="w-3 h-3 text-frosted-mint-500" />
                                                 {feature}
@@ -590,9 +584,9 @@ const CompetitionsSection = () => {
                                 </div>
                             </div>
 
-                            {/* Waves / Pricing in Modal */}
-                            <div className="mb-8 p-5 rounded-2xl bg-dark-spruce-950/50 border border-frosted-mint-500/10">
-                                <h4 className="text-sm font-bold text-ivory-mist-200 mb-4 flex items-center gap-2 border-b border-frosted-mint-500/10 pb-2">
+                            {/* Timeline & Pricing */}
+                            <div className="mb-8 p-6 rounded-2xl bg-white/5 border border-white/5">
+                                <h4 className="text-sm font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
                                     <Calendar className="w-4 h-4 text-frosted-mint-500" />
                                     Timeline & Biaya Pendaftaran
                                 </h4>
@@ -611,10 +605,10 @@ const CompetitionsSection = () => {
                                                     }`}
                                                 >
                                                     <div className="flex flex-col">
-                                                        <span className="text-frosted-mint-50 font-bold">
+                                                        <span className="text-white font-bold text-sm">
                                                             {wave.name}
                                                         </span>
-                                                        <span className="text-muted-olive-400 text-[10px]">
+                                                        <span className="text-slate-400 text-[10px]">
                                                             {wave.start} -{" "}
                                                             {wave.end}
                                                         </span>
@@ -624,7 +618,7 @@ const CompetitionsSection = () => {
                                                             waveStatus ===
                                                             "active"
                                                                 ? "text-frosted-mint-400 text-sm"
-                                                                : "text-muted-olive-500"
+                                                                : "text-slate-500"
                                                         }`}
                                                     >
                                                         {waveStatus ===
@@ -639,13 +633,13 @@ const CompetitionsSection = () => {
                                 </div>
                             </div>
 
-                            {/* Action Buttons (Sticky at bottom of scroll if needed, or just flow) */}
-                            <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-frosted-mint-500/10">
+                            {/* Action Buttons in Modal */}
+                            <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-3 pt-6 border-t border-white/10">
                                 <a
                                     href={selectedCompetition.guidebookLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-frosted-mint-500/30 text-frosted-mint-400 hover:bg-frosted-mint-500/10 hover:border-frosted-mint-500 transition-all font-bold text-sm"
+                                    className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-white/20 text-slate-200 hover:bg-white/10 hover:text-white transition-all font-bold text-sm"
                                 >
                                     <Download className="w-4 h-4" />
                                     Download Juklak
@@ -654,11 +648,11 @@ const CompetitionsSection = () => {
                                     href={selectedCompetition.registerLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-dark-spruce-950 font-bold transition-all text-sm shadow-lg ${
+                                    className={`flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl text-white font-bold transition-all text-sm shadow-lg ${
                                         getPriceInfo(selectedCompetition.waves)
                                             .status === "closed"
-                                            ? "bg-gray-600 cursor-not-allowed text-gray-400"
-                                            : "bg-frosted-mint-500 hover:bg-frosted-mint-400 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
+                                            ? "bg-gray-700 cursor-not-allowed text-gray-400"
+                                            : "bg-frosted-mint-600 hover:bg-frosted-mint-500 hover:shadow-frosted-mint-500/30 hover:-translate-y-0.5"
                                     }`}
                                     onClick={(e) =>
                                         getPriceInfo(selectedCompetition.waves)

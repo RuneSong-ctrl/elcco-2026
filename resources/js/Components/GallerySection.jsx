@@ -67,7 +67,7 @@ const GallerySection = () => {
             id="gallery"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(11,26,10,0.9),rgba(11,26,10,0.9)),url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
                 <div
@@ -75,53 +75,59 @@ const GallerySection = () => {
                     data-aos="fade-down"
                 >
                     <div>
-                        <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase">
+                        <span className="text-frosted-mint-400 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-3 py-1 rounded border border-frosted-mint-500/20">
                             Database Access
                         </span>
-                        <h2 className="mt-2 text-4xl md:text-5xl font-extrabold text-frosted-mint-50">
+                        <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-white">
                             ELCCO{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-white">
                                 Archives
                             </span>
                         </h2>
                     </div>
                     <div className="text-right hidden md:block">
-                        <p className="text-muted-olive-400 font-mono text-sm">
-                            TOTAL_RECORDS: {archives.length}
+                        <p className="text-slate-400 font-mono text-sm">
+                            TOTAL_RECORDS:{" "}
+                            <span className="text-white">
+                                {archives.length}
+                            </span>
                         </p>
-                        <p className="text-muted-olive-400 font-mono text-sm">
-                            STATUS: DECLASSIFIED
+                        <p className="text-slate-400 font-mono text-sm">
+                            STATUS:{" "}
+                            <span className="text-frosted-mint-400">
+                                DECLASSIFIED
+                            </span>
                         </p>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[280px]">
                     {archives.map((item) => (
                         <motion.div
                             layoutId={`card-${item.id}`}
                             key={item.id}
                             onClick={() => setSelectedId(item.id)}
-                            className={`relative group cursor-pointer overflow-hidden rounded-2xl border border-frosted-mint-500/10 bg-dark-spruce-900 ${item.colSpan}`}
-                            whileHover={{ scale: 0.98 }}
+                            className={`relative group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-dark-spruce-900/50 backdrop-blur-sm ${item.colSpan}`}
+                            whileHover={{ y: -5 }}
                         >
                             <motion.img
                                 src={item.src}
                                 alt={item.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
                             />
 
-                            <motion.div className="absolute inset-0 bg-dark-spruce-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 backdrop-blur-[2px]">
-                                <div className="absolute top-4 right-4 text-frosted-mint-400">
-                                    <ZoomIn className="w-6 h-6" />
+                            <motion.div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 via-dark-spruce-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <div className="absolute top-4 right-4 text-white bg-black/30 p-2 rounded-full backdrop-blur-md border border-white/10">
+                                    <ZoomIn className="w-5 h-5" />
                                 </div>
-                                <span className="text-frosted-mint-400 text-xs font-mono uppercase tracking-widest mb-1">
+                                <span className="text-frosted-mint-400 text-xs font-mono uppercase tracking-widest mb-1 bg-black/40 w-fit px-2 py-0.5 rounded backdrop-blur-sm">
                                     LOG_DATE: {item.year}
                                 </span>
-                                <h3 className="text-ivory-mist-50 font-bold text-xl">
+                                <h3 className="text-white font-bold text-xl drop-shadow-lg">
                                     {item.title}
                                 </h3>
-                                <div className="w-full h-[1px] bg-frosted-mint-500/50 mt-3 relative overflow-hidden">
-                                    <div className="absolute top-0 left-0 w-1/2 h-full bg-frosted-mint-400 animate-[loading_1s_infinite]"></div>
+                                <div className="w-full h-[2px] bg-white/10 mt-3 relative overflow-hidden rounded-full">
+                                    <div className="absolute top-0 left-0 w-1/3 h-full bg-frosted-mint-500 animate-[loading_1s_infinite]"></div>
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -136,7 +142,7 @@ const GallerySection = () => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 onClick={() => setSelectedId(null)}
-                                className="absolute inset-0 bg-dark-spruce-950/90 backdrop-blur-md"
+                                className="absolute inset-0 bg-dark-spruce-950/95 backdrop-blur-xl"
                             />
 
                             {archives.map(
@@ -145,41 +151,43 @@ const GallerySection = () => {
                                         <motion.div
                                             layoutId={`card-${item.id}`}
                                             key={item.id}
-                                            className="relative w-full max-w-4xl bg-dark-spruce-900 rounded-3xl overflow-hidden shadow-2xl border border-frosted-mint-500/30"
+                                            className="relative w-full max-w-5xl bg-dark-spruce-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10"
                                         >
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     setSelectedId(null);
                                                 }}
-                                                className="absolute top-4 right-4 z-50 p-2 bg-dark-spruce-950/50 hover:bg-frosted-mint-500 rounded-full text-white transition-colors"
+                                                className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-frosted-mint-600 rounded-full text-white transition-colors border border-white/10 backdrop-blur-md"
                                             >
                                                 <X size={24} />
                                             </button>
 
-                                            <div className="relative aspect-video">
+                                            <div className="relative aspect-video md:aspect-[21/9]">
                                                 <motion.img
                                                     src={item.src}
                                                     alt={item.title}
                                                     className="w-full h-full object-cover"
                                                 />
 
-                                                <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-dark-spruce-950 to-transparent">
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <span className="px-2 py-1 text-xs font-bold bg-frosted-mint-500 text-dark-spruce-950 rounded">
+                                                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-dark-spruce-950 via-dark-spruce-950/80 to-transparent">
+                                                    <div className="flex items-center gap-3 mb-2">
+                                                        <span className="px-3 py-1 text-xs font-bold bg-frosted-mint-600 text-white rounded border border-frosted-mint-500">
                                                             {item.category}
                                                         </span>
-                                                        <span className="text-frosted-mint-300 font-mono text-xs">
-                                                            #{item.year}_ARCHIVE
+                                                        <span className="text-slate-300 font-mono text-xs tracking-wider">
+                                                            #{item.year}
+                                                            _ARCHIVE_ID_
+                                                            {item.id}
                                                         </span>
                                                     </div>
-                                                    <h3 className="text-2xl md:text-3xl font-bold text-white">
+                                                    <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                                                         {item.title}
                                                     </h3>
                                                 </div>
                                             </div>
                                         </motion.div>
-                                    )
+                                    ),
                             )}
                         </div>
                     )}

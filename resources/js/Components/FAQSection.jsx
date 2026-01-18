@@ -29,7 +29,7 @@ const faqs = [
                 Peserta dapat melakukan pendaftaran melalui laman resmi{" "}
                 <a
                     href="https://elccounud2026.com"
-                    className="text-frosted-mint-400 hover:underline"
+                    className="text-frosted-mint-400 hover:text-frosted-mint-300 underline decoration-frosted-mint-500/30"
                 >
                     elccounud2026.com
                 </a>{" "}
@@ -42,40 +42,47 @@ const faqs = [
         question: "Apa saja cabang lomba ELCCO 2026?",
         answer: (
             <div>
-                <p className="mb-2">
+                <p className="mb-3">
                     ELCCO 2026 memiliki 8 cabang lomba dengan pembagian kategori
                     sebagai berikut:
                 </p>
-                <ul className="list-none space-y-1 ml-1">
-                    <li className="flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 text-frosted-mint-500 mt-1 flex-shrink-0" />
-                        <span>
-                            <strong className="text-ivory-mist-200">
+                <ul className="space-y-2">
+                    <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
+                        <div className="mt-1 p-1 bg-frosted-mint-500/20 rounded text-frosted-mint-400">
+                            <ChevronRight className="w-3 h-3" />
+                        </div>
+                        <span className="text-sm">
+                            <strong className="text-white block mb-0.5">
                                 Kategori SMA/SMK:
                             </strong>{" "}
                             Networking, LCC, dan LKTI
                         </span>
                     </li>
-                    <li className="flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 text-frosted-mint-500 mt-1 flex-shrink-0" />
-                        <span>
-                            <strong className="text-ivory-mist-200">
+                    <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
+                        <div className="mt-1 p-1 bg-purple-500/20 rounded text-purple-400">
+                            <ChevronRight className="w-3 h-3" />
+                        </div>
+                        <span className="text-sm">
+                            <strong className="text-white block mb-0.5">
                                 Kategori Mahasiswa:
                             </strong>{" "}
                             LKCT
                         </span>
                     </li>
-                    <li className="flex items-start gap-2">
-                        <ChevronRight className="w-4 h-4 text-frosted-mint-500 mt-1 flex-shrink-0" />
-                        <span>
-                            <strong className="text-ivory-mist-200">
+                    <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
+                        <div className="mt-1 p-1 bg-blue-500/20 rounded text-blue-400">
+                            <ChevronRight className="w-3 h-3" />
+                        </div>
+                        <span className="text-sm">
+                            <strong className="text-white block mb-0.5">
                                 Kategori Umum:
                             </strong>{" "}
                             Line Follower (LF), Sumo Bot, Essay, dan Infografis
                         </span>
                     </li>
                 </ul>
-                <p className="mt-2 text-xs text-muted-olive-400 italic">
+                <p className="mt-3 text-xs text-slate-400 italic flex items-center gap-1">
+                    <HelpCircle className="w-3 h-3" />
                     Informasi lengkap dapat dilihat pada juklak masing-masing
                     cabang lomba.
                 </p>
@@ -86,36 +93,36 @@ const faqs = [
         question: "Apakah lomba dilaksanakan secara offline?",
         answer: (
             <div>
-                <p className="mb-2">
+                <p className="mb-3">
                     Tidak sepenuhnya. Pelaksanaan lomba menyesuaikan dengan
                     karakteristik setiap cabang:
                 </p>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <li className="bg-dark-spruce-800/50 p-2 rounded border border-frosted-mint-500/10 text-sm">
-                        <strong className="text-frosted-mint-400 block">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="bg-dark-spruce-900 p-3 rounded-lg border border-white/10 text-sm">
+                        <strong className="text-frosted-mint-400 block text-xs uppercase tracking-wider mb-1">
                             Online
-                        </strong>{" "}
+                        </strong>
                         Essay dan Infografis
-                    </li>
-                    <li className="bg-dark-spruce-800/50 p-2 rounded border border-frosted-mint-500/10 text-sm">
-                        <strong className="text-frosted-mint-400 block">
+                    </div>
+                    <div className="bg-dark-spruce-900 p-3 rounded-lg border border-white/10 text-sm">
+                        <strong className="text-frosted-mint-400 block text-xs uppercase tracking-wider mb-1">
                             Offline
-                        </strong>{" "}
+                        </strong>
                         Line Follower dan Sumo Bot
-                    </li>
-                    <li className="bg-dark-spruce-800/50 p-2 rounded border border-frosted-mint-500/10 text-sm">
-                        <strong className="text-frosted-mint-400 block">
+                    </div>
+                    <div className="bg-dark-spruce-900 p-3 rounded-lg border border-white/10 text-sm">
+                        <strong className="text-frosted-mint-400 block text-xs uppercase tracking-wider mb-1">
                             Hybrid
-                        </strong>{" "}
+                        </strong>
                         LCC dan Networking (Penyisihan Online, Final Offline)
-                    </li>
-                    <li className="bg-dark-spruce-800/50 p-2 rounded border border-frosted-mint-500/10 text-sm">
-                        <strong className="text-frosted-mint-400 block">
+                    </div>
+                    <div className="bg-dark-spruce-900 p-3 rounded-lg border border-white/10 text-sm">
+                        <strong className="text-frosted-mint-400 block text-xs uppercase tracking-wider mb-1">
                             Research
-                        </strong>{" "}
+                        </strong>
                         LKTI & LKCT (Seleksi Paper Online, Final Offline)
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         ),
     },
@@ -125,9 +132,9 @@ const faqs = [
             <p>
                 Rangkaian lomba yang dilaksanakan secara offline akan
                 berlangsung pada{" "}
-                <strong className="text-ivory-mist-200">
+                <span className="inline-block px-2 py-0.5 rounded bg-frosted-mint-500/20 text-frosted-mint-300 font-bold border border-frosted-mint-500/30">
                     10, 11, dan 12 April 2026
-                </strong>
+                </span>
                 . Jadwal lengkap setiap cabang lomba dapat dilihat pada juklak
                 masing-masing.
             </p>
@@ -140,9 +147,7 @@ const faqs = [
                 Peserta yang meraih juara berhak mendapatkan hadiah menarik
                 sesuai ketentuan pada juklak. Seluruh peserta juga akan
                 memperoleh{" "}
-                <strong className="text-ivory-mist-200">
-                    E-Sertifikat ELCCO 2026
-                </strong>{" "}
+                <strong className="text-white">E-Sertifikat ELCCO 2026</strong>{" "}
                 bertaraf nasional serta kesempatan memperluas relasi dengan
                 peserta dari berbagai daerah di Indonesia.
             </p>
@@ -154,7 +159,7 @@ const faqs = [
             <p>
                 Bisa. Jika terjadi kesalahan pengisian data, peserta dapat
                 segera menghubungi{" "}
-                <strong className="text-ivory-mist-200">
+                <strong className="text-white border-b border-dashed border-slate-500 pb-0.5">
                     Contact Person (CP)
                 </strong>{" "}
                 cabang lomba yang diikuti untuk mendapatkan arahan terkait
@@ -172,49 +177,63 @@ const FAQSection = () => {
             id="faq"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            <div className="absolute left-0 top-0 w-64 h-64 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')] opacity-5 pointer-events-none mask-gradient-bottom"></div>
-            <div className="absolute right-0 bottom-0 w-96 h-96 bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            {/* Background Atmosphere */}
+            <div className="absolute left-0 top-0 w-full h-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+            <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
-                <div className="flex flex-col lg:flex-row gap-16">
-                    <div className="w-full lg:w-1/3" data-aos="fade-right">
-                        <div className="sticky top-32">
-                            <span className="text-frosted-mint-500 font-mono tracking-[0.2em] text-sm uppercase flex items-center gap-2 mb-4">
-                                <HelpCircle className="w-4 h-4" />
+                <div className="flex flex-col lg:flex-row gap-16 items-start">
+                    {/* --- LEFT SIDE: INFO --- */}
+                    <div
+                        className="w-full lg:w-1/3 sticky top-32"
+                        data-aos="fade-right"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="h-[2px] w-12 bg-frosted-mint-500"></div>
+                            <span className="text-frosted-mint-400 font-bold uppercase tracking-widest text-sm">
                                 Knowledge Base
                             </span>
+                        </div>
 
-                            <h2 className="text-4xl md:text-5xl font-extrabold text-frosted-mint-50 mb-6 leading-tight">
-                                Frequently <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-ivory-mist-300">
-                                    Asked Questions
-                                </span>
-                            </h2>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                            Frequently <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-white">
+                                Asked Questions
+                            </span>
+                        </h2>
 
-                            <p className="text-muted-olive-200 text-lg mb-10">
-                                Database jawaban untuk pertanyaan yang sering
-                                diajukan oleh calon peserta ELCCO 2026.
-                            </p>
+                        <p className="text-slate-300 text-lg mb-10 leading-relaxed">
+                            Temukan jawaban cepat untuk pertanyaan yang sering
+                            diajukan seputar pendaftaran dan pelaksanaan ELCCO
+                            2026.
+                        </p>
 
-                            <div className="p-6 rounded-2xl bg-gradient-to-br from-frosted-mint-900/20 to-dark-spruce-900 border border-frosted-mint-500/20 backdrop-blur-md">
-                                <h4 className="text-ivory-mist-100 font-bold text-lg mb-2 flex items-center gap-2">
-                                    <MessageSquare className="w-5 h-5 text-ivory-mist-400" />
-                                    Butuh Bantuan Lain?
-                                </h4>
-                                <p className="text-muted-olive-300 text-sm mb-4">
-                                    Jika jawaban tidak ditemukan di sini,
-                                    hubungi panitia melalui WhatsApp.
-                                </p>
-                                <a
-                                    href="#contact"
-                                    className="inline-flex items-center justify-center w-full px-4 py-3 bg-frosted-mint-600/20 hover:bg-frosted-mint-600 text-frosted-mint-400 hover:text-dark-spruce-950 border border-frosted-mint-500/50 rounded-xl font-bold transition-all text-sm"
-                                >
-                                    Hubungi Panitia
-                                </a>
+                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                            <div className="flex items-start gap-4">
+                                <div className="p-3 bg-frosted-mint-600 rounded-xl text-white shadow-lg shadow-frosted-mint-900/50">
+                                    <MessageSquare className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-bold text-lg mb-1">
+                                        Butuh Bantuan Lain?
+                                    </h4>
+                                    <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                                        Jika jawaban tidak ditemukan di sini,
+                                        hubungi panitia melalui WhatsApp.
+                                    </p>
+                                    <a
+                                        href="#contact"
+                                        className="inline-flex items-center gap-2 text-sm font-bold text-frosted-mint-400 hover:text-white transition-colors group"
+                                    >
+                                        Hubungi Panitia
+                                        <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                    {/* --- RIGHT SIDE: ACCORDION --- */}
                     <div className="w-full lg:w-2/3" data-aos="fade-left">
                         <div className="space-y-4">
                             {faqs.map((faq, index) => (
@@ -222,21 +241,23 @@ const FAQSection = () => {
                                     key={index}
                                     onClick={() =>
                                         setActiveIndex(
-                                            activeIndex === index ? null : index
+                                            activeIndex === index
+                                                ? null
+                                                : index,
                                         )
                                     }
-                                    className={`group cursor-pointer rounded-2xl border transition-all duration-300 ${
+                                    className={`group cursor-pointer rounded-2xl border transition-all duration-300 overflow-hidden ${
                                         activeIndex === index
-                                            ? "bg-frosted-mint-900/10 border-frosted-mint-500/40 shadow-[0_0_20px_rgba(81,186,69,0.1)]"
-                                            : "bg-dark-spruce-900/40 border-frosted-mint-500/10 hover:border-frosted-mint-500/30"
+                                            ? "bg-dark-spruce-900 border-frosted-mint-500/50 shadow-[0_0_30px_rgba(81,186,69,0.15)]"
+                                            : "bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10"
                                     }`}
                                 >
-                                    <div className="flex items-center justify-between p-6">
+                                    <div className="flex items-start justify-between p-6 gap-4">
                                         <h3
-                                            className={`font-bold text-lg transition-colors pr-8 leading-snug ${
+                                            className={`font-bold text-lg transition-colors leading-snug ${
                                                 activeIndex === index
                                                     ? "text-frosted-mint-400"
-                                                    : "text-frosted-mint-50 group-hover:text-frosted-mint-200"
+                                                    : "text-white group-hover:text-frosted-mint-200"
                                             }`}
                                         >
                                             {faq.question}
@@ -245,7 +266,7 @@ const FAQSection = () => {
                                             className={`p-2 rounded-full flex-shrink-0 transition-all duration-300 ${
                                                 activeIndex === index
                                                     ? "bg-frosted-mint-500 text-dark-spruce-950 rotate-180"
-                                                    : "bg-dark-spruce-950 text-frosted-mint-500 group-hover:bg-frosted-mint-500/20"
+                                                    : "bg-white/10 text-slate-300 group-hover:bg-white/20"
                                             }`}
                                         >
                                             {activeIndex === index ? (
@@ -272,12 +293,9 @@ const FAQSection = () => {
                                                     duration: 0.3,
                                                     ease: "easeInOut",
                                                 }}
-                                                className="overflow-hidden"
                                             >
-                                                <div className="px-6 pb-6 pt-0 text-muted-olive-200 leading-relaxed border-t border-frosted-mint-500/10 mt-2 text-sm md:text-base">
-                                                    <div className="pt-4">
-                                                        {faq.answer}
-                                                    </div>
+                                                <div className="px-6 pb-6 text-slate-300 leading-relaxed border-t border-white/5 pt-4 text-base">
+                                                    {faq.answer}
                                                 </div>
                                             </motion.div>
                                         )}

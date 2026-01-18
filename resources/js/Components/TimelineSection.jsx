@@ -13,7 +13,6 @@ import {
     FileText,
     Cpu,
     BrainCircuit,
-    PenTool,
     ImageIcon,
 } from "lucide-react";
 
@@ -36,7 +35,7 @@ const timelineData = {
         },
         {
             date: "08 Mar - 12 Mar",
-            title: "Masa Extend",
+            title: "Extend Masa Pendaftaran",
             icon: <Clock />,
             status: "upcoming",
         },
@@ -68,7 +67,7 @@ const timelineData = {
         },
         {
             date: "08 Mar - 12 Mar",
-            title: "Masa Extend",
+            title: "Extend Masa Pendaftaran",
             icon: <Clock />,
             status: "upcoming",
         },
@@ -112,7 +111,7 @@ const timelineData = {
         },
         {
             date: "08 Mar - 12 Mar",
-            title: "Masa Extend",
+            title: "Extend Masa Pendaftaran",
             icon: <Clock />,
             status: "upcoming",
         },
@@ -188,7 +187,7 @@ const timelineData = {
         },
         {
             date: "08 Mar - 12 Mar",
-            title: "Masa Extend",
+            title: "Extend Masa Pendaftaran",
             icon: <Clock />,
             status: "upcoming",
         },
@@ -296,7 +295,7 @@ const timelineData = {
         },
         {
             date: "08 Mar - 12 Mar",
-            title: "Masa Extend",
+            title: "Extend Masa Pendaftaran",
             icon: <Clock />,
             status: "upcoming",
         },
@@ -338,144 +337,139 @@ const TimelineSection = () => {
     return (
         <section
             id="timeline"
-            className="relative w-full py-20 md:py-24 bg-dark-spruce-950 overflow-hidden"
+            className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            <style>{`
-                .scrollbar-hide::-webkit-scrollbar { display: none; }
-                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-            `}</style>
-
-            {/* Background Lines */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent hidden md:block"></div>
-            <div className="absolute top-0 left-6 w-[2px] h-full bg-gradient-to-b from-transparent via-frosted-mint-500/20 to-transparent md:hidden"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-4 md:px-12 lg:px-20">
-                <div
-                    className="text-center mb-10 md:mb-16"
-                    data-aos="fade-down"
-                >
+                <div className="text-center mb-16" data-aos="fade-down">
                     <span className="text-frosted-mint-400 font-bold uppercase tracking-[0.3em] text-xs md:text-sm">
                         ELCCO 2026
                     </span>
-                    <h2 className="mt-2 text-2xl md:text-3xl lg:text-5xl font-extrabold text-frosted-mint-50">
+                    <h2 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-extrabold text-white">
                         Competition{" "}
-                        <span className="text-ivory-mist-400">Timeline</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-white">
+                            Timeline
+                        </span>
                     </h2>
                 </div>
 
-                {/* Tabs Navigation (FIXED: justify-start untuk menghindari terpotong) */}
-                <div className="flex justify-start overflow-x-auto pb-4 mb-12 md:mb-20 gap-2 md:gap-3 scrollbar-hide px-2 w-full snap-x">
+                <div className="flex justify-start md:justify-center overflow-x-auto pb-6 mb-12 gap-3 scrollbar-hide px-4 w-full">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-sm font-bold whitespace-nowrap transition-all duration-300 border flex-shrink-0 snap-center ${
+                            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 border flex-shrink-0 ${
                                 activeTab === tab.id
-                                    ? "bg-frosted-mint-500 text-dark-spruce-950 border-frosted-mint-500 shadow-[0_0_15px_rgba(81,186,69,0.4)] scale-105"
-                                    : "bg-dark-spruce-900/50 text-muted-olive-400 border-frosted-mint-500/20 hover:border-frosted-mint-500/50 hover:text-frosted-mint-300"
+                                    ? "bg-frosted-mint-600 text-white border-frosted-mint-500 shadow-lg shadow-frosted-mint-500/25 scale-105"
+                                    : "bg-white/5 text-slate-400 border-white/5 hover:bg-white/10 hover:text-white"
                             }`}
                         >
                             <img
                                 src={tab.image}
                                 alt={tab.label}
-                                className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                                className={`w-4 h-4 object-contain ${activeTab === tab.id ? "brightness-200 grayscale-0" : "grayscale opacity-70"}`}
                             />
                             {tab.label}
                         </button>
                     ))}
                 </div>
 
-                {/* Timeline Content */}
-                <div className="relative min-h-[500px]">
+                <div className="relative max-w-5xl mx-auto">
+                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
+
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeTab}
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
+                            exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className="flex flex-col gap-12 md:gap-24"
+                            className="space-y-12"
                         >
                             {timelineData[activeTab].map((item, index) => (
                                 <div
                                     key={index}
-                                    className={`flex flex-col md:flex-row items-start md:items-center w-full ${
+                                    className={`relative flex flex-col md:flex-row items-center w-full ${
                                         index % 2 === 0
                                             ? "md:flex-row-reverse"
                                             : ""
                                     }`}
                                 >
-                                    {/* Spacer Desktop */}
-                                    <div className="hidden md:block md:w-5/12"></div>
+                                    <div className="hidden md:block w-1/2"></div>
 
-                                    {/* Center Node (Dot) */}
-                                    <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center">
+                                    <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
                                         <div
-                                            className={`w-8 h-8 md:w-10 md:h-10 rounded-full border-4 flex items-center justify-center bg-dark-spruce-950 z-20 transition-all duration-500 ${
+                                            className={`w-10 h-10 rounded-full border-4 flex items-center justify-center bg-dark-spruce-950 transition-all duration-500 ${
                                                 item.status === "active"
-                                                    ? "border-ivory-mist-400 shadow-[0_0_20px_rgba(255,187,0,0.6)] animate-pulse"
-                                                    : "border-frosted-mint-900"
+                                                    ? "border-frosted-mint-500 shadow-[0_0_20px_rgba(34,197,94,0.5)] scale-110"
+                                                    : "border-white/10"
                                             }`}
                                         >
                                             <div
-                                                className={`w-2 h-2 md:w-3 md:h-3 rounded-full ${
+                                                className={`w-3 h-3 rounded-full ${
                                                     item.status === "active"
-                                                        ? "bg-ivory-mist-400"
-                                                        : "bg-frosted-mint-900"
+                                                        ? "bg-white animate-pulse"
+                                                        : "bg-slate-600"
                                                 }`}
                                             ></div>
                                         </div>
                                     </div>
 
-                                    {/* Card Content */}
-                                    <div className="w-full pl-14 md:pl-0 md:w-5/12 relative">
+                                    <div
+                                        className={`w-full pl-16 md:pl-0 md:w-1/2 ${
+                                            index % 2 === 0
+                                                ? "md:pr-12 md:text-right"
+                                                : "md:pl-12 md:text-left"
+                                        }`}
+                                    >
                                         <div
-                                            className={`flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-5 p-4 md:p-5 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${
+                                            className={`group relative p-5 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${
                                                 item.status === "active"
-                                                    ? "bg-frosted-mint-900/30 border-frosted-mint-500/50 shadow-lg shadow-frosted-mint-900/20"
-                                                    : "bg-dark-spruce-900/40 border-frosted-mint-500/10 hover:border-frosted-mint-500/30"
+                                                    ? "bg-frosted-mint-900/20 border-frosted-mint-500/30"
+                                                    : "bg-white/5 border-white/5 hover:border-white/20"
                                             }`}
                                         >
+                                            {item.status === "active" && (
+                                                <div className="absolute inset-0 bg-frosted-mint-500/5 rounded-2xl animate-pulse"></div>
+                                            )}
+
                                             <div
-                                                className={`p-2 md:p-3 rounded-xl flex-shrink-0 ${
-                                                    item.status === "active"
-                                                        ? "bg-ivory-mist-500/20 text-ivory-mist-400"
-                                                        : "bg-dark-spruce-950 text-frosted-mint-500 border border-frosted-mint-500/10"
+                                                className={`flex flex-col gap-3 ${
+                                                    index % 2 === 0
+                                                        ? "md:items-end"
+                                                        : "md:items-start"
                                                 }`}
                                             >
-                                                {React.cloneElement(item.icon, {
-                                                    className:
-                                                        "w-5 h-5 md:w-6 md:h-6",
-                                                })}
-                                            </div>
-
-                                            <div>
-                                                <div className="mb-1">
-                                                    <span
-                                                        className={`text-[10px] md:text-xs font-bold uppercase tracking-wider ${
-                                                            item.status ===
-                                                            "active"
-                                                                ? "text-ivory-mist-300"
-                                                                : "text-muted-olive-400"
-                                                        }`}
-                                                    >
-                                                        {item.date}
-                                                    </span>
-                                                </div>
-                                                <h3
-                                                    className={`text-lg md:text-xl font-bold leading-tight ${
+                                                {/* BAGIAN TANGGAL: Dibuat sangat kontras */}
+                                                <div
+                                                    className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-extrabold w-fit tracking-wide shadow-md ${
                                                         item.status === "active"
-                                                            ? "text-ivory-mist-50"
-                                                            : "text-frosted-mint-50"
+                                                            ? "bg-frosted-mint-500 text-dark-spruce-950 shadow-[0_0_15px_rgba(81,186,69,0.4)]"
+                                                            : "bg-white/10 text-white border border-white/20"
+                                                    }`}
+                                                >
+                                                    {React.cloneElement(
+                                                        item.icon,
+                                                        {
+                                                            className:
+                                                                "w-4 h-4",
+                                                        },
+                                                    )}
+                                                    {item.date}
+                                                </div>
+
+                                                <h3
+                                                    className={`text-xl font-bold leading-tight ${
+                                                        item.status === "active"
+                                                            ? "text-white"
+                                                            : "text-slate-200 group-hover:text-white"
                                                     }`}
                                                 >
                                                     {item.title}
                                                 </h3>
                                             </div>
                                         </div>
-
-                                        {/* Connector Line (Mobile Only) */}
-                                        <div className="absolute top-1/2 left-6 w-8 h-[2px] bg-frosted-mint-500/20 md:hidden -translate-y-1/2"></div>
                                     </div>
                                 </div>
                             ))}
