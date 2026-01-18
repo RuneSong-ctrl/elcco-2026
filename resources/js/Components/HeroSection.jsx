@@ -11,7 +11,6 @@ const HeroSection = () => {
     const { scrollY } = useScroll();
 
     const yParallax = useTransform(scrollY, [0, 500], [0, 200]);
-
     const opacityParallax = useTransform(scrollY, [0, 400], [0.6, 0.1]);
 
     useEffect(() => {
@@ -58,7 +57,7 @@ const HeroSection = () => {
                 <img
                     src={ElccoLogo}
                     alt="ELCCO Logo Icon"
-                    className="w-28 md:w-40 lg:w-48 mb-4 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
+                    className="w-40 md:w-44 lg:w-52 mb-6 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
                     data-aos="fade-down"
                     width="192"
                     height="192"
