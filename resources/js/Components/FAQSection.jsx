@@ -48,7 +48,7 @@ const faqs = [
                 </p>
                 <ul className="space-y-2">
                     <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
-                        <div className="mt-1 p-1 bg-frosted-mint-500/20 rounded text-frosted-mint-400">
+                        <div className="mt-1 p-1 bg-frosted-mint-500/20 rounded text-frosted-mint-400 flex-shrink-0">
                             <ChevronRight className="w-3 h-3" />
                         </div>
                         <span className="text-sm">
@@ -59,7 +59,7 @@ const faqs = [
                         </span>
                     </li>
                     <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
-                        <div className="mt-1 p-1 bg-purple-500/20 rounded text-purple-400">
+                        <div className="mt-1 p-1 bg-purple-500/20 rounded text-purple-400 flex-shrink-0">
                             <ChevronRight className="w-3 h-3" />
                         </div>
                         <span className="text-sm">
@@ -70,7 +70,7 @@ const faqs = [
                         </span>
                     </li>
                     <li className="flex items-start gap-3 bg-white/5 p-3 rounded-lg border border-white/5">
-                        <div className="mt-1 p-1 bg-blue-500/20 rounded text-blue-400">
+                        <div className="mt-1 p-1 bg-blue-500/20 rounded text-blue-400 flex-shrink-0">
                             <ChevronRight className="w-3 h-3" />
                         </div>
                         <span className="text-sm">
@@ -82,7 +82,7 @@ const faqs = [
                     </li>
                 </ul>
                 <p className="mt-3 text-xs text-slate-400 italic flex items-center gap-1">
-                    <HelpCircle className="w-3 h-3" />
+                    <HelpCircle className="w-3 h-3 flex-shrink-0" />
                     Informasi lengkap dapat dilihat pada juklak masing-masing
                     cabang lomba.
                 </p>
@@ -175,45 +175,46 @@ const FAQSection = () => {
     return (
         <section
             id="faq"
-            className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
+            className="relative w-full py-16 md:py-24 bg-dark-spruce-950 overflow-hidden"
         >
             {/* Background Atmosphere */}
             <div className="absolute left-0 top-0 w-full h-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-            <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute right-0 bottom-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
-                <div className="flex flex-col lg:flex-row gap-16 items-start">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
                     {/* --- LEFT SIDE: INFO --- */}
+                    {/* FIXED: Removed 'sticky' on mobile (relative), added 'lg:sticky' for desktop */}
                     <div
-                        className="w-full lg:w-1/3 sticky top-32"
+                        className="w-full lg:w-1/3 relative lg:sticky lg:top-32"
                         data-aos="fade-right"
                     >
-                        <div className="flex items-center gap-3 mb-6">
+                        <div className="flex items-center gap-3 mb-4 md:mb-6">
                             <div className="h-[2px] w-12 bg-frosted-mint-500"></div>
                             <span className="text-frosted-mint-400 font-bold uppercase tracking-widest text-sm">
                                 Knowledge Base
                             </span>
                         </div>
 
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 md:mb-6 leading-tight">
                             Frequently <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-frosted-mint-400 to-white">
                                 Asked Questions
                             </span>
                         </h2>
 
-                        <p className="text-slate-300 text-lg mb-10 leading-relaxed">
+                        <p className="text-slate-300 text-base md:text-lg mb-8 leading-relaxed">
                             Temukan jawaban cepat untuk pertanyaan yang sering
                             diajukan seputar pendaftaran dan pelaksanaan ELCCO
                             2026.
                         </p>
 
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="p-5 md:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
                             <div className="flex items-start gap-4">
-                                <div className="p-3 bg-frosted-mint-600 rounded-xl text-white shadow-lg shadow-frosted-mint-900/50">
+                                <div className="p-3 bg-frosted-mint-600 rounded-xl text-white shadow-lg shadow-frosted-mint-900/50 flex-shrink-0">
                                     <MessageSquare className="w-6 h-6" />
                                 </div>
-                                <div>
+                                <div className="min-w-0">
                                     <h4 className="text-white font-bold text-lg mb-1">
                                         Butuh Bantuan Lain?
                                     </h4>
@@ -252,9 +253,9 @@ const FAQSection = () => {
                                             : "bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10"
                                     }`}
                                 >
-                                    <div className="flex items-start justify-between p-6 gap-4">
+                                    <div className="flex items-start justify-between p-5 md:p-6 gap-4">
                                         <h3
-                                            className={`font-bold text-lg transition-colors leading-snug ${
+                                            className={`font-bold text-base md:text-lg transition-colors leading-snug ${
                                                 activeIndex === index
                                                     ? "text-frosted-mint-400"
                                                     : "text-white group-hover:text-frosted-mint-200"
@@ -294,7 +295,7 @@ const FAQSection = () => {
                                                     ease: "easeInOut",
                                                 }}
                                             >
-                                                <div className="px-6 pb-6 text-slate-300 leading-relaxed border-t border-white/5 pt-4 text-base">
+                                                <div className="px-5 md:px-6 pb-6 text-slate-300 leading-relaxed border-t border-white/5 pt-4 text-sm md:text-base">
                                                     {faq.answer}
                                                 </div>
                                             </motion.div>

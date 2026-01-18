@@ -69,7 +69,7 @@ const ContactSection = () => {
                                     <div className="p-4 rounded-xl bg-frosted-mint-600 text-white shadow-lg shadow-frosted-mint-900/50">
                                         <User size={28} />
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="flex-1 ">
                                         <h4 className="text-white font-bold text-xl mb-1">
                                             {chairman.name}
                                         </h4>
@@ -87,7 +87,7 @@ const ContactSection = () => {
                                                 )}
                                                 target="_blank"
                                                 rel="noreferrer"
-                                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-dark-spruce-950 hover:bg-frosted-mint-400 rounded-lg font-bold text-sm transition-all shadow-md"
+                                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-dark-spruce-950 hover:bg-frosted-mint-400 rounded-full font-bold text-sm transition-all shadow-md"
                                             >
                                                 <MessageCircle size={18} />
                                                 Chat WhatsApp

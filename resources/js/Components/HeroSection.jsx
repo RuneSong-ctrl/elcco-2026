@@ -1,47 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/Components/ui/button";
 import GundamFull from "/public/images/maskot.png";
 import ElccoLogo from "/public/images/logo.png";
 import ELCCO2026 from "/public/images/elcco2026.png";
 
 const HeroSection = () => {
-    const [scrollY, setScrollY] = useState(0);
+    const { scrollY } = useScroll();
+
+    const yParallax = useTransform(scrollY, [0, 500], [0, 200]);
+    const opacityParallax = useTransform(scrollY, [0, 300], [0.6, 0]);
 
     useEffect(() => {
         AOS.init({
-            duration: 1000,
+            duration: 800,
             once: true,
             easing: "ease-out-cubic",
+            disable: "mobile",
         });
-
-        const handleScroll = () => {
-            setScrollY(window.scrollY);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
-        <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-dark-spruce-950 pt-24 pb-20 md:pb-28">
+        <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-dark-spruce-950 pt-24 pb-20 md:pb-28 contain-paint">
             <div className="stars absolute inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen"></div>
 
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
-            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-frosted-mint-500/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white/5 blur-[120px] rounded-full pointer-events-none z-0 will-change-transform"></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-frosted-mint-500/20 blur-[120px] rounded-full pointer-events-none z-0 will-change-transform"></div>
 
             <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center pointer-events-none">
-                <div
-                    className="relative w-full h-[120%] lg:w-[80%] opacity-60 blur-[1px] mix-blend-normal"
-                    style={{ transform: `translateY(${scrollY * 0.4}px)` }}
+                <motion.div
+                    className="relative w-full h-[120%] lg:w-[80%] blur-[1px] mix-blend-normal will-change-transform"
+                    style={{
+                        y: yParallax,
+                        opacity: opacityParallax,
+                    }}
                 >
                     <img
                         src={GundamFull}
-                        alt="Background Mascot Parallax"
+                        alt="ELCCO Mascot Character"
                         className="w-full h-full object-cover lg:object-contain object-center filter grayscale-[30%] contrast-125"
+                        width="1200"
+                        height="1000"
+                        decoding="async"
+                        fetchPriority="high"
+                        loading="eager"
                     />
-                </div>
+                </motion.div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 via-dark-spruce-950/70 to-transparent z-10"></div>
                 <div className="absolute inset-0 bg-dark-spruce-950/30 mix-blend-multiply z-10"></div>
@@ -53,24 +59,30 @@ const HeroSection = () => {
                     alt="ELCCO Logo Icon"
                     className="w-20 md:w-24 lg:w-28 mb-4 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
                     data-aos="fade-down"
+                    width="112"
+                    height="112"
+                    loading="eager"
                 />
 
                 <div
                     className="mb-5 w-full max-w-[280px] sm:max-w-[380px] md:max-w-[450px]"
                     data-aos="zoom-in"
-                    data-aos-delay="200"
+                    data-aos-delay="100"
                 >
                     <img
                         src={ELCCO2026}
                         alt="ELCCO 2026 Title"
                         className="w-full h-auto object-contain drop-shadow-2xl mx-auto filter brightness-110"
+                        width="450"
+                        height="150"
+                        loading="eager"
                     />
                 </div>
 
                 <h2
                     className="text-white mb-3 text-base font-bold uppercase tracking-[0.25em] sm:text-lg md:text-xl lg:text-2xl leading-tight drop-shadow-md"
                     data-aos="fade-up"
-                    data-aos-delay="300"
+                    data-aos-delay="200"
                 >
                     Electrical & Computer Competition
                 </h2>
@@ -78,7 +90,7 @@ const HeroSection = () => {
                 <p
                     className="text-slate-200 mb-8 max-w-xl text-sm leading-relaxed sm:text-base md:text-lg font-light tracking-wide"
                     data-aos="fade-up"
-                    data-aos-delay="400"
+                    data-aos-delay="300"
                 >
                     Fostering Youth Creativity and Innovation through the
                     Demographic Bonus in the Era of{" "}
@@ -90,11 +102,11 @@ const HeroSection = () => {
                 <div
                     className="flex flex-wrap justify-center gap-4 sm:gap-6"
                     data-aos="fade-up"
-                    data-aos-delay="500"
+                    data-aos-delay="400"
                 >
                     <Button
                         size="lg"
-                        className="group relative overflow-hidden bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold text-base px-8 py-6 rounded-full shadow-[0_0_25px_rgba(34,197,94,0.4)] transition-all hover:scale-105 active:scale-95 border border-frosted-mint-400/50"
+                        className="group relative overflow-hidden bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold text-base px-8 py-6 rounded-full shadow-[0_0_25px_rgba(34,197,94,0.4)] transition-transform hover:scale-105 active:scale-95 border border-frosted-mint-400/50"
                     >
                         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></span>
                         <a
@@ -108,7 +120,7 @@ const HeroSection = () => {
                     <Button
                         size="lg"
                         variant="outline"
-                        className="border-2 border-white/20 text-white hover:bg-white hover:text-dark-spruce-950 font-bold text-base px-8 py-6 rounded-full backdrop-blur-sm transition-all hover:scale-105 active:scale-95 hover:border-white shadow-lg"
+                        className="border-2 border-white/20 text-white hover:bg-white hover:text-dark-spruce-950 font-bold text-base px-8 py-6 rounded-full backdrop-blur-sm transition-transform hover:scale-105 active:scale-95 hover:border-white shadow-lg"
                     >
                         <a href="#about">Learn More</a>
                     </Button>
