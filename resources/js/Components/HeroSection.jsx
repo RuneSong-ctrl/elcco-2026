@@ -11,7 +11,8 @@ const HeroSection = () => {
     const { scrollY } = useScroll();
 
     const yParallax = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacityParallax = useTransform(scrollY, [0, 300], [0.6, 0]);
+
+    const opacityParallax = useTransform(scrollY, [0, 400], [0.6, 0.1]);
 
     useEffect(() => {
         AOS.init({
@@ -40,7 +41,7 @@ const HeroSection = () => {
                     <img
                         src={GundamFull}
                         alt="ELCCO Mascot Character"
-                        className="w-full h-full object-cover lg:object-contain object-center filter grayscale-[30%] contrast-125"
+                        className="w-full h-full object-cover lg:object-contain object-center filter grayscale-[15%] contrast-125 brightness-110"
                         width="1200"
                         height="1000"
                         decoding="async"
@@ -49,30 +50,33 @@ const HeroSection = () => {
                     />
                 </motion.div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950 via-dark-spruce-950/70 to-transparent z-10"></div>
-                <div className="absolute inset-0 bg-dark-spruce-950/30 mix-blend-multiply z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950/60 via-dark-spruce-950/50 to-transparent z-10"></div>
+                <div className="absolute inset-0 bg-dark-spruce-950/20 mix-blend-multiply z-10"></div>
             </div>
 
             <div className="container relative z-20 mx-auto px-6 flex flex-col items-center text-center">
                 <img
                     src={ElccoLogo}
                     alt="ELCCO Logo Icon"
-                    className="w-20 md:w-24 lg:w-28 mb-4 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
+                    className="w-28 md:w-40 lg:w-48 mb-4 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
                     data-aos="fade-down"
-                    width="112"
-                    height="112"
+                    width="192"
+                    height="192"
                     loading="eager"
                 />
 
                 <div
-                    className="mb-5 w-full max-w-[280px] sm:max-w-[380px] md:max-w-[450px]"
+                    className="mb-3 w-full max-w-[280px] sm:max-w-[380px] md:max-w-[450px]"
                     data-aos="zoom-in"
                     data-aos-delay="100"
                 >
                     <img
                         src={ELCCO2026}
                         alt="ELCCO 2026 Title"
-                        className="w-full h-auto object-contain drop-shadow-2xl mx-auto filter brightness-110"
+                        className="w-full h-auto object-contain mx-auto"
+                        style={{
+                            filter: "drop-shadow(0 0 1px rgba(255,255,255,0.4)) drop-shadow(0 0 8px rgba(52, 211, 153, 0.3)) drop-shadow(0 0 20px rgba(52, 211, 153, 0.1))",
+                        }}
                         width="450"
                         height="150"
                         loading="eager"
