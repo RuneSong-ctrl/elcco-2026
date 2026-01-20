@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
     Clock,
     AlertCircle,
@@ -11,7 +13,6 @@ import {
     Tag,
 } from "lucide-react";
 
-// Import images
 import infografis from "/public/images/Infografis.png";
 import lcc from "/public/images/LCC.png";
 import lkti from "/public/images/LKTI.png";
@@ -280,8 +281,40 @@ const CompetitionsSection = () => {
     const [selectedCompetition, setSelectedCompetition] = useState(null);
 
     useEffect(() => {
+        AOS.init();
         setCurrentDate(new Date());
+
+        const handleOpenCompetition = (event) => {
+            const titleToFind = event.detail;
+            const foundCompetition = competitionsData.find(
+                (c) => c.title === titleToFind,
+            );
+
+            if (foundCompetition) {
+                setFilter(foundCompetition.target);
+                setSelectedCompetition(foundCompetition);
+            }
+        };
+
+        window.addEventListener(
+            "open-competition-modal",
+            handleOpenCompetition,
+        );
+
+        return () => {
+            window.removeEventListener(
+                "open-competition-modal",
+                handleOpenCompetition,
+            );
+        };
     }, []);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            AOS.refresh();
+        }, 100);
+        return () => clearTimeout(timeout);
+    }, [filter]);
 
     const parseLocalDate = (dateStr) => {
         const [year, month, day] = dateStr.split("-").map(Number);
@@ -342,12 +375,10 @@ const CompetitionsSection = () => {
             id="competitions"
             className="relative w-full py-24 bg-dark-spruce-950 overflow-hidden"
         >
-            {/* Background Atmosphere */}
             <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-frosted-mint-500/5 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
             <div className="container relative z-10 mx-auto px-6 md:px-12 lg:px-20">
-                {/* Header */}
                 <div className="text-center mb-16" data-aos="fade-up">
                     <span className="text-frosted-mint-400 font-mono tracking-[0.2em] text-sm uppercase bg-frosted-mint-900/20 px-4 py-1.5 rounded-full border border-frosted-mint-500/20 backdrop-blur-sm">
                         8 Competitions
@@ -364,7 +395,6 @@ const CompetitionsSection = () => {
                     </p>
                 </div>
 
-                {/* Filter */}
                 <div
                     className="flex flex-wrap justify-center gap-3 mb-12"
                     data-aos="fade-up"
@@ -385,7 +415,6 @@ const CompetitionsSection = () => {
                     ))}
                 </div>
 
-                {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {filteredCompetitions.map((item, index) => {
                         const { price, label, status } = getPriceInfo(
@@ -403,7 +432,6 @@ const CompetitionsSection = () => {
                                 data-aos="fade-up"
                                 data-aos-delay={index * 50}
                             >
-                                {/* Image Container (Centered & Proportional) */}
                                 <div className="relative h-56 w-full bg-dark-spruce-950/50 flex items-center justify-center p-6 border-b border-white/5 group-hover:bg-dark-spruce-900/60 transition-colors">
                                     <img
                                         src={item.image}
@@ -411,7 +439,6 @@ const CompetitionsSection = () => {
                                         className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-xl"
                                     />
 
-                                    {/* Badges */}
                                     <div
                                         className={`absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide border shadow-lg backdrop-blur-md flex items-center gap-2 ${
                                             item.target === "SMA/SMK"
@@ -507,7 +534,6 @@ const CompetitionsSection = () => {
                 )}
             </div>
 
-            {/* --- MODAL DETAIL --- */}
             {selectedCompetition && (
                 <div
                     className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-spruce-950/90 backdrop-blur-md animate-in fade-in duration-200"
@@ -517,7 +543,6 @@ const CompetitionsSection = () => {
                         className="relative w-full max-w-5xl h-[85vh] bg-dark-spruce-900 border border-white/10 rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Close Button */}
                         <button
                             onClick={closeModal}
                             className="absolute top-4 right-4 z-50 p-2 bg-black/40 rounded-full text-white/70 hover:bg-frosted-mint-500 hover:text-white transition-colors backdrop-blur-sm"
@@ -525,9 +550,7 @@ const CompetitionsSection = () => {
                             <X className="w-5 h-5" />
                         </button>
 
-                        {/* Left: Image (Centered Container) */}
                         <div className="w-full md:w-5/12 h-64 md:h-full relative bg-dark-spruce-950 flex items-center justify-center p-8 flex-shrink-0 border-r border-white/5">
-                            {/* Background Glow behind Image */}
                             <div className="absolute inset-0 bg-frosted-mint-500/5 blur-3xl"></div>
 
                             <img
@@ -553,7 +576,6 @@ const CompetitionsSection = () => {
                             </div>
                         </div>
 
-                        {/* Right: Details */}
                         <div className="w-full md:w-7/12 h-full overflow-y-auto custom-scrollbar bg-dark-spruce-900 p-6 md:p-10 flex flex-col">
                             <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
                                 {selectedCompetition.title}
@@ -563,7 +585,6 @@ const CompetitionsSection = () => {
                                 <p>{selectedCompetition.desc}</p>
                             </div>
 
-                            {/* Key Features */}
                             <div className="mb-8">
                                 <h4 className="text-xs font-bold text-frosted-mint-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <Tag className="w-3 h-3" />
@@ -584,7 +605,6 @@ const CompetitionsSection = () => {
                                 </div>
                             </div>
 
-                            {/* Timeline & Pricing */}
                             <div className="mb-8 p-6 rounded-2xl bg-white/5 border border-white/5">
                                 <h4 className="text-sm font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
                                     <Calendar className="w-4 h-4 text-frosted-mint-500" />
@@ -633,7 +653,6 @@ const CompetitionsSection = () => {
                                 </div>
                             </div>
 
-                            {/* Action Buttons in Modal */}
                             <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-3 pt-6 border-t border-white/10">
                                 <a
                                     href={selectedCompetition.guidebookLink}

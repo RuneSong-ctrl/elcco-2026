@@ -61,6 +61,20 @@ const AboutSection = () => {
         },
     ];
 
+    const handleNavigateToCompetition = (e, title) => {
+        e.preventDefault();
+        const section = document.getElementById("competitions");
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+        setTimeout(() => {
+            const event = new CustomEvent("open-competition-modal", {
+                detail: title,
+            });
+            window.dispatchEvent(event);
+        }, 500);
+    };
+
     return (
         <section
             id="about"
@@ -137,9 +151,16 @@ const AboutSection = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {competitions.map((item, index) => (
-                                    <div
+                                    <a
                                         key={index}
-                                        className="group relative p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-frosted-mint-500/30 transition-all duration-300 flex items-center gap-4 cursor-default overflow-hidden"
+                                        href="#competitions"
+                                        onClick={(e) =>
+                                            handleNavigateToCompetition(
+                                                e,
+                                                item.title,
+                                            )
+                                        }
+                                        className="group relative p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-frosted-mint-500/30 transition-all duration-300 flex items-center gap-4 cursor-pointer overflow-hidden"
                                     >
                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-[150%] group-hover:animate-shimmer"></div>
 
@@ -176,7 +197,7 @@ const AboutSection = () => {
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                         </div>
