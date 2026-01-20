@@ -281,7 +281,9 @@ const CompetitionsSection = () => {
     const [selectedCompetition, setSelectedCompetition] = useState(null);
 
     useEffect(() => {
-        AOS.init();
+        AOS.init({
+            disable: "mobile",
+        });
         setCurrentDate(new Date());
 
         const handleOpenCompetition = (event) => {

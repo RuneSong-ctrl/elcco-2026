@@ -3,9 +3,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/Components/ui/button";
-import GundamFull from "/public/images/maskot.png";
-import ElccoLogo from "/public/images/logo.png";
-import ELCCO2026 from "/public/images/elcco2026.png";
+import GundamFull from "/public/images/maskot.webp";
+import ElccoLogo from "/public/images/logo.webp";
+import ELCCO2026 from "/public/images/elcco2026.webp";
 
 const HeroSection = () => {
     const { scrollY } = useScroll();

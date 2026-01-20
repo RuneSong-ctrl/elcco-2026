@@ -1,5 +1,5 @@
 import React from "react";
-import about from "/public/images/about.png";
+import about from "/public/images/about.webp";
 import sumo from "/public/images/Sumo.png";
 import Line from "/public/images/Line-Fol.png";
 import networking from "/public/images/Networking.png";

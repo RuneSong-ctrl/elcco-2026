@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { Instagram, ArrowUp, ChevronRight, MapPin } from "lucide-react";
-import Elcco2026 from "/public/images/elcco2026.png";
+import Elcco2026 from "/public/images/elcco2026.webp";
 
 const FooterSection = () => {
     const scrollToTop = () => {
