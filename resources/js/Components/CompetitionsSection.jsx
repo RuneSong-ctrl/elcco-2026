@@ -282,7 +282,7 @@ const CompetitionsSection = () => {
 
     useEffect(() => {
         AOS.init({
-            disable: "mobile",
+            once: true,
         });
         setCurrentDate(new Date());
 
@@ -681,7 +681,7 @@ const CompetitionsSection = () => {
                                         e.preventDefault()
                                     }
                                 >
-                                    Daftar Sekarang!
+                                    Daftar Sekarang
                                     <ExternalLink className="w-4 h-4" />
                                 </a>
                             </div>
