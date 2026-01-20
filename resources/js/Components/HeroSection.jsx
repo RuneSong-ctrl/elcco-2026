@@ -10,28 +10,27 @@ import ELCCO2026 from "/public/images/elcco2026.webp";
 const HeroSection = () => {
     const { scrollY } = useScroll();
 
-    const yParallax = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacityParallax = useTransform(scrollY, [0, 400], [0.6, 0.1]);
+    const yParallax = useTransform(scrollY, [0, 500], [0, 150]);
+    const opacityParallax = useTransform(scrollY, [0, 500], [0.6, 0.2]);
 
     useEffect(() => {
         AOS.init({
-            duration: 800,
+            duration: 600,
             once: true,
-            easing: "ease-out-cubic",
-            disable: "mobile",
+            easing: "ease-out-quad",
         });
     }, []);
 
     return (
         <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-dark-spruce-950 pt-24 pb-20 md:pb-28 contain-paint">
-            <div className="stars absolute inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen"></div>
+            <div className="stars absolute inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen will-change-transform"></div>
 
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white/5 blur-[120px] rounded-full pointer-events-none z-0 will-change-transform"></div>
-            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-frosted-mint-500/20 blur-[120px] rounded-full pointer-events-none z-0 will-change-transform"></div>
+            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white/5 blur-[80px] rounded-full pointer-events-none z-0 transform-gpu will-change-transform"></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-frosted-mint-500/20 blur-[80px] rounded-full pointer-events-none z-0 transform-gpu will-change-transform"></div>
 
             <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center pointer-events-none">
                 <motion.div
-                    className="relative w-full h-[120%] lg:w-[80%] blur-[1px] mix-blend-normal will-change-transform"
+                    className="relative w-full h-[120%] lg:w-[80%] blur-[1px] mix-blend-normal transform-gpu will-change-transform"
                     style={{
                         y: yParallax,
                         opacity: opacityParallax,
@@ -40,7 +39,7 @@ const HeroSection = () => {
                     <img
                         src={GundamFull}
                         alt="ELCCO Mascot Character"
-                        className="w-full h-full object-cover lg:object-contain object-center filter grayscale-[15%] contrast-125 brightness-110"
+                        className="w-full h-full object-cover lg:object-contain object-center filter grayscale-[15%] contrast-125 brightness-125"
                         width="1200"
                         height="1000"
                         decoding="async"
@@ -49,18 +48,19 @@ const HeroSection = () => {
                     />
                 </motion.div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950/60 via-dark-spruce-950/50 to-transparent z-10"></div>
-                <div className="absolute inset-0 bg-dark-spruce-950/20 mix-blend-multiply z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-spruce-950/60 via-dark-spruce-950/50 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-dark-spruce-950/20 mix-blend-multiply z-10 pointer-events-none"></div>
             </div>
 
             <div className="container relative z-20 mx-auto px-6 flex flex-col items-center text-center">
                 <img
                     src={ElccoLogo}
                     alt="ELCCO Logo Icon"
-                    className="w-40 md:w-44 lg:w-52 mb-6 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow"
+                    className="w-36 md:w-44 lg:w-52 mb-6 drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] animate-float-slow transform-gpu"
                     data-aos="fade-down"
                     width="192"
                     height="192"
+                    decoding="async"
                     loading="eager"
                 />
 
@@ -78,6 +78,7 @@ const HeroSection = () => {
                         }}
                         width="450"
                         height="150"
+                        decoding="async"
                         loading="eager"
                     />
                 </div>
@@ -109,7 +110,7 @@ const HeroSection = () => {
                 >
                     <Button
                         size="lg"
-                        className="group relative overflow-hidden bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold text-base px-8 py-6 rounded-full shadow-[0_0_25px_rgba(34,197,94,0.4)] transition-transform hover:scale-105 active:scale-95 border border-frosted-mint-400/50"
+                        className="group relative overflow-hidden bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold text-base px-8 py-6 rounded-full shadow-[0_0_25px_rgba(34,197,94,0.4)] transition-transform transform-gpu hover:scale-105 active:scale-95 border border-frosted-mint-400/50"
                     >
                         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></span>
                         <a
@@ -123,7 +124,7 @@ const HeroSection = () => {
                     <Button
                         size="lg"
                         variant="outline"
-                        className="border-2 border-white/20 text-white hover:bg-white hover:text-dark-spruce-950 font-bold text-base px-8 py-6 rounded-full backdrop-blur-sm transition-transform hover:scale-105 active:scale-95 hover:border-white shadow-lg"
+                        className="border-2 border-white/20 text-white hover:bg-white hover:text-dark-spruce-950 font-bold text-base px-8 py-6 rounded-full backdrop-blur-sm transition-transform transform-gpu hover:scale-105 active:scale-95 hover:border-white shadow-lg"
                     >
                         <a href="#about">Learn More</a>
                     </Button>
