@@ -431,8 +431,6 @@ const CompetitionsSection = () => {
                                         ? "opacity-60 grayscale"
                                         : ""
                                 }`}
-                                data-aos="fade-up"
-                                data-aos-delay={index * 50}
                             >
                                 <div className="relative h-56 w-full bg-dark-spruce-950/50 flex items-center justify-center p-6 border-b border-white/5 group-hover:bg-dark-spruce-900/60 transition-colors">
                                     <img
