@@ -28,7 +28,7 @@ export default function Login() {
                 onSuccess: () => {},
                 onError: (err) => {
                     setProcessing(false);
-                    setError(err.login || "Terjadi kesalahan, coba lagi.");
+                    setError(err.login || "Terjadi kesalahan, coba lagi!.");
                 },
             },
         );
