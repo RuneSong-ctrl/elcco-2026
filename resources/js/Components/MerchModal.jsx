@@ -21,6 +21,7 @@ import {
     MessageCircle,
     Package,
     AlertCircle,
+    ZoomIn,
 } from "lucide-react";
 import longsleeve from "/public/images/long-sleeve.jpeg";
 import tshirt from "/public/images/t-shirt.jpeg";
@@ -31,13 +32,13 @@ const MerchModal = () => {
     const [activeType, setActiveType] = useState("short");
     const [isZoomed, setIsZoomed] = useState(false);
     const [showHint, setShowHint] = useState(true);
-    const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+    const [isSummaryOpen, setIsSummaryOpen] = useState(true);
     const [processing, setProcessing] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
 
     const [formData, setFormData] = useState({
-        size: "L",
+        size: "XS",
         quantity: 1,
         paymentType: "lunas",
         name: "",
@@ -108,7 +109,7 @@ const MerchModal = () => {
     useEffect(() => {
         if (!isOpen) {
             setTimeout(() => setView("details"), 300);
-            setIsSummaryOpen(false);
+            setIsSummaryOpen(true);
             setOrderResult(null);
             setCheckPhone("");
         }
@@ -180,7 +181,7 @@ const MerchModal = () => {
                 setSuccessMessage("Pesanan Berhasil!");
                 setShowSuccessModal(true);
                 setFormData({
-                    size: "L",
+                    size: "XS",
                     quantity: 1,
                     paymentType: "lunas",
                     name: "",
@@ -213,13 +214,11 @@ const MerchModal = () => {
 
             if (data.payment_type === "dp") {
                 let sisaSatuan = 0;
-
                 if (data.merch_type === "short") {
                     sisaSatuan = 120000 - 70000;
                 } else if (data.merch_type === "long") {
                     sisaSatuan = 150000 - 90000;
                 }
-
                 const totalSisa = sisaSatuan * data.quantity;
                 setRemainingPayment(totalSisa);
             }
@@ -361,6 +360,12 @@ const MerchModal = () => {
                                                 className="text-frosted-mint-500"
                                             />{" "}
                                             OFFICIAL MERCH
+                                        </div>
+                                        <div className="absolute bottom-4 inset-x-0 flex justify-center z-20 md:hidden pointer-events-none">
+                                            <span className="bg-white/90 text-fern-700 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm border border-fern-100 flex items-center gap-1.5 backdrop-blur-sm">
+                                                <ZoomIn size={12} /> Klik untuk
+                                                perbesar
+                                            </span>
                                         </div>
                                     </div>
 
@@ -529,90 +534,47 @@ const MerchModal = () => {
                                                         Lengkapi data anda
                                                     </p>
                                                 </div>
-                                                <button
-                                                    onClick={() =>
-                                                        setIsSummaryOpen(
-                                                            !isSummaryOpen,
-                                                        )
-                                                    }
-                                                    className="flex items-center gap-1 text-xs font-bold text-frosted-mint-600 bg-frosted-mint-50 px-3 py-1.5 rounded-full"
-                                                >
-                                                    {isSummaryOpen
-                                                        ? "Tutup"
-                                                        : "Lihat"}{" "}
-                                                    Ringkasan
-                                                    {isSummaryOpen ? (
-                                                        <ChevronUp size={14} />
-                                                    ) : (
-                                                        <ChevronDown
-                                                            size={14}
-                                                        />
-                                                    )}
-                                                </button>
                                             </div>
 
-                                            <AnimatePresence>
-                                                {isSummaryOpen && (
-                                                    <motion.div
-                                                        initial={{
-                                                            height: 0,
-                                                            opacity: 0,
-                                                        }}
-                                                        animate={{
-                                                            height: "auto",
-                                                            opacity: 1,
-                                                        }}
-                                                        exit={{
-                                                            height: 0,
-                                                            opacity: 0,
-                                                        }}
-                                                        className="overflow-hidden bg-[#fbf8ee] border-t border-fern-100"
-                                                    >
-                                                        <div className="p-4 space-y-3 text-xs">
-                                                            <div className="flex gap-3 items-center">
-                                                                <img
-                                                                    src={
-                                                                        currentItem.image
-                                                                    }
-                                                                    className="w-12 h-12 rounded-lg object-contain bg-white border border-fern-100"
-                                                                />
-                                                                <div>
-                                                                    <p className="font-bold text-fern-900">
-                                                                        {
-                                                                            currentItem.title
-                                                                        }
-                                                                    </p>
-                                                                    <p className="text-fern-500">
-                                                                        Size{" "}
-                                                                        {
-                                                                            formData.size
-                                                                        }{" "}
-                                                                        x{" "}
-                                                                        {
-                                                                            formData.quantity
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="flex justify-between pt-2 border-t border-fern-200">
-                                                                <span className="text-fern-600 font-medium">
-                                                                    Total
-                                                                    Pembayaran (
-                                                                    {
-                                                                        formData.paymentType
-                                                                    }
-                                                                    )
-                                                                </span>
-                                                                <span className="text-fern-800 font-bold font-mono">
-                                                                    {
-                                                                        formattedTotal
-                                                                    }
-                                                                </span>
-                                                            </div>
+                                            <div className="overflow-hidden bg-[#fbf8ee] border-t border-fern-100">
+                                                <div className="p-4 space-y-3 text-xs">
+                                                    <div className="flex gap-3 items-center">
+                                                        <img
+                                                            src={
+                                                                currentItem.image
+                                                            }
+                                                            className="w-12 h-12 rounded-lg object-contain bg-white border border-fern-100"
+                                                        />
+                                                        <div>
+                                                            <p className="font-bold text-fern-900">
+                                                                {
+                                                                    currentItem.title
+                                                                }
+                                                            </p>
+                                                            <p className="text-fern-500">
+                                                                Size{" "}
+                                                                {formData.size}{" "}
+                                                                x{" "}
+                                                                {
+                                                                    formData.quantity
+                                                                }
+                                                            </p>
                                                         </div>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
+                                                    </div>
+                                                    <div className="flex justify-between pt-2 border-t border-fern-200">
+                                                        <span className="text-fern-600 font-medium">
+                                                            Total Pembayaran (
+                                                            {
+                                                                formData.paymentType
+                                                            }
+                                                            )
+                                                        </span>
+                                                        <span className="text-fern-800 font-bold font-mono">
+                                                            {formattedTotal}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div className="flex-1 overflow-y-auto p-5 md:p-8 custom-scrollbar pb-28">
