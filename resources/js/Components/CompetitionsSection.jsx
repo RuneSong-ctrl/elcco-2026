@@ -111,7 +111,7 @@ const competitionsData = [
         keyFeatures: ["Research Based", "Scientific Paper", "Society 5.0"],
         registerLink: "https://bit.ly/LKTI26ELCCO",
         guidebookLink:
-            "https://drive.google.com/file/d/1JOqpg-dSgQqkPJERLGQfoOX5lEczpWZd/view?usp=sharing",
+            "https://drive.google.com/file/d/1BaPQOfcJjOLRm_ngAmmtt9O3SnzX_C_m/view?usp=sharing",
         waves: [
             {
                 name: "Gel 1",
