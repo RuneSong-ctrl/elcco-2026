@@ -149,7 +149,7 @@ const competitionsData = [
         keyFeatures: ["Prototyping", "Hardware/Software", "Innovation"],
         registerLink: "https://bit.ly/LKCT26Elcco",
         guidebookLink:
-            "https://drive.google.com/file/d/1ci4XX0d6CtB2-M--tlqeGwk4AZVIyAb8/view?usp=sharing",
+            "https://drive.google.com/file/d/1Jzmfv5uHQKrpUmx9-U9EqX6QrQ87Z1yu/view?usp=sharing",
         waves: [
             {
                 name: "Gel 1",
