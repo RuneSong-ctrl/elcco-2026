@@ -207,7 +207,7 @@ const competitionsData = [
         keyFeatures: ["Critical Writing", "Problem Solving", "Idea Pitching"],
         registerLink: "https://bit.ly/Essay26ELCCO",
         guidebookLink:
-            "https://drive.google.com/file/d/13fgjEzR2gAXv3aprE0u7LMR4E64wIsfO/view?usp=drive_link",
+            "https://drive.google.com/file/d/1QPADA2Qlgmvit9Y4STGOUoWOyVNe8K7C/view?usp=sharing",
         waves: [
             {
                 name: "Gel 1",
