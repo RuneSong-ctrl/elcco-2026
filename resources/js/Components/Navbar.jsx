@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ElccoLogoText from "/public/images/logo-logo.png";
+import Elsmart from "/public/images/elsmart.png";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -44,9 +45,9 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center gap-1 bg-dark-spruce-900/40 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
-                    {navLinks.map((link) => (
+                    {navLinks.map((link, index) => (
                         <a
-                            key={link.name}
+                            key={index}
                             href={link.href}
                             className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
                         >
@@ -56,13 +57,16 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <a
-                        href="#competitions"
-                        className="group flex items-center gap-2 px-6 py-2.5 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white font-bold rounded-full transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:-translate-y-0.5 border border-frosted-mint-400/30"
+                    <Link
+                        href="/elsmart/login"
+                        className="group flex items-center justify-center px-6 py-2 bg-[#005f32] border-2 border-white rounded-full transition-all duration-300 shadow-[0_4px_15px_rgba(34,197,94,0.3)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.5)] hover:-translate-y-0.5"
                     >
-                        <Zap size={18} className="fill-current" />
-                        <span>Register Now</span>
-                    </a>
+                        <img
+                            src={Elsmart}
+                            alt="Elsmart"
+                            className="h-6 lg:h-7 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                        />
+                    </Link>
                 </div>
 
                 <button
@@ -85,7 +89,7 @@ export default function Navbar() {
                         <div className="p-4 flex flex-col gap-2">
                             {navLinks.map((link, idx) => (
                                 <a
-                                    key={link.name}
+                                    key={idx}
                                     href={link.href}
                                     onClick={() => setIsOpen(false)}
                                     className="flex items-center justify-between p-4 rounded-2xl text-slate-200 hover:text-white hover:bg-white/5 hover:pl-6 transition-all duration-300 border border-transparent hover:border-white/5"
@@ -101,14 +105,17 @@ export default function Navbar() {
                         </div>
 
                         <div className="p-4 pt-0">
-                            <a
-                                href="#competitions"
+                            <Link
+                                href="/elsmart/login"
                                 onClick={() => setIsOpen(false)}
-                                className="flex items-center justify-center gap-2 w-full py-4 bg-frosted-mint-600 text-white font-bold rounded-2xl shadow-lg active:scale-95 transition-transform border border-frosted-mint-400/30"
+                                className="group flex items-center justify-center w-full py-3.5 bg-[#005f32] border-2 border-white rounded-2xl shadow-[0_4px_20px_rgba(34,197,94,0.3)] active:scale-95 transition-all"
                             >
-                                <Zap size={20} className="fill-current" />
-                                Register Competition
-                            </a>
+                                <img
+                                    src={Elsmart}
+                                    alt="Elsmart"
+                                    className="h-8 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </Link>
                         </div>
                     </motion.div>
                 )}

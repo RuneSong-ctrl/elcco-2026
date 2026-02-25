@@ -5,27 +5,16 @@ use App\Http\Controllers\MerchOrderController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminMerchController;
 use App\Http\Middleware\CheckAdminSession;
+use App\Http\Controllers\ElsmartAuthController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -42,5 +31,10 @@ Route::middleware([CheckAdminSession::class])->prefix('admin')->group(function (
 Route::post('/merch-order', [MerchOrderController::class, 'store'])->name('merch.store');
 Route::post('/merch-order/check', [MerchOrderController::class, 'check'])->name('merch.check');
 Route::post('/merch-order/repayment', [MerchOrderController::class, 'repayment'])->name('merch.repayment');
+
+Route::get('/elsmart/login', [ElsmartAuthController::class, 'showLogin'])->name('elsmart.login');
+Route::post('/elsmart/login', [ElsmartAuthController::class, 'login'])->name('elsmart.login.post');
+Route::post('/elsmart/logout', [ElsmartAuthController::class, 'logout'])->name('elsmart.logout');
+Route::get('/elsmart/dashboard', [ElsmartAuthController::class, 'dashboard'])->name('elsmart.dashboard');
 
 require __DIR__.'/auth.php';
