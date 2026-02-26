@@ -11,6 +11,10 @@ class ElsmartTeam extends Model
 
     protected $fillable = [
         'team_name',
+        'school_name',
+        'ketua_name',
+        'anggota1_name',
+        'anggota2_name',
         'password',
     ];
 

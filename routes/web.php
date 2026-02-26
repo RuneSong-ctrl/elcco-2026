@@ -20,10 +20,11 @@ Route::get('/', function () {
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login']);
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::get('/admin/elsmart-master', [AdminAuthController::class, 'elsmartDashboard'])->name('admin.elsmart.dashboard');
 
 Route::middleware([CheckAdminSession::class])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminMerchController::class, 'index'])->name('admin.dashboard');
-    Route::get('/export', [AdminMerchController::class, 'export'])->name('admin.export'); // <--- INI BARU
+    Route::get('/export', [AdminMerchController::class, 'export'])->name('admin.export'); 
     Route::post('/order/{id}/verify', [AdminMerchController::class, 'verify'])->name('admin.verify');
     Route::post('/order/{id}/reject', [AdminMerchController::class, 'reject'])->name('admin.reject');
 });
@@ -36,5 +37,8 @@ Route::get('/elsmart/login', [ElsmartAuthController::class, 'showLogin'])->name(
 Route::post('/elsmart/login', [ElsmartAuthController::class, 'login'])->name('elsmart.login.post');
 Route::post('/elsmart/logout', [ElsmartAuthController::class, 'logout'])->name('elsmart.logout');
 Route::get('/elsmart/dashboard', [ElsmartAuthController::class, 'dashboard'])->name('elsmart.dashboard');
+
+Route::get('/elsmart/register', [ElsmartAuthController::class, 'showRegister'])->name('elsmart.register');
+Route::post('/elsmart/register', [ElsmartAuthController::class, 'register'])->name('elsmart.register.post');
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Head } from "@inertiajs/react";
+import { useForm, Head, Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { Users, Lock, LogIn } from "lucide-react";
 import elsmart from "/public/images/elsmart.png";
@@ -117,6 +117,18 @@ const Login = () => {
                             </span>
                         </button>
                     </form>
+
+                    <div className="mt-6 text-center">
+                        <p className="text-sm text-slate-400">
+                            Belum punya akun?{" "}
+                            <Link
+                                href="/elsmart/register"
+                                className="text-frosted-mint-400 hover:text-frosted-mint-300 font-bold transition-colors"
+                            >
+                                Silahkan daftar
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </motion.div>
         </div>

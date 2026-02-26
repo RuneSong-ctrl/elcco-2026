@@ -21,6 +21,7 @@ import {
     Package,
     ArrowUpRight,
     FileSpreadsheet,
+    GraduationCap,
 } from "lucide-react";
 import { Head } from "@inertiajs/react";
 
