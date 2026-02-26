@@ -41,4 +41,7 @@ Route::get('/elsmart/dashboard', [ElsmartAuthController::class, 'dashboard'])->n
 Route::get('/elsmart/register', [ElsmartAuthController::class, 'showRegister'])->name('elsmart.register');
 Route::post('/elsmart/register', [ElsmartAuthController::class, 'register'])->name('elsmart.register.post');
 
+Route::post('/admin/elsmart-master/toggle-stage', [App\Http\Controllers\AdminAuthController::class, 'toggleStage'])->name('admin.elsmart.toggleStage');
+Route::get('/elsmart/game-status', [App\Http\Controllers\ElsmartAuthController::class, 'checkGameStatus'])->name('elsmart.gameStatus');
+
 require __DIR__.'/auth.php';

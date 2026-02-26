@@ -1,10 +1,9 @@
 import React from "react";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import {
     LogOut,
     AlertTriangle,
-    Lock,
     Clock,
     FileText,
     Gamepad2,
@@ -23,6 +22,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
         post("/elsmart/logout");
     };
 
+    // Semua tahap diatur agar tidak terkunci (locked: false)
     const stages = [
         {
             id: 1,
@@ -30,7 +30,6 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 1",
             duration: "30 Menit",
             questions: "40 Soal",
-            locked: true,
         },
         {
             id: 2,
@@ -38,7 +37,6 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 2",
             duration: "15 Menit",
             questions: "20 Kata",
-            locked: true,
         },
         {
             id: 3,
@@ -46,7 +44,6 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 3",
             duration: "15 Menit",
             questions: "10 Pasang",
-            locked: true,
         },
     ];
 
@@ -209,8 +206,8 @@ const Dashboard = ({ team_name, school_name, members }) => {
                             Peserta dilarang membuka tab, aplikasi, atau website
                             lain selama proses perlombaan berlangsung. Segala
                             bentuk kecurangan akan mengakibatkan diskualifikasi.
-                            Harap tunggu aba-aba dari Game Master untuk memulai
-                            tahap perlombaan.
+                            Anda dapat langsung memulai pengerjaan tahap lomba
+                            di bawah ini.
                         </p>
                     </div>
                 </motion.div>
@@ -242,11 +239,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
                         <motion.div
                             key={stage.id}
                             variants={itemVariants}
-                            className={`relative overflow-hidden rounded-[2rem] border transition-all duration-300 ${
-                                stage.locked
-                                    ? "bg-black/40 border-white/5 opacity-80 grayscale-[20%]"
-                                    : "bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1"
-                            }`}
+                            className="relative overflow-hidden rounded-[2rem] border transition-all duration-300 bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1"
                         >
                             <div className="p-8">
                                 <div className="flex justify-between items-start mb-8">
@@ -258,24 +251,11 @@ const Dashboard = ({ team_name, school_name, members }) => {
                                             {stage.title}
                                         </h3>
                                     </div>
-                                    <div
-                                        className={`p-3.5 rounded-2xl ${
-                                            stage.locked
-                                                ? "bg-white/5 border border-white/10"
-                                                : "bg-frosted-mint-500/20 border border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
-                                        }`}
-                                    >
-                                        {stage.locked ? (
-                                            <Lock
-                                                size={22}
-                                                className="text-slate-400"
-                                            />
-                                        ) : (
-                                            <CheckCircle2
-                                                size={22}
-                                                className="text-frosted-mint-400"
-                                            />
-                                        )}
+                                    <div className="p-3.5 rounded-2xl bg-frosted-mint-500/20 border border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
+                                        <CheckCircle2
+                                            size={22}
+                                            className="text-frosted-mint-400"
+                                        />
                                     </div>
                                 </div>
 
@@ -310,23 +290,10 @@ const Dashboard = ({ team_name, school_name, members }) => {
                                     </div>
                                 </div>
 
-                                <button
-                                    disabled={stage.locked}
-                                    className={`w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 ${
-                                        stage.locked
-                                            ? "bg-white/5 text-slate-500 cursor-not-allowed border border-white/5"
-                                            : "bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
-                                    }`}
-                                >
-                                    {stage.locked
-                                        ? "Terkunci"
-                                        : "Mulai Mengerjakan"}
+                                <button className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500">
+                                    Mulai Mengerjakan
                                 </button>
                             </div>
-
-                            {stage.locked && (
-                                <div className="absolute inset-0 bg-dark-spruce-950/10 pointer-events-none"></div>
-                            )}
                         </motion.div>
                     ))}
                 </motion.div>

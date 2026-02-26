@@ -6,6 +6,7 @@ use App\Models\ElsmartTeam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Cache;
 
 class ElsmartAuthController extends Controller
 {
@@ -115,4 +116,13 @@ class ElsmartAuthController extends Controller
             ]
         ]);
     }
+    public function checkGameStatus()
+{
+  
+    return response()->json([
+        'stage_1' => Cache::get('elsmart_stage_1', false),
+        'stage_2' => Cache::get('elsmart_stage_2', false),
+        'stage_3' => Cache::get('elsmart_stage_3', false),
+    ]);
+}
 }

@@ -5,6 +5,7 @@ use App\Models\ElsmartTeam;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class AdminAuthController extends Controller
 {
@@ -86,4 +87,14 @@ public function elsmartDashboard()
             'registeredTeams' => $teams 
         ]);
     }
+    public function toggleStage(Request $request)
+{
+    $stageId = $request->input('id');
+    $status = $request->input('isOpen');
+
+  
+    Cache::put('elsmart_stage_' . $stageId, $status, now()->addHours(24));
+
+    return response()->json(['success' => true]);
+}
 }
