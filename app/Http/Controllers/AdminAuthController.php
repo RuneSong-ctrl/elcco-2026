@@ -58,35 +58,40 @@ class AdminAuthController extends Controller
 
     
 public function elsmartDashboard()
-    {
-        $user = Session::get('admin_user');
-        
-      
-        if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART'])) {
-            return redirect()->route('admin.dashboard')->withErrors(['akses' => 'Anda tidak memiliki akses ke halaman ini.']);
-        }
-
-     
-        $teams = ElsmartTeam::all()->map(function($team) {
-            return [
-                'id' => $team->id,
-                'name' => $team->team_name,
-                'school' => $team->school_name,
-                'ketua' => $team->ketua_name,
-
-                't1' => 0, 
-                't2' => 0,
-                't3' => 0,
-                'total' => 0,
-                'status' => 'Terdaftar' 
-            ];
-        });
-
-        return Inertia::render('Admin/ElsmartDashboard', [
-            'admin_name' => $user,
-            'registeredTeams' => $teams 
-        ]);
+{
+    $user = Session::get('admin_user');
+    
+    if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART'])) {
+        return redirect()->route('admin.dashboard')->withErrors(['akses' => 'Anda tidak memiliki akses ke halaman ini.']);
     }
+
+    $teams = ElsmartTeam::all()->map(function($team) {
+        // Ambil skor dari database (default 0 jika null)
+        $t1 = $team->t1_score ?? 0;
+        $t2 = $team->t2_score ?? 0;
+        $t3 = $team->t3_score ?? 0;
+        $total = $t1 + $t2 + $t3;
+
+        return [
+            'id' => $team->id,
+            'name' => $team->team_name,
+            'school' => $team->school_name,
+            'ketua' => $team->ketua_name,
+            't1' => $t1,
+            't2' => $t2,
+            't3' => $t3,
+            'total' => $total,
+            // Status berubah jadi 'Selesai' jika sudah melewati semua tahap
+            'status' => ($team->current_stage === 'finished' || $t3 > 0) ? 'Selesai' : 'Terdaftar' 
+        ];
+    });
+
+    return Inertia::render('Admin/ElsmartDashboard', [
+        'admin_name' => $user,
+        'registeredTeams' => $teams 
+    ]);
+}
+
     public function toggleStage(Request $request)
 {
     $stageId = $request->input('id');

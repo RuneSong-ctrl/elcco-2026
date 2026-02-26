@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react"; // Tambahkan Link di sini
 import { motion } from "framer-motion";
 import {
     LogOut,
@@ -22,7 +22,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
         post("/elsmart/logout");
     };
 
-    // Semua tahap diatur agar tidak terkunci (locked: false)
+    // Tambahkan properti 'url' untuk masing-masing tahap penyisihan [cite: 103, 105]
     const stages = [
         {
             id: 1,
@@ -30,6 +30,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 1",
             duration: "30 Menit",
             questions: "40 Soal",
+            url: "/elsmart/quiz/multiple-choice", // URL tujuan
         },
         {
             id: 2,
@@ -37,6 +38,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 2",
             duration: "15 Menit",
             questions: "20 Kata",
+            url: "/elsmart/quiz/find-words", // URL tujuan
         },
         {
             id: 3,
@@ -44,6 +46,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 3",
             duration: "15 Menit",
             questions: "10 Pasang",
+            url: "/elsmart/quiz/match-the-box", // URL tujuan
         },
     ];
 
@@ -290,9 +293,13 @@ const Dashboard = ({ team_name, school_name, members }) => {
                                     </div>
                                 </div>
 
-                                <button className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500">
+                                {/* Gunakan Link untuk navigasi kuis */}
+                                <Link
+                                    href={stage.url}
+                                    className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
+                                >
                                     Mulai Mengerjakan
-                                </button>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}

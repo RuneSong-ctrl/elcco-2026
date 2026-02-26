@@ -98,7 +98,7 @@ class ElsmartAuthController extends Controller
         return redirect()->route('elsmart.login');
     }
 
-    public function dashboard()
+public function dashboard()
     {
         if (!session()->has('elsmart_team_id')) {
             return redirect()->route('elsmart.login');
@@ -112,17 +112,85 @@ class ElsmartAuthController extends Controller
             'members' => [
                 ['name' => $team->ketua_name ?? '-', 'role' => 'Ketua'],
                 ['name' => $team->anggota1_name ?? '-', 'role' => 'Anggota 1'],
-                ['name' => $team->anggota2_name ?? '-', 'role' => 'Anggota 2',],
+                ['name' => $team->anggota2_name ?? '-', 'role' => 'Anggota 2'],
             ]
         ]);
     }
-    public function checkGameStatus()
+
+    /**
+     * TAHAP 1: Multiple Choice [cite: 111, 125]
+     * 40 Soal, 30 Menit, Benar +2.5 
+     */
+   public function startStage1()
 {
-  
-    return response()->json([
-        'stage_1' => Cache::get('elsmart_stage_1', false),
-        'stage_2' => Cache::get('elsmart_stage_2', false),
-        'stage_3' => Cache::get('elsmart_stage_3', false),
+    
+    if (!session()->has('elsmart_team_id')) {
+        return redirect()->route('elsmart.login');
+    }
+
+    return Inertia::render('Elsmart/Quiz/MultipleChoice', [
+        'team_name' => session('elsmart_team_name'),
     ]);
 }
+
+public function submitStage1(Request $request)
+{
+    // Ambil ID tim dari session login
+    $teamId = session('elsmart_team_id');
+    if (!$teamId) return response()->json(['error' => 'Unauthorized'], 401);
+
+    $team = ElsmartTeam::find($teamId);
+
+    // Simpan hasil sesuai data yang dikirim dari React
+    $team->update([
+        't1_score' => $request->score, // Poin maksimal 100 [cite: 128, 137]
+        't1_time_used' => $request->time_used, // Digunakan untuk urutan ranking jika nilai sama [cite: 142]
+        'current_stage' => 't2' // Lanjut ke tahap berikutnya [cite: 107]
+    ]);
+
+    return redirect()->route('elsmart.dashboard')->with('success', 'Tahap 1 Selesai!');
+}
+
+    /**
+     * TAHAP 2: Find Words [cite: 112, 150]
+     * 20 Kata, 15 Menit, Benar +5 
+     */
+    public function startStage2()
+    {
+        if (!session()->has('elsmart_team_id')) return redirect()->route('elsmart.login');
+
+        return Inertia::render('Elsmart/Quiz/FindWords', [
+            'config' => [
+                'duration' => 15 * 60, // 15 menit dalam detik [cite: 170]
+                'total_words' => 20, 
+                'point_per_correct' => 5, 
+            ]
+        ]);
+    }
+
+    /**
+     * TAHAP 3: Match The Box [cite: 113, 188]
+     * 10 Pasang, 15 Menit, Benar +1 [cite: 204, 206, 210]
+     */
+    public function startStage3()
+    {
+        if (!session()->has('elsmart_team_id')) return redirect()->route('elsmart.login');
+
+        return Inertia::render('Elsmart/Quiz/MatchTheBox', [
+            'config' => [
+                'duration' => 15 * 60, // 15 menit dalam detik [cite: 206]
+                'total_pairs' => 10, 
+                'point_per_correct' => 10, // Disesuaikan agar Max Nilai 100 [cite: 207]
+            ]
+        ]);
+    }
+
+    public function checkGameStatus()
+    {
+        return response()->json([
+            'stage_1' => Cache::get('elsmart_stage_1', false),
+            'stage_2' => Cache::get('elsmart_stage_2', false),
+            'stage_3' => Cache::get('elsmart_stage_3', false),
+        ]);
+    }
 }
