@@ -397,10 +397,10 @@ const MultipleChoice = ({ team_name }) => {
     };
 
     const cardClass =
-        "bg-[#16202a] border border-[#2a3744] rounded-3xl shadow-xl overflow-hidden";
+        "bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden";
 
     return (
-        <div className="min-h-screen bg-[#0d141c] text-slate-200 font-sans p-4 md:p-8">
+        <div className="min-h-screen bg-fern-50 text-slate-800 font-sans p-4 md:p-8">
             <Head title="Tahap 1: Multiple Choice" />
 
             <div className="max-w-5xl mx-auto">
@@ -408,23 +408,31 @@ const MultipleChoice = ({ team_name }) => {
                     <div className="flex items-center gap-4">
                         <img src={elsmart} alt="Logo" className="h-12 w-auto" />
                         <div>
-                            <h1 className="text-xl font-bold text-white uppercase tracking-tight">
+                            <h1 className="text-xl font-bold text-dark-spruce-900 uppercase tracking-tight">
                                 Multiple Choice
                             </h1>
-                            <p className="text-xs text-frosted-mint-400 font-mono">
+                            <p className="text-sm text-fern-600 font-medium">
                                 Penyisihan Tahap 1
                             </p>
                         </div>
                     </div>
 
                     <div
-                        className={`flex items-center gap-3 px-6 py-3 rounded-2xl border ${timeLeft < 300 ? "bg-red-500/10 border-red-500/50 text-red-400" : "bg-[#16202a] border-[#2a3744] text-frosted-mint-400"}`}
+                        className={`flex items-center gap-3 px-6 py-3 rounded-2xl border bg-white shadow-sm ${
+                            timeLeft < 300
+                                ? "border-red-300 text-red-600"
+                                : "border-slate-200 text-dark-spruce-900"
+                        }`}
                     >
                         <Clock
                             size={20}
-                            className={timeLeft < 300 ? "animate-pulse" : ""}
+                            className={
+                                timeLeft < 300
+                                    ? "animate-pulse"
+                                    : "text-fern-500"
+                            }
                         />
-                        <span className="text-2xl font-black font-mono">
+                        <span className="text-2xl font-black font-mono tracking-widest">
                             {formatTime(timeLeft)}
                         </span>
                     </div>
@@ -435,58 +443,61 @@ const MultipleChoice = ({ team_name }) => {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentIndex}
-                                initial={{ opacity: 0, x: 20 }}
+                                initial={{ opacity: 0, x: 10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                transition={{ duration: 0.2 }}
                                 className={`${cardClass} p-8 md:p-12`}
                             >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span className="bg-frosted-mint-500 text-dark-spruce-950 px-3 py-1 rounded-lg font-black text-sm">
-                                        Soal {currentIndex + 1}
+                                <div className="flex items-center gap-4 mb-8">
+                                    <span className="bg-fern-100 text-fern-800 px-4 py-1.5 rounded-lg font-bold text-sm tracking-wide border border-fern-200">
+                                        Soal {currentIndex + 1} /{" "}
+                                        {questions.length}
                                     </span>
-                                    <div className="h-px flex-1 bg-[#2a3744]"></div>
+                                    <div className="h-px flex-1 bg-slate-100"></div>
                                 </div>
 
-                                <h2 className="text-lg md:text-xl font-semibold text-slate-100 leading-relaxed mb-10">
+                                <h2 className="text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed mb-10">
                                     {questions[currentIndex].q}
                                 </h2>
 
                                 <div className="space-y-4">
                                     {questions[currentIndex].a.map(
-                                        (option, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() =>
-                                                    handleSelect(
-                                                        currentIndex,
-                                                        idx,
-                                                    )
-                                                }
-                                                className={`w-full text-left p-5 rounded-2xl border transition-all flex items-center gap-4 group ${
-                                                    answers[currentIndex] ===
-                                                    idx
-                                                        ? "bg-frosted-mint-500/10 border-frosted-mint-500 text-white shadow-[0_0_20px_rgba(81,186,69,0.1)]"
-                                                        : "bg-[#0d141c] border-[#2a3744] hover:border-slate-500 text-slate-400"
-                                                }`}
-                                            >
-                                                <span
-                                                    className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold border transition-colors ${
-                                                        answers[
-                                                            currentIndex
-                                                        ] === idx
-                                                            ? "bg-frosted-mint-500 border-frosted-mint-500 text-dark-spruce-950"
-                                                            : "bg-[#16202a] border-[#2a3744] group-hover:border-slate-500"
+                                        (option, idx) => {
+                                            const isSelected =
+                                                answers[currentIndex] === idx;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() =>
+                                                        handleSelect(
+                                                            currentIndex,
+                                                            idx,
+                                                        )
+                                                    }
+                                                    className={`w-full text-left p-5 rounded-2xl border-2 transition-all duration-200 flex items-center gap-5 group ${
+                                                        isSelected
+                                                            ? "bg-frosted-mint-50 border-frosted-mint-500 text-dark-spruce-900"
+                                                            : "bg-white border-slate-200 hover:bg-fern-50 hover:border-fern-300 text-slate-700"
                                                     }`}
                                                 >
-                                                    {String.fromCharCode(
-                                                        65 + idx,
-                                                    )}
-                                                </span>
-                                                <span className="font-medium text-base">
-                                                    {option}
-                                                </span>
-                                            </button>
-                                        ),
+                                                    <span
+                                                        className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold border transition-colors ${
+                                                            isSelected
+                                                                ? "bg-frosted-mint-500 border-frosted-mint-500 text-white"
+                                                                : "bg-slate-50 border-slate-200 group-hover:border-fern-300 group-hover:bg-white text-slate-500 group-hover:text-fern-600"
+                                                        }`}
+                                                    >
+                                                        {String.fromCharCode(
+                                                            65 + idx,
+                                                        )}
+                                                    </span>
+                                                    <span className="font-medium text-lg leading-snug">
+                                                        {option}
+                                                    </span>
+                                                </button>
+                                            );
+                                        },
                                     )}
                                 </div>
                             </motion.div>
@@ -498,15 +509,15 @@ const MultipleChoice = ({ team_name }) => {
                                 onClick={() =>
                                     setCurrentIndex(currentIndex - 1)
                                 }
-                                className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-slate-400 hover:text-white disabled:opacity-30 transition-all"
+                                className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-slate-800 hover:text-dark-spruce-900 hover:bg-slate-200 disabled:opacity-30 disabled:hover:bg-transparent transition-all"
                             >
-                                <ChevronLeft size={20} /> Kembali
+                                <ChevronLeft size={20} /> Sebelumnya
                             </button>
 
                             {currentIndex === questions.length - 1 ? (
                                 <button
                                     onClick={() => setShowWarning(true)}
-                                    className="flex items-center gap-2 px-8 py-3 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white rounded-xl font-bold shadow-lg shadow-frosted-mint-600/20 transition-all active:scale-95"
+                                    className="flex items-center gap-2 px-8 py-3 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white rounded-xl font-bold shadow-md shadow-frosted-mint-600/20 transition-all active:scale-95"
                                 >
                                     Selesai Ujian <Send size={18} />
                                 </button>
@@ -515,7 +526,7 @@ const MultipleChoice = ({ team_name }) => {
                                     onClick={() =>
                                         setCurrentIndex(currentIndex + 1)
                                     }
-                                    className="flex items-center gap-2 px-8 py-3 bg-[#16202a] border border-[#2a3744] hover:border-frosted-mint-500 text-white rounded-xl font-bold transition-all active:scale-95"
+                                    className="flex items-center gap-2 px-8 py-3 bg-dark-spruce-900 hover:bg-fern-700 text-white rounded-xl font-bold transition-all shadow-md active:scale-95"
                                 >
                                     Selanjutnya <ChevronRight size={20} />
                                 </button>
@@ -524,45 +535,51 @@ const MultipleChoice = ({ team_name }) => {
                     </div>
 
                     <div className="lg:col-span-1">
-                        <div className={`${cardClass} p-6 sticky top-24`}>
-                            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
+                        <div className={`${cardClass} p-6 sticky top-8`}>
+                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">
                                 Navigasi Soal
                             </h3>
                             <div className="grid grid-cols-5 gap-2">
-                                {questions.map((_, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setCurrentIndex(idx)}
-                                        className={`h-10 rounded-lg text-xs font-bold transition-all border ${
-                                            currentIndex === idx
-                                                ? "bg-white border-white text-dark-spruce-950 scale-110 shadow-lg"
-                                                : answers[idx] !== undefined
-                                                  ? "bg-frosted-mint-500/20 border-frosted-mint-500/50 text-frosted-mint-400"
-                                                  : "bg-[#0d141c] border-[#2a3744] text-slate-500 hover:border-slate-400"
-                                        }`}
-                                    >
-                                        {idx + 1}
-                                    </button>
-                                ))}
+                                {questions.map((_, idx) => {
+                                    const isAnswered =
+                                        answers[idx] !== undefined;
+                                    const isCurrent = currentIndex === idx;
+
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setCurrentIndex(idx)}
+                                            className={`h-10 rounded-lg text-sm font-semibold transition-all border ${
+                                                isCurrent
+                                                    ? "bg-dark-spruce-900 border-dark-spruce-900 text-white scale-105 shadow-md z-10"
+                                                    : isAnswered
+                                                      ? "bg-frosted-mint-500 border-frosted-mint-600 text-white"
+                                                      : "bg-slate-50 border-slate-200 text-slate-500 hover:border-fern-400 hover:bg-fern-50"
+                                            }`}
+                                        >
+                                            {idx + 1}
+                                        </button>
+                                    );
+                                })}
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-[#2a3744]">
-                                <div className="flex justify-between text-xs font-bold text-slate-500 uppercase mb-4">
+                            <div className="mt-8 pt-6 border-t border-slate-100">
+                                <div className="flex justify-between text-xs font-bold text-slate-500 uppercase mb-3">
                                     <span>Progress</span>
-                                    <span>
-                                        {Math.round(
-                                            (Object.keys(answers).length /
-                                                questions.length) *
-                                                100,
-                                        )}
-                                        %
+                                    <span className="text-fern-600">
+                                        {Object.keys(answers).length} /{" "}
+                                        {questions.length} Terjawab
                                     </span>
                                 </div>
-                                <div className="w-full h-2 bg-[#0d141c] rounded-full overflow-hidden border border-[#2a3744]">
+                                <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-frosted-mint-500 transition-all duration-500"
+                                        className="h-full bg-frosted-mint-500 transition-all duration-500 ease-out"
                                         style={{
-                                            width: `${(Object.keys(answers).length / questions.length) * 100}%`,
+                                            width: `${
+                                                (Object.keys(answers).length /
+                                                    questions.length) *
+                                                100
+                                            }%`,
                                         }}
                                     ></div>
                                 </div>
@@ -573,19 +590,19 @@ const MultipleChoice = ({ team_name }) => {
             </div>
 
             {showWarning && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0d141c]/90 backdrop-blur-sm">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
                     <motion.div
-                        initial={{ scale: 0.9, opacity: 0 }}
+                        initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="bg-[#16202a] border border-[#2a3744] p-8 rounded-[2.5rem] max-w-md w-full shadow-2xl text-center"
+                        className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-slate-100"
                     >
-                        <div className="w-20 h-20 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-500/20">
+                        <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
                             <AlertCircle size={40} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-3">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-3">
                             Selesaikan Ujian?
                         </h2>
-                        <p className="text-slate-400 mb-8 leading-relaxed">
+                        <p className="text-slate-500 mb-8 leading-relaxed text-sm">
                             Pastikan semua jawaban sudah terisi dengan benar.
                             Anda tidak dapat mengulang tahap ini setelah menekan
                             tombol konfirmasi.
@@ -593,13 +610,13 @@ const MultipleChoice = ({ team_name }) => {
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowWarning(false)}
-                                className="flex-1 py-4 bg-[#0d141c] border border-[#2a3744] text-slate-300 rounded-2xl font-bold hover:bg-[#1a2530] transition-all"
+                                className="flex-1 py-3.5 bg-slate-100 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all"
                             >
                                 Periksa Lagi
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="flex-1 py-4 bg-frosted-mint-600 text-white rounded-2xl font-bold hover:bg-frosted-mint-500 transition-all shadow-lg shadow-frosted-mint-600/20"
+                                className="flex-1 py-3.5 bg-frosted-mint-600 text-white rounded-xl font-bold hover:bg-frosted-mint-500 transition-all shadow-md shadow-frosted-mint-600/20"
                             >
                                 Ya, Kirim!
                             </button>
