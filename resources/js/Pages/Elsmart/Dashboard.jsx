@@ -1,5 +1,6 @@
-import React from "react";
-import { Head, useForm, Link } from "@inertiajs/react"; // Tambahkan Link di sini
+import React, { useState, useEffect } from "react";
+import { Head, useForm, Link } from "@inertiajs/react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import {
     LogOut,
@@ -11,18 +12,37 @@ import {
     Users,
     GraduationCap,
     Trophy,
+    Lock,
 } from "lucide-react";
 import elsmart from "/public/images/elsmart.png";
 
 const Dashboard = ({ team_name, school_name, members }) => {
     const { post } = useForm();
+    const [gameStatus, setGameStatus] = useState({
+        stage_1: false,
+        stage_2: false,
+        stage_3: false,
+    });
+
+    useEffect(() => {
+        const fetchStatus = () => {
+            axios
+                .get("/elsmart/game-status")
+                .then((response) => setGameStatus(response.data))
+                .catch((error) => console.error(error));
+        };
+
+        fetchStatus();
+        const intervalId = setInterval(fetchStatus, 3000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     const handleLogout = (e) => {
         e.preventDefault();
         post("/elsmart/logout");
     };
 
-    // Tambahkan properti 'url' untuk masing-masing tahap penyisihan [cite: 103, 105]
     const stages = [
         {
             id: 1,
@@ -30,7 +50,8 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 1",
             duration: "30 Menit",
             questions: "40 Soal",
-            url: "/elsmart/quiz/multiple-choice", // URL tujuan
+            url: "/elsmart/quiz/multiple-choice",
+            isOpen: gameStatus.stage_1,
         },
         {
             id: 2,
@@ -38,7 +59,8 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 2",
             duration: "15 Menit",
             questions: "20 Kata",
-            url: "/elsmart/quiz/find-words", // URL tujuan
+            url: "/elsmart/quiz/find-words",
+            isOpen: gameStatus.stage_2,
         },
         {
             id: 3,
@@ -46,7 +68,8 @@ const Dashboard = ({ team_name, school_name, members }) => {
             subtitle: "Tahap 3",
             duration: "15 Menit",
             questions: "10 Pasang",
-            url: "/elsmart/quiz/match-the-box", // URL tujuan
+            url: "/elsmart/quiz/match-the-box",
+            isOpen: gameStatus.stage_3,
         },
     ];
 
@@ -101,7 +124,6 @@ const Dashboard = ({ team_name, school_name, members }) => {
                             <button
                                 onClick={handleLogout}
                                 className="p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-full transition-colors border border-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
-                                title="Keluar"
                             >
                                 <LogOut size={18} />
                             </button>
@@ -209,8 +231,8 @@ const Dashboard = ({ team_name, school_name, members }) => {
                             Peserta dilarang membuka tab, aplikasi, atau website
                             lain selama proses perlombaan berlangsung. Segala
                             bentuk kecurangan akan mengakibatkan diskualifikasi.
-                            Anda dapat langsung memulai pengerjaan tahap lomba
-                            di bawah ini.
+                            Anda dapat memulai pengerjaan setelah akses dibuka
+                            oleh Game Master.
                         </p>
                     </div>
                 </motion.div>
@@ -242,7 +264,11 @@ const Dashboard = ({ team_name, school_name, members }) => {
                         <motion.div
                             key={stage.id}
                             variants={itemVariants}
-                            className="relative overflow-hidden rounded-[2rem] border transition-all duration-300 bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1"
+                            className={`relative overflow-hidden rounded-[2rem] border transition-all duration-300 ${
+                                stage.isOpen
+                                    ? "bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1"
+                                    : "bg-black/40 border-white/5 opacity-80 grayscale-[20%]"
+                            }`}
                         >
                             <div className="p-8">
                                 <div className="flex justify-between items-start mb-8">
@@ -254,11 +280,24 @@ const Dashboard = ({ team_name, school_name, members }) => {
                                             {stage.title}
                                         </h3>
                                     </div>
-                                    <div className="p-3.5 rounded-2xl bg-frosted-mint-500/20 border border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
-                                        <CheckCircle2
-                                            size={22}
-                                            className="text-frosted-mint-400"
-                                        />
+                                    <div
+                                        className={`p-3.5 rounded-2xl border ${
+                                            stage.isOpen
+                                                ? "bg-frosted-mint-500/20 border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+                                                : "bg-white/5 border-white/10"
+                                        }`}
+                                    >
+                                        {stage.isOpen ? (
+                                            <CheckCircle2
+                                                size={22}
+                                                className="text-frosted-mint-400"
+                                            />
+                                        ) : (
+                                            <Lock
+                                                size={22}
+                                                className="text-slate-400"
+                                            />
+                                        )}
                                     </div>
                                 </div>
 
@@ -293,14 +332,26 @@ const Dashboard = ({ team_name, school_name, members }) => {
                                     </div>
                                 </div>
 
-                                {/* Gunakan Link untuk navigasi kuis */}
-                                <Link
-                                    href={stage.url}
-                                    className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
-                                >
-                                    Mulai Mengerjakan
-                                </Link>
+                                {stage.isOpen ? (
+                                    <Link
+                                        href={stage.url}
+                                        className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
+                                    >
+                                        Mulai Mengerjakan
+                                    </Link>
+                                ) : (
+                                    <button
+                                        disabled
+                                        className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 text-slate-500 cursor-not-allowed border border-white/5"
+                                    >
+                                        Terkunci
+                                    </button>
+                                )}
                             </div>
+
+                            {!stage.isOpen && (
+                                <div className="absolute inset-0 bg-dark-spruce-950/10 pointer-events-none"></div>
+                            )}
                         </motion.div>
                     ))}
                 </motion.div>

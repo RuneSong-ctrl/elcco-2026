@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\ElsmartTeam;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,7 +13,6 @@ class AdminAuthController extends Controller
     public function showLoginForm()
     {
         if (Session::has('admin_user')) {
-   
             if (Session::get('admin_user') === 'Game Master ELSMART') {
                 return redirect()->route('admin.elsmart.dashboard');
             }
@@ -24,7 +24,6 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-       
         $allowedAdmins = [
             'SuperAdminELCCO',
             'Sekretaris ELCCO',
@@ -35,14 +34,11 @@ class AdminAuthController extends Controller
         $globalPassword = 'FosteringTheYouth2026';
 
         if (in_array($request->username, $allowedAdmins) && $request->password === $globalPassword) {
-            
             Session::put('admin_user', $request->username);
-            
             
             if ($request->username === 'Game Master ELSMART') {
                 return redirect()->route('admin.elsmart.dashboard');
             }
-            
             
             return redirect()->route('admin.dashboard');
         }
@@ -56,50 +52,53 @@ class AdminAuthController extends Controller
         return redirect()->route('admin.login');
     }
 
-    
-public function elsmartDashboard()
-{
-    $user = Session::get('admin_user');
-    
-    if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART'])) {
-        return redirect()->route('admin.dashboard')->withErrors(['akses' => 'Anda tidak memiliki akses ke halaman ini.']);
+    public function elsmartDashboard()
+    {
+        $user = Session::get('admin_user');
+        
+        if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART'])) {
+            return redirect()->route('admin.dashboard')->withErrors(['akses' => 'Anda tidak memiliki akses ke halaman ini.']);
+        }
+
+        $teams = ElsmartTeam::all()->map(function($team) {
+            $t1 = $team->t1_score ?? 0;
+            $t2 = $team->t2_score ?? 0;
+            $t3 = $team->t3_score ?? 0;
+            $total = $t1 + $t2 + $t3;
+
+            return [
+                'id' => $team->id,
+                'name' => $team->team_name,
+                'school' => $team->school_name,
+                'ketua' => $team->ketua_name,
+                't1' => $t1,
+                't2' => $t2,
+                't3' => $t3,
+                'total' => $total,
+                'status' => ($team->current_stage === 'finished' || $t3 > 0) ? 'Selesai' : 'Terdaftar' 
+            ];
+        });
+
+        $gameStatus = [
+            'stage_1' => Cache::get('elsmart_stage_1', false),
+            'stage_2' => Cache::get('elsmart_stage_2', false),
+            'stage_3' => Cache::get('elsmart_stage_3', false),
+        ];
+
+        return Inertia::render('Admin/ElsmartDashboard', [
+            'admin_name' => $user,
+            'registeredTeams' => $teams,
+            'gameStatus' => $gameStatus
+        ]);
     }
 
-    $teams = ElsmartTeam::all()->map(function($team) {
-        // Ambil skor dari database (default 0 jika null)
-        $t1 = $team->t1_score ?? 0;
-        $t2 = $team->t2_score ?? 0;
-        $t3 = $team->t3_score ?? 0;
-        $total = $t1 + $t2 + $t3;
-
-        return [
-            'id' => $team->id,
-            'name' => $team->team_name,
-            'school' => $team->school_name,
-            'ketua' => $team->ketua_name,
-            't1' => $t1,
-            't2' => $t2,
-            't3' => $t3,
-            'total' => $total,
-            // Status berubah jadi 'Selesai' jika sudah melewati semua tahap
-            'status' => ($team->current_stage === 'finished' || $t3 > 0) ? 'Selesai' : 'Terdaftar' 
-        ];
-    });
-
-    return Inertia::render('Admin/ElsmartDashboard', [
-        'admin_name' => $user,
-        'registeredTeams' => $teams 
-    ]);
-}
-
     public function toggleStage(Request $request)
-{
-    $stageId = $request->input('id');
-    $status = $request->input('isOpen');
+    {
+        $stageId = $request->input('id');
+        $status = $request->input('isOpen');
 
-  
-    Cache::put('elsmart_stage_' . $stageId, $status, now()->addHours(24));
+        Cache::put('elsmart_stage_' . $stageId, $status, now()->addHours(24));
 
-    return response()->json(['success' => true]);
-}
+        return response()->json(['success' => true]);
+    }
 }
