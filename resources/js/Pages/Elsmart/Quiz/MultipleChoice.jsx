@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Clock,
@@ -7,7 +7,6 @@ import {
     ChevronRight,
     Send,
     AlertCircle,
-    CheckCircle2,
 } from "lucide-react";
 import elsmart from "/public/images/elsmart.png";
 
@@ -356,12 +355,6 @@ const MultipleChoice = ({ team_name }) => {
     const [timeLeft, setTimeLeft] = useState(30 * 60);
     const [showWarning, setShowWarning] = useState(false);
 
-    const { data, setData, post, processing } = useForm({
-        answers: {},
-        time_used: 0,
-        score: 0,
-    });
-
     useEffect(() => {
         if (timeLeft <= 0) {
             handleSubmit();
@@ -387,12 +380,10 @@ const MultipleChoice = ({ team_name }) => {
             if (answers[idx] === q.correct) score += 2.5;
         });
 
-        post("/elsmart/quiz/submit", {
-            data: {
-                answers,
-                time_used: 30 * 60 - timeLeft,
-                score: score,
-            },
+        router.post("/elsmart/quiz/submit", {
+            answers: answers,
+            time_used: 30 * 60 - timeLeft,
+            score: score,
         });
     };
 

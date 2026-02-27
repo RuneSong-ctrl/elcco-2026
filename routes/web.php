@@ -47,6 +47,8 @@ Route::get('/elsmart/game-status', [App\Http\Controllers\ElsmartAuthController::
 Route::get('/elsmart/quiz/multiple-choice', [ElsmartAuthController::class, 'startStage1'])->name('elsmart.stage1');
 Route::get('/elsmart/quiz/find-words', [ElsmartAuthController::class, 'startStage2'])->name('elsmart.stage2');
 Route::get('/elsmart/quiz/match-the-box', [ElsmartAuthController::class, 'startStage3'])->name('elsmart.stage3');
-Route::post('/elsmart/quiz/submit', [ElsmartAuthController::class, 'submitStage1'])->name('elsmart.quiz.submit');
+Route::post('/elsmart/quiz/submit', [ElsmartAuthController::class, 'submitStage1'])->name('elsmart.stage1.submit');
+Route::post('/elsmart/quiz/submit-stage2', [ElsmartAuthController::class, 'submitStage2'])->name('elsmart.stage2.submit');
+Route::post('/elsmart/quiz/submit-stage3', [ElsmartAuthController::class, 'submitStage3'])->name('elsmart.stage3.submit');
 
 require __DIR__.'/auth.php';

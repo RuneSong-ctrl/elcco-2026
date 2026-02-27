@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import {
     Clock,
@@ -516,12 +516,6 @@ const FindWords = ({ team_name }) => {
 
     const gridRef = useRef(null);
 
-    const { post } = useForm({
-        time_used: 0,
-        score: 0,
-        found_words: [],
-    });
-
     useEffect(() => {
         if (timeLeft <= 0) {
             handleSubmit();
@@ -623,12 +617,10 @@ const FindWords = ({ team_name }) => {
 
     const handleSubmit = () => {
         const score = foundWords.length * 10;
-        post("/elsmart/quiz/submit-stage2", {
-            data: {
-                found_words: foundWords,
-                time_used: 15 * 60 - timeLeft,
-                score: score,
-            },
+        router.post("/elsmart/quiz/submit-stage2", {
+            found_words: foundWords,
+            time_used: 15 * 60 - timeLeft,
+            score: score,
         });
     };
 

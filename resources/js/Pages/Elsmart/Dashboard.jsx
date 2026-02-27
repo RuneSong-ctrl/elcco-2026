@@ -13,10 +13,11 @@ import {
     GraduationCap,
     Trophy,
     Lock,
+    CheckCircle,
 } from "lucide-react";
 import elsmart from "/public/images/elsmart.png";
 
-const Dashboard = ({ team_name, school_name, members }) => {
+const Dashboard = ({ team_name, school_name, members, current_stage }) => {
     const { post } = useForm();
     const [gameStatus, setGameStatus] = useState({
         stage_1: false,
@@ -43,6 +44,13 @@ const Dashboard = ({ team_name, school_name, members }) => {
         post("/elsmart/logout");
     };
 
+    const isStageCompleted = (stageId) => {
+        if (current_stage === "finished") return true;
+        if (current_stage === "t3" && stageId < 3) return true;
+        if (current_stage === "t2" && stageId < 2) return true;
+        return false;
+    };
+
     const stages = [
         {
             id: 1,
@@ -52,15 +60,17 @@ const Dashboard = ({ team_name, school_name, members }) => {
             questions: "40 Soal",
             url: "/elsmart/quiz/multiple-choice",
             isOpen: gameStatus.stage_1,
+            isCompleted: isStageCompleted(1),
         },
         {
             id: 2,
             title: "Find Words",
             subtitle: "Tahap 2",
             duration: "15 Menit",
-            questions: "20 Kata",
+            questions: "10 Kata",
             url: "/elsmart/quiz/find-words",
             isOpen: gameStatus.stage_2,
+            isCompleted: isStageCompleted(2),
         },
         {
             id: 3,
@@ -70,6 +80,7 @@ const Dashboard = ({ team_name, school_name, members }) => {
             questions: "10 Pasang",
             url: "/elsmart/quiz/match-the-box",
             isOpen: gameStatus.stage_3,
+            isCompleted: isStageCompleted(3),
         },
     ];
 
@@ -214,28 +225,54 @@ const Dashboard = ({ team_name, school_name, members }) => {
                     </div>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-amber-900/20 border border-amber-500/30 rounded-2xl p-6 mb-10 flex items-start gap-5 shadow-md"
-                >
-                    <div className="p-3 bg-amber-500/20 rounded-xl shrink-0">
-                        <AlertTriangle className="text-amber-400" size={26} />
-                    </div>
-                    <div>
-                        <h3 className="text-lg text-amber-400 font-bold mb-2">
-                            Perhatian Peserta!
-                        </h3>
-                        <p className="text-base text-slate-300 leading-relaxed">
-                            Peserta dilarang membuka tab, aplikasi, atau website
-                            lain selama proses perlombaan berlangsung. Segala
-                            bentuk kecurangan akan mengakibatkan diskualifikasi.
-                            Anda dapat memulai pengerjaan setelah akses dibuka
-                            oleh Game Master.
-                        </p>
-                    </div>
-                </motion.div>
+                {current_stage === "finished" ? (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-gradient-to-r from-frosted-mint-600/20 to-transparent border border-frosted-mint-500/30 rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-center gap-5 shadow-md text-center md:text-left"
+                    >
+                        <div className="p-4 bg-frosted-mint-500 rounded-full shrink-0 shadow-[0_0_20px_rgba(81,186,69,0.4)]">
+                            <CheckCircle className="text-white" size={32} />
+                        </div>
+                        <div>
+                            <h3 className="text-xl text-frosted-mint-400 font-bold mb-1">
+                                Seluruh Tahap Selesai!
+                            </h3>
+                            <p className="text-slate-300">
+                                Terima kasih telah berpartisipasi dalam ELSMART
+                                2026. Silakan pantau informasi selanjutnya dari
+                                panitia.
+                            </p>
+                        </div>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-amber-900/20 border border-amber-500/30 rounded-2xl p-6 mb-10 flex items-start gap-5 shadow-md"
+                    >
+                        <div className="p-3 bg-amber-500/20 rounded-xl shrink-0">
+                            <AlertTriangle
+                                className="text-amber-400"
+                                size={26}
+                            />
+                        </div>
+                        <div>
+                            <h3 className="text-lg text-amber-400 font-bold mb-2">
+                                Perhatian Peserta!
+                            </h3>
+                            <p className="text-base text-slate-300 leading-relaxed">
+                                Peserta dilarang membuka tab, aplikasi, atau
+                                website lain selama proses perlombaan
+                                berlangsung. Segala bentuk kecurangan akan
+                                mengakibatkan diskualifikasi. Anda dapat memulai
+                                pengerjaan setelah akses dibuka oleh Game
+                                Master.
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
 
                 <div className="mb-6 flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -260,100 +297,122 @@ const Dashboard = ({ team_name, school_name, members }) => {
                     animate="visible"
                     className="grid grid-cols-1 md:grid-cols-3 gap-6"
                 >
-                    {stages.map((stage) => (
-                        <motion.div
-                            key={stage.id}
-                            variants={itemVariants}
-                            className={`relative overflow-hidden rounded-[2rem] border transition-all duration-300 ${
-                                stage.isOpen
-                                    ? "bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1"
-                                    : "bg-black/40 border-white/5 opacity-80 grayscale-[20%]"
-                            }`}
-                        >
-                            <div className="p-8">
-                                <div className="flex justify-between items-start mb-8">
-                                    <div>
-                                        <p className="text-sm font-bold text-frosted-mint-400 uppercase tracking-widest mb-1.5 opacity-90">
-                                            {stage.subtitle}
-                                        </p>
-                                        <h3 className="text-2xl font-bold text-white leading-tight">
-                                            {stage.title}
-                                        </h3>
+                    {stages.map((stage) => {
+                        const isLockedByAdmin = !stage.isOpen;
+                        const isDone = stage.isCompleted;
+
+                        let cardStyle =
+                            "bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1";
+                        if (isDone)
+                            cardStyle =
+                                "bg-frosted-mint-900/20 border-frosted-mint-500/30 opacity-90";
+                        else if (isLockedByAdmin)
+                            cardStyle =
+                                "bg-black/40 border-white/5 opacity-80 grayscale-[20%]";
+
+                        return (
+                            <motion.div
+                                key={stage.id}
+                                variants={itemVariants}
+                                className={`relative overflow-hidden rounded-[2rem] border transition-all duration-300 ${cardStyle}`}
+                            >
+                                <div className="p-8">
+                                    <div className="flex justify-between items-start mb-8">
+                                        <div>
+                                            <p className="text-sm font-bold text-frosted-mint-400 uppercase tracking-widest mb-1.5 opacity-90">
+                                                {stage.subtitle}
+                                            </p>
+                                            <h3 className="text-2xl font-bold text-white leading-tight">
+                                                {stage.title}
+                                            </h3>
+                                        </div>
+                                        <div
+                                            className={`p-3.5 rounded-2xl border ${
+                                                isDone
+                                                    ? "bg-frosted-mint-500 text-white shadow-[0_0_15px_rgba(81,186,69,0.5)] border-transparent"
+                                                    : stage.isOpen
+                                                      ? "bg-frosted-mint-500/20 border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+                                                      : "bg-white/5 border-white/10"
+                                            }`}
+                                        >
+                                            {isDone ? (
+                                                <CheckCircle size={22} />
+                                            ) : stage.isOpen ? (
+                                                <CheckCircle2
+                                                    size={22}
+                                                    className="text-frosted-mint-400"
+                                                />
+                                            ) : (
+                                                <Lock
+                                                    size={22}
+                                                    className="text-slate-400"
+                                                />
+                                            )}
+                                        </div>
                                     </div>
-                                    <div
-                                        className={`p-3.5 rounded-2xl border ${
-                                            stage.isOpen
-                                                ? "bg-frosted-mint-500/20 border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
-                                                : "bg-white/5 border-white/10"
-                                        }`}
-                                    >
-                                        {stage.isOpen ? (
-                                            <CheckCircle2
-                                                size={22}
-                                                className="text-frosted-mint-400"
-                                            />
-                                        ) : (
-                                            <Lock
-                                                size={22}
-                                                className="text-slate-400"
-                                            />
-                                        )}
+
+                                    <div className="space-y-4 mb-10">
+                                        <div className="flex items-center gap-3 text-base text-slate-300">
+                                            <div className="p-1.5 bg-white/5 rounded-lg">
+                                                <Clock
+                                                    size={18}
+                                                    className="text-slate-400"
+                                                />
+                                            </div>
+                                            <span>
+                                                Waktu:{" "}
+                                                <strong className="text-white font-semibold ml-1">
+                                                    {stage.duration}
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-3 text-base text-slate-300">
+                                            <div className="p-1.5 bg-white/5 rounded-lg">
+                                                <FileText
+                                                    size={18}
+                                                    className="text-slate-400"
+                                                />
+                                            </div>
+                                            <span>
+                                                Jumlah:{" "}
+                                                <strong className="text-white font-semibold ml-1">
+                                                    {stage.questions}
+                                                </strong>
+                                            </span>
+                                        </div>
                                     </div>
+
+                                    {isDone ? (
+                                        <button
+                                            disabled
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-frosted-mint-900/40 text-frosted-mint-400 cursor-not-allowed border border-frosted-mint-500/30"
+                                        >
+                                            <CheckCircle size={18} /> Selesai
+                                            Dikerjakan
+                                        </button>
+                                    ) : stage.isOpen ? (
+                                        <Link
+                                            href={stage.url}
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
+                                        >
+                                            Mulai Mengerjakan
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            disabled
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 text-slate-500 cursor-not-allowed border border-white/5"
+                                        >
+                                            <Lock size={16} /> Terkunci
+                                        </button>
+                                    )}
                                 </div>
 
-                                <div className="space-y-4 mb-10">
-                                    <div className="flex items-center gap-3 text-base text-slate-300">
-                                        <div className="p-1.5 bg-white/5 rounded-lg">
-                                            <Clock
-                                                size={18}
-                                                className="text-slate-400"
-                                            />
-                                        </div>
-                                        <span>
-                                            Waktu:{" "}
-                                            <strong className="text-white font-semibold ml-1">
-                                                {stage.duration}
-                                            </strong>
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-base text-slate-300">
-                                        <div className="p-1.5 bg-white/5 rounded-lg">
-                                            <FileText
-                                                size={18}
-                                                className="text-slate-400"
-                                            />
-                                        </div>
-                                        <span>
-                                            Jumlah:{" "}
-                                            <strong className="text-white font-semibold ml-1">
-                                                {stage.questions}
-                                            </strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {stage.isOpen ? (
-                                    <Link
-                                        href={stage.url}
-                                        className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
-                                    >
-                                        Mulai Mengerjakan
-                                    </Link>
-                                ) : (
-                                    <button
-                                        disabled
-                                        className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 text-slate-500 cursor-not-allowed border border-white/5"
-                                    >
-                                        Terkunci
-                                    </button>
+                                {isLockedByAdmin && !isDone && (
+                                    <div className="absolute inset-0 bg-dark-spruce-950/10 pointer-events-none"></div>
                                 )}
-                            </div>
-
-                            {!stage.isOpen && (
-                                <div className="absolute inset-0 bg-dark-spruce-950/10 pointer-events-none"></div>
-                            )}
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        );
+                    })}
                 </motion.div>
             </main>
         </div>

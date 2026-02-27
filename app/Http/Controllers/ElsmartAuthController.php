@@ -104,6 +104,7 @@ class ElsmartAuthController extends Controller
         return Inertia::render('Elsmart/Dashboard', [
             'team_name' => $team->team_name,
             'school_name' => $team->school_name ?? 'Tidak ada data',
+            'current_stage' => $team->current_stage,
             'members' => [
                 ['name' => $team->ketua_name ?? '-', 'role' => 'Ketua'],
                 ['name' => $team->anggota1_name ?? '-', 'role' => 'Anggota 1'],

@@ -16,6 +16,13 @@ class ElsmartTeam extends Model
         'anggota1_name',
         'anggota2_name',
         'password',
+        't1_score',
+        't2_score',
+        't3_score',
+        't1_time_used',
+        't2_time_used',
+        't3_time_used',
+        'current_stage',
     ];
 
     protected $hidden = [

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Clock,
@@ -41,12 +41,6 @@ const MatchTheBox = ({ team_name }) => {
     const [answers, setAnswers] = useState({});
     const [showWarning, setShowWarning] = useState(false);
 
-    const { post } = useForm({
-        answers: {},
-        time_used: 0,
-        score: 0,
-    });
-
     useEffect(() => {
         if (timeLeft <= 0) {
             handleSubmit();
@@ -72,12 +66,10 @@ const MatchTheBox = ({ team_name }) => {
             if (answers[item.id] === item.correct) score += 10;
         });
 
-        post("/elsmart/quiz/submit-stage3", {
-            data: {
-                answers,
-                time_used: 15 * 60 - timeLeft,
-                score: score,
-            },
+        router.post("/elsmart/quiz/submit-stage3", {
+            answers: answers,
+            time_used: 15 * 60 - timeLeft,
+            score: score,
         });
     };
 
