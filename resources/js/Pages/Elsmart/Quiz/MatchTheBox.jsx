@@ -40,6 +40,7 @@ const MatchTheBox = ({ team_name }) => {
     const [timeLeft, setTimeLeft] = useState(15 * 60);
     const [answers, setAnswers] = useState({});
     const [showWarning, setShowWarning] = useState(false);
+    const [hasCheated, setHasCheated] = useState(false);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -50,6 +51,26 @@ const MatchTheBox = ({ team_name }) => {
         return () => clearInterval(timer);
     }, [timeLeft]);
 
+    useEffect(() => {
+        const handleCheating = () => {
+            if (document.visibilityState === "hidden" || document.hidden) {
+                setHasCheated(true);
+            }
+        };
+
+        const handleBlur = () => {
+            setHasCheated(true);
+        };
+
+        document.addEventListener("visibilitychange", handleCheating);
+        window.addEventListener("blur", handleBlur);
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleCheating);
+            window.removeEventListener("blur", handleBlur);
+        };
+    }, []);
+
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -57,6 +78,7 @@ const MatchTheBox = ({ team_name }) => {
     };
 
     const handleSelect = (id, value) => {
+        if (hasCheated) return;
         setAnswers({ ...answers, [id]: value });
     };
 
@@ -159,6 +181,7 @@ const MatchTheBox = ({ team_name }) => {
                                 </div>
                                 <div className="p-4">
                                     <select
+                                        disabled={hasCheated}
                                         value={answers[item.id] || ""}
                                         onChange={(e) =>
                                             handleSelect(
@@ -170,7 +193,7 @@ const MatchTheBox = ({ team_name }) => {
                                             answers[item.id]
                                                 ? "bg-frosted-mint-50 border-frosted-mint-500 text-dark-spruce-900"
                                                 : "bg-white border-slate-300 text-slate-500"
-                                        }`}
+                                        } ${hasCheated ? "opacity-50 cursor-not-allowed" : ""}`}
                                     >
                                         <option value="" disabled>
                                             Pilih Jawaban...
@@ -192,8 +215,9 @@ const MatchTheBox = ({ team_name }) => {
 
                     <div className="mt-10 flex justify-end pt-6 border-t border-slate-100">
                         <button
+                            disabled={hasCheated}
                             onClick={() => setShowWarning(true)}
-                            className="w-full md:w-auto px-10 py-4 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white rounded-xl font-bold shadow-md shadow-frosted-mint-600/20 transition-all flex items-center justify-center gap-2 active:scale-95"
+                            className="w-full md:w-auto px-10 py-4 bg-frosted-mint-600 hover:bg-frosted-mint-500 text-white rounded-xl font-bold shadow-md shadow-frosted-mint-600/20 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Selesai Ujian <Send size={18} />
                         </button>
@@ -202,7 +226,38 @@ const MatchTheBox = ({ team_name }) => {
             </div>
 
             <AnimatePresence>
-                {showWarning && (
+                {hasCheated && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md">
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-red-100"
+                        >
+                            <div className="w-20 h-20 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-200">
+                                <AlertCircle size={40} />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-3">
+                                Pelanggaran Terdeteksi!
+                            </h2>
+                            <p className="text-slate-600 mb-8 leading-relaxed text-sm">
+                                Anda terdeteksi membuka tab atau aplikasi lain
+                                di luar halaman ujian. Sesuai dengan peraturan
+                                kompetisi, ujian Anda diakhiri secara otomatis
+                                dan nilai Anda saat ini telah dikirim ke sistem.
+                            </p>
+                            <button
+                                onClick={handleSubmit}
+                                className="w-full py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-md shadow-red-600/20"
+                            >
+                                Kembali ke Dashboard
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {showWarning && !hasCheated && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}

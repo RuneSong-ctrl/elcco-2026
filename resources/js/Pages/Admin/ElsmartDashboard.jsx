@@ -52,18 +52,21 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
         );
 
         axios
-            .post("/admin/elsmart-master/toggle-stage", {
+            .post("/admin/elsmart/toggle-stage", {
                 id: id,
                 isOpen: newStatus,
             })
             .catch((error) => console.error(error));
     };
 
-    const filteredTeams = (registeredTeams || []).filter(
-        (team) =>
-            team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            team.school.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+    // Filter pencarian dan urutkan berdasarkan nilai total tertinggi
+    const filteredTeams = (registeredTeams || [])
+        .filter(
+            (team) =>
+                team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                team.school.toLowerCase().includes(searchTerm.toLowerCase()),
+        )
+        .sort((a, b) => b.total - a.total);
 
     const exportToCSV = () => {
         if (!registeredTeams || registeredTeams.length === 0) {
@@ -83,7 +86,8 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
             "Total",
         ];
 
-        const csvRows = registeredTeams.map((team, index) => [
+        // Gunakan filteredTeams agar hasil export juga terurut
+        const csvRows = filteredTeams.map((team, index) => [
             index + 1,
             `"${team.name}"`,
             `"${team.school}"`,

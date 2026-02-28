@@ -354,6 +354,7 @@ const MultipleChoice = ({ team_name }) => {
     const [answers, setAnswers] = useState({});
     const [timeLeft, setTimeLeft] = useState(30 * 60);
     const [showWarning, setShowWarning] = useState(false);
+    const [hasCheated, setHasCheated] = useState(false);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -364,6 +365,26 @@ const MultipleChoice = ({ team_name }) => {
         return () => clearInterval(timer);
     }, [timeLeft]);
 
+    useEffect(() => {
+        const handleCheating = () => {
+            if (document.visibilityState === "hidden" || document.hidden) {
+                setHasCheated(true);
+            }
+        };
+
+        const handleBlur = () => {
+            setHasCheated(true);
+        };
+
+        document.addEventListener("visibilitychange", handleCheating);
+        window.addEventListener("blur", handleBlur);
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleCheating);
+            window.removeEventListener("blur", handleBlur);
+        };
+    }, []);
+
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -371,6 +392,7 @@ const MultipleChoice = ({ team_name }) => {
     };
 
     const handleSelect = (qIndex, aIndex) => {
+        if (hasCheated) return;
         setAnswers({ ...answers, [qIndex]: aIndex });
     };
 
@@ -580,41 +602,74 @@ const MultipleChoice = ({ team_name }) => {
                 </div>
             </div>
 
-            {showWarning && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-                    <motion.div
-                        initial={{ scale: 0.95, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-slate-100"
-                    >
-                        <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
-                            <AlertCircle size={40} />
-                        </div>
-                        <h2 className="text-2xl font-bold text-slate-800 mb-3">
-                            Selesaikan Ujian?
-                        </h2>
-                        <p className="text-slate-500 mb-8 leading-relaxed text-sm">
-                            Pastikan semua jawaban sudah terisi dengan benar.
-                            Anda tidak dapat mengulang tahap ini setelah menekan
-                            tombol konfirmasi.
-                        </p>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => setShowWarning(false)}
-                                className="flex-1 py-3.5 bg-slate-100 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all"
-                            >
-                                Periksa Lagi
-                            </button>
+            <AnimatePresence>
+                {hasCheated && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md">
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-red-100"
+                        >
+                            <div className="w-20 h-20 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-200">
+                                <AlertCircle size={40} />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-3">
+                                Pelanggaran Terdeteksi!
+                            </h2>
+                            <p className="text-slate-600 mb-8 leading-relaxed text-sm">
+                                Anda terdeteksi membuka tab atau aplikasi lain
+                                di luar halaman ujian. Sesuai dengan peraturan
+                                kompetisi, ujian Anda diakhiri secara otomatis
+                                dan nilai Anda saat ini telah dikirim ke sistem.
+                            </p>
                             <button
                                 onClick={handleSubmit}
-                                className="flex-1 py-3.5 bg-frosted-mint-600 text-white rounded-xl font-bold hover:bg-frosted-mint-500 transition-all shadow-md shadow-frosted-mint-600/20"
+                                className="w-full py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-md shadow-red-600/20"
                             >
-                                Ya, Kirim!
+                                Kembali ke Dashboard
                             </button>
-                        </div>
-                    </motion.div>
-                </div>
-            )}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {showWarning && !hasCheated && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-slate-100"
+                        >
+                            <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
+                                <AlertCircle size={40} />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-3">
+                                Selesaikan Ujian?
+                            </h2>
+                            <p className="text-slate-500 mb-8 leading-relaxed text-sm">
+                                Pastikan semua jawaban sudah terisi dengan
+                                benar. Anda tidak dapat mengulang tahap ini
+                                setelah menekan tombol konfirmasi.
+                            </p>
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={() => setShowWarning(false)}
+                                    className="flex-1 py-3.5 bg-slate-100 border border-slate-200 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all"
+                                >
+                                    Periksa Lagi
+                                </button>
+                                <button
+                                    onClick={handleSubmit}
+                                    className="flex-1 py-3.5 bg-frosted-mint-600 text-white rounded-xl font-bold hover:bg-frosted-mint-500 transition-all shadow-md shadow-frosted-mint-600/20"
+                                >
+                                    Ya, Kirim!
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

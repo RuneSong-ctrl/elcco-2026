@@ -188,7 +188,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                                 </div>
                                 <div>
                                     <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                                        Instansi / Universitas
+                                        Instansi
                                     </p>
                                     <p className="text-xl font-semibold text-slate-200">
                                         {school_name || "Tidak ada data"}
