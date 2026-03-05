@@ -50,5 +50,7 @@ Route::get('/elsmart/quiz/match-the-box', [ElsmartAuthController::class, 'startS
 Route::post('/elsmart/quiz/submit', [ElsmartAuthController::class, 'submitStage1'])->name('elsmart.stage1.submit');
 Route::post('/elsmart/quiz/submit-stage2', [ElsmartAuthController::class, 'submitStage2'])->name('elsmart.stage2.submit');
 Route::post('/elsmart/quiz/submit-stage3', [ElsmartAuthController::class, 'submitStage3'])->name('elsmart.stage3.submit');
+Route::post('/admin/elsmart-master/reset-password', [App\Http\Controllers\AdminAuthController::class, 'resetPassword'])->name('admin.elsmart.resetPassword');
+Route::post('/admin/elsmart-master/delete-team', [App\Http\Controllers\AdminAuthController::class, 'deleteTeam'])->name('admin.elsmart.deleteTeam');
 
 require __DIR__.'/auth.php';

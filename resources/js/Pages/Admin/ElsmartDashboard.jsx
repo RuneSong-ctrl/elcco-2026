@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import axios from "axios";
 import {
     LogOut,
@@ -13,6 +13,8 @@ import {
     Unlock,
     Lock,
     AlertCircle,
+    Key,
+    Trash2,
 } from "lucide-react";
 import elsmart from "/public/images/elsmart.png";
 
@@ -52,14 +54,33 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
         );
 
         axios
-            .post("/admin/elsmart/toggle-stage", {
+            .post("/admin/elsmart-master/toggle-stage", {
                 id: id,
                 isOpen: newStatus,
             })
             .catch((error) => console.error(error));
     };
 
-    // Filter pencarian dan urutkan berdasarkan nilai total tertinggi
+    const resetPassword = (id, name) => {
+        if (
+            window.confirm(
+                `Yakin ingin reset password tim "${name}" menjadi "0000"?`,
+            )
+        ) {
+            router.post("/admin/elsmart-master/reset-password", { id: id });
+        }
+    };
+
+    const deleteTeam = (id, name) => {
+        if (
+            window.confirm(
+                `Peringatan Keras! Yakin ingin menghapus akun tim "${name}" beserta seluruh nilainya?`,
+            )
+        ) {
+            router.post("/admin/elsmart-master/delete-team", { id: id });
+        }
+    };
+
     const filteredTeams = (registeredTeams || [])
         .filter(
             (team) =>
@@ -86,7 +107,6 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
             "Total",
         ];
 
-        // Gunakan filteredTeams agar hasil export juga terurut
         const csvRows = filteredTeams.map((team, index) => [
             index + 1,
             `"${team.name}"`,
@@ -348,6 +368,9 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
                                             <th className="p-5 text-sm font-bold text-frosted-mint-400 text-right">
                                                 Total
                                             </th>
+                                            <th className="p-5 text-sm font-semibold text-slate-400 text-center">
+                                                Aksi
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-[#2a3744]">
@@ -355,7 +378,7 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
                                             filteredTeams.map((team, index) => (
                                                 <tr
                                                     key={team.id}
-                                                    className="hover:bg-[#1a2530]/50 transition-colors"
+                                                    className="hover:bg-[#1a2530]/50 transition-colors group"
                                                 >
                                                     <td className="p-5 text-center text-slate-500 font-medium">
                                                         {index + 1}
@@ -397,12 +420,44 @@ const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
                                                             {team.total}
                                                         </span>
                                                     </td>
+                                                    <td className="p-5 text-center">
+                                                        <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                            <button
+                                                                onClick={() =>
+                                                                    resetPassword(
+                                                                        team.id,
+                                                                        team.name,
+                                                                    )
+                                                                }
+                                                                title="Reset Password ke 0000"
+                                                                className="p-2 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors border border-blue-500/20"
+                                                            >
+                                                                <Key
+                                                                    size={16}
+                                                                />
+                                                            </button>
+                                                            <button
+                                                                onClick={() =>
+                                                                    deleteTeam(
+                                                                        team.id,
+                                                                        team.name,
+                                                                    )
+                                                                }
+                                                                title="Hapus Akun Peserta"
+                                                                className="p-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors border border-red-500/20"
+                                                            >
+                                                                <Trash2
+                                                                    size={16}
+                                                                />
+                                                            </button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             ))
                                         ) : (
                                             <tr>
                                                 <td
-                                                    colSpan="7"
+                                                    colSpan="8"
                                                     className="p-20 text-center text-slate-500"
                                                 >
                                                     <div className="flex flex-col items-center gap-3">

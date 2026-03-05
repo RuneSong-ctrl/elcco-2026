@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
@@ -100,5 +101,26 @@ class AdminAuthController extends Controller
         Cache::put('elsmart_stage_' . $stageId, $status, now()->addHours(24));
 
         return response()->json(['success' => true]);
+    }
+    public function resetPassword(Request $request)
+    {
+        $team = ElsmartTeam::find($request->input('id'));
+        if ($team) {
+            $team->password = Hash::make('0000');
+            $team->save();
+            return back()->with('success', 'Password berhasil direset menjadi 0000');
+        }
+        return back()->withErrors(['error' => 'Tim tidak ditemukan.']);
+    }
+
+    
+    public function deleteTeam(Request $request)
+    {
+        $team = ElsmartTeam::find($request->input('id'));
+        if ($team) {
+            $team->delete();
+            return back()->with('success', 'Akun tim berhasil dihapus.');
+        }
+        return back()->withErrors(['error' => 'Tim tidak ditemukan.']);
     }
 }
