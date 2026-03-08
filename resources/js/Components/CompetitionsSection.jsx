@@ -44,7 +44,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-15",
                 price: "IDR 210.000",
             },
         ],
@@ -70,7 +70,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-15",
                 price: "IDR 210.000",
             },
         ],
@@ -96,7 +96,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-13",
                 price: "IDR 85.000",
             },
         ],
@@ -134,7 +134,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-15",
                 price: "IDR 110.000",
             },
         ],
@@ -166,7 +166,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-13",
+                end: "2026-03-15",
                 price: "IDR 110.000",
             },
         ],
@@ -179,7 +179,7 @@ const competitionsData = [
         image: lcc,
         desc: "Lomba Cerdas Cermat (LCC) merupakan kompetisi adu cepat dan tepat dalam menjawab soal-soal pengetahuan di bidang kelistrikan (power, elektronika, komputer, dan telekomunikasi) serta pengetahuan umum sains dan logika. Lomba ini bertujuan untuk mengasah kemampuan berpikir kritis, kerja sama tim, dan kecepatan analisis peserta melalui beberapa babak kompetitif yang menantang dan edukatif.",
         keyFeatures: ["Quiz Battle", "Critical Thinking", "Teamwork"],
-        registerLink: "https://bit.ly/LCC26ELCCO",
+        registerLink: "https://bit.ly/LCCELLCO2026",
         guidebookLink:
             "https://drive.google.com/file/d/1RVCS1vYkayfA-pPN9DNvwQ8wILhB8mOD/view?usp=drive_link",
         waves: [
@@ -192,7 +192,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-13",
                 price: "IDR 110.000",
             },
         ],
@@ -268,7 +268,7 @@ const competitionsData = [
             {
                 name: "Extend",
                 start: "2026-03-08",
-                end: "2026-03-12",
+                end: "2026-03-13",
                 price: "IDR 100.000",
             },
         ],
