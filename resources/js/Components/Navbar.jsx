@@ -119,6 +119,9 @@ export default function Navbar() {
                                     alt="LCC"
                                     className="h-8 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                                 />
+                                <h1 className="text-white font-bold text-lg ml-2 shadow-black/20">
+                                    LCC
+                                </h1>
                             </Link>
                         </div>
                     </motion.div>
