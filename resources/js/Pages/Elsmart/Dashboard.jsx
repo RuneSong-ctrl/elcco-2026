@@ -15,7 +15,7 @@ import {
     Lock,
     CheckCircle,
 } from "lucide-react";
-import elsmart from "/public/images/elsmart.png";
+import LCC from "/public/images/lcc.png";
 
 const Dashboard = ({ team_name, school_name, members, current_stage }) => {
     const { post } = useForm();
@@ -27,6 +27,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
 
     useEffect(() => {
         const fetchStatus = () => {
+            // Endpoint backend tetap dipertahankan
             axios
                 .get("/elsmart/game-status")
                 .then((response) => setGameStatus(response.data))
@@ -41,6 +42,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
 
     const handleLogout = (e) => {
         e.preventDefault();
+        // Endpoint logout tetap
         post("/elsmart/logout");
     };
 
@@ -58,7 +60,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
             subtitle: "Tahap 1",
             duration: "30 Menit",
             questions: "40 Soal",
-            url: "/elsmart/quiz/multiple-choice",
+            url: "/elsmart/quiz/multiple-choice", // URL tetap
             isOpen: gameStatus.stage_1,
             isCompleted: isStageCompleted(1),
         },
@@ -68,7 +70,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
             subtitle: "Tahap 2",
             duration: "15 Menit",
             questions: "10 Kata",
-            url: "/elsmart/quiz/find-words",
+            url: "/elsmart/quiz/find-words", // URL tetap
             isOpen: gameStatus.stage_2,
             isCompleted: isStageCompleted(2),
         },
@@ -78,7 +80,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
             subtitle: "Tahap 3",
             duration: "15 Menit",
             questions: "10 Pasang",
-            url: "/elsmart/quiz/match-the-box",
+            url: "/elsmart/quiz/match-the-box", // URL tetap
             isOpen: gameStatus.stage_3,
             isCompleted: isStageCompleted(3),
         },
@@ -104,37 +106,38 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
     ];
 
     return (
-        <div className="min-h-screen bg-dark-spruce-950 font-sans relative overflow-hidden contain-paint pb-20 text-slate-100">
-            <Head title="Lobby Peserta - ELSMART 2026" />
+        <div className="min-h-screen bg-fern-50 font-sans relative overflow-hidden contain-paint pb-20 text-muted-olive-900">
+            <Head title="Lobby Peserta - LCC 2026" />
 
-            <div className="stars absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen"></div>
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-frosted-mint-500/5 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-white/5 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu"></div>
+            {/* Efek Stars & Ambient Background */}
+            <div className="stars absolute inset-0 z-0 pointer-events-none opacity-30"></div>
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-frosted-mint-300/20 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-white/60 blur-[120px] rounded-full pointer-events-none z-0 transform-gpu"></div>
 
-            <nav className="relative z-20 border-b border-white/10 bg-dark-spruce-950/90 backdrop-blur-lg top-0 shadow-sm">
+            <nav className="relative z-20 border-b border-fern-200 bg-white/80 backdrop-blur-lg top-0 shadow-sm">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <div className="flex items-center gap-3">
                             <img
-                                src={elsmart}
-                                alt="Elsmart"
-                                className="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(81,186,69,0.2)]"
+                                src={LCC}
+                                alt="LCC"
+                                className="h-10 w-auto object-contain"
                             />
-                            <div className="hidden sm:block h-6 w-px bg-white/20 mx-2"></div>
-                            <span className="hidden sm:block text-white font-semibold tracking-widest text-sm opacity-90">
+                            <div className="hidden sm:block h-6 w-px bg-fern-200 mx-2"></div>
+                            <span className="hidden sm:block text-muted-olive-800 font-bold tracking-widest text-sm opacity-90">
                                 LOBBY PESERTA
                             </span>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="bg-black/30 border border-white/10 px-4 py-2 rounded-full flex items-center gap-2 shadow-inner">
-                                <div className="w-2.5 h-2.5 bg-frosted-mint-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(81,186,69,0.8)]"></div>
-                                <span className="text-sm font-semibold text-white">
+                            <div className="bg-white border border-fern-200 px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
+                                <div className="w-2.5 h-2.5 bg-frosted-mint-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(81,186,69,0.5)]"></div>
+                                <span className="text-sm font-bold text-muted-olive-800">
                                     {team_name}
                                 </span>
                             </div>
                             <button
                                 onClick={handleLogout}
-                                className="p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-full transition-colors border border-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                                className="p-2.5 bg-red-50 hover:bg-red-100 text-red-500 rounded-full transition-colors border border-red-100 focus:outline-none focus:ring-2 focus:ring-red-400/50"
                             >
                                 <LogOut size={18} />
                             </button>
@@ -150,47 +153,47 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                     className="mb-10"
                 >
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="p-2 bg-frosted-mint-500/10 rounded-lg border border-frosted-mint-500/20">
+                        <div className="p-2 bg-white rounded-lg border border-fern-200 shadow-sm">
                             <Users
-                                className="text-frosted-mint-400"
+                                className="text-frosted-mint-500"
                                 size={22}
                             />
                         </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                        <h2 className="text-2xl font-black text-muted-olive-900 tracking-tight">
                             Profil Tim
                         </h2>
                     </div>
 
-                    <div className="bg-black/20 border border-white/10 rounded-[2rem] p-6 md:p-8 shadow-lg">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 border-b border-white/10 pb-8 mb-8">
+                    <div className="bg-white/90 backdrop-blur-sm border border-fern-100 rounded-[2rem] p-6 md:p-8 shadow-xl">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 border-b border-fern-100 pb-8 mb-8">
                             <div className="flex items-start gap-4">
-                                <div className="p-3.5 bg-gradient-to-br from-frosted-mint-500/20 to-transparent rounded-2xl shrink-0 border border-frosted-mint-500/30">
+                                <div className="p-3.5 bg-gradient-to-br from-frosted-mint-100 to-white rounded-2xl shrink-0 border border-frosted-mint-200 shadow-sm">
                                     <Trophy
-                                        className="text-frosted-mint-400"
+                                        className="text-frosted-mint-600"
                                         size={26}
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                                    <p className="text-sm font-bold text-muted-olive-400 uppercase tracking-wider mb-1">
                                         Nama Tim
                                     </p>
-                                    <p className="text-2xl font-bold text-white">
+                                    <p className="text-2xl font-black text-muted-olive-900">
                                         {team_name}
                                     </p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
-                                <div className="p-3.5 bg-gradient-to-br from-blue-500/20 to-transparent rounded-2xl shrink-0 border border-blue-500/30">
+                                <div className="p-3.5 bg-gradient-to-br from-blue-50 to-white rounded-2xl shrink-0 border border-blue-100 shadow-sm">
                                     <GraduationCap
-                                        className="text-blue-400"
+                                        className="text-blue-500"
                                         size={26}
                                     />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                                    <p className="text-sm font-bold text-muted-olive-400 uppercase tracking-wider mb-1">
                                         Instansi
                                     </p>
-                                    <p className="text-xl font-semibold text-slate-200">
+                                    <p className="text-xl font-bold text-muted-olive-800">
                                         {school_name || "Tidak ada data"}
                                     </p>
                                 </div>
@@ -198,23 +201,23 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                         </div>
 
                         <div>
-                            <p className="text-base font-semibold text-slate-300 mb-5">
+                            <p className="text-base font-bold text-muted-olive-800 mb-5">
                                 Daftar Anggota Tim
                             </p>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                                 {displayMembers.map((member, idx) => (
                                     <div
                                         key={idx}
-                                        className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center gap-4 hover:border-frosted-mint-500/40 transition-colors shadow-sm"
+                                        className="bg-fern-50/50 border border-fern-100 rounded-2xl p-5 flex items-center gap-4 hover:border-frosted-mint-300 transition-colors shadow-sm"
                                     >
-                                        <div className="w-12 h-12 rounded-full bg-dark-spruce-900 flex items-center justify-center text-frosted-mint-400 font-bold text-lg shrink-0 border border-white/10 shadow-inner">
+                                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-frosted-mint-600 font-black text-lg shrink-0 border border-fern-200 shadow-sm">
                                             {idx === 0 ? "K" : `A${idx}`}
                                         </div>
                                         <div className="overflow-hidden">
-                                            <p className="text-xs text-frosted-mint-400 font-bold tracking-wide mb-1 uppercase">
+                                            <p className="text-xs text-frosted-mint-600 font-bold tracking-wide mb-1 uppercase">
                                                 {member.role}
                                             </p>
-                                            <p className="text-base font-semibold text-white truncate">
+                                            <p className="text-base font-bold text-muted-olive-900 truncate">
                                                 {member.name}
                                             </p>
                                         </div>
@@ -229,17 +232,17 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-gradient-to-r from-frosted-mint-600/20 to-transparent border border-frosted-mint-500/30 rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-center gap-5 shadow-md text-center md:text-left"
+                        className="bg-gradient-to-r from-frosted-mint-50 to-white border border-frosted-mint-200 rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center justify-center gap-5 shadow-sm text-center md:text-left"
                     >
-                        <div className="p-4 bg-frosted-mint-500 rounded-full shrink-0 shadow-[0_0_20px_rgba(81,186,69,0.4)]">
+                        <div className="p-4 bg-frosted-mint-500 rounded-full shrink-0 shadow-lg shadow-frosted-mint-500/30">
                             <CheckCircle className="text-white" size={32} />
                         </div>
                         <div>
-                            <h3 className="text-xl text-frosted-mint-400 font-bold mb-1">
+                            <h3 className="text-xl text-frosted-mint-700 font-black mb-1">
                                 Seluruh Tahap Selesai!
                             </h3>
-                            <p className="text-slate-300">
-                                Terima kasih telah berpartisipasi dalam ELSMART
+                            <p className="text-muted-olive-700 font-medium">
+                                Terima kasih telah berpartisipasi dalam LCC
                                 2026. Silakan pantau informasi selanjutnya dari
                                 panitia.
                             </p>
@@ -250,19 +253,19 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-amber-900/20 border border-amber-500/30 rounded-2xl p-6 mb-10 flex items-start gap-5 shadow-md"
+                        className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-10 flex items-start gap-5 shadow-sm"
                     >
-                        <div className="p-3 bg-amber-500/20 rounded-xl shrink-0">
+                        <div className="p-3 bg-amber-100 rounded-xl shrink-0">
                             <AlertTriangle
-                                className="text-amber-400"
+                                className="text-amber-600"
                                 size={26}
                             />
                         </div>
                         <div>
-                            <h3 className="text-lg text-amber-400 font-bold mb-2">
+                            <h3 className="text-lg text-amber-800 font-black mb-2">
                                 Perhatian Peserta!
                             </h3>
-                            <p className="text-base text-slate-300 leading-relaxed">
+                            <p className="text-base text-amber-700/90 leading-relaxed font-medium">
                                 Peserta dilarang membuka tab, aplikasi, atau
                                 website lain selama proses perlombaan
                                 berlangsung. Segala bentuk kecurangan akan
@@ -276,17 +279,17 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
 
                 <div className="mb-6 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-frosted-mint-500/10 rounded-lg border border-frosted-mint-500/20">
+                        <div className="p-2 bg-white rounded-lg border border-fern-200 shadow-sm">
                             <Gamepad2
-                                className="text-frosted-mint-400"
+                                className="text-frosted-mint-500"
                                 size={22}
                             />
                         </div>
-                        <h2 className="text-2xl font-bold text-white tracking-tight">
+                        <h2 className="text-2xl font-black text-muted-olive-900 tracking-tight">
                             Tahap Perlombaan
                         </h2>
                     </div>
-                    <span className="text-sm font-semibold bg-black/40 text-frosted-mint-400 px-4 py-2 rounded-full border border-frosted-mint-500/30 shadow-inner">
+                    <span className="text-sm font-bold bg-white text-frosted-mint-600 px-4 py-2 rounded-full border border-fern-200 shadow-sm">
                         Babak Penyisihan
                     </span>
                 </div>
@@ -302,13 +305,13 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                         const isDone = stage.isCompleted;
 
                         let cardStyle =
-                            "bg-black/20 border-frosted-mint-500/50 shadow-[0_8px_30px_rgba(34,197,94,0.1)] transform hover:-translate-y-1";
+                            "bg-white border-fern-200 shadow-md shadow-fern-100 hover:-translate-y-1 hover:shadow-lg";
                         if (isDone)
                             cardStyle =
-                                "bg-frosted-mint-900/20 border-frosted-mint-500/30 opacity-90";
+                                "bg-frosted-mint-50 border-frosted-mint-200 opacity-95";
                         else if (isLockedByAdmin)
                             cardStyle =
-                                "bg-black/40 border-white/5 opacity-80 grayscale-[20%]";
+                                "bg-slate-50 border-slate-200 opacity-80 grayscale-[15%]";
 
                         return (
                             <motion.div
@@ -319,63 +322,57 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                                 <div className="p-8">
                                     <div className="flex justify-between items-start mb-8">
                                         <div>
-                                            <p className="text-sm font-bold text-frosted-mint-400 uppercase tracking-widest mb-1.5 opacity-90">
+                                            <p className="text-sm font-bold text-frosted-mint-600 uppercase tracking-widest mb-1.5 opacity-90">
                                                 {stage.subtitle}
                                             </p>
-                                            <h3 className="text-2xl font-bold text-white leading-tight">
+                                            <h3 className="text-2xl font-black text-muted-olive-900 leading-tight">
                                                 {stage.title}
                                             </h3>
                                         </div>
                                         <div
                                             className={`p-3.5 rounded-2xl border ${
                                                 isDone
-                                                    ? "bg-frosted-mint-500 text-white shadow-[0_0_15px_rgba(81,186,69,0.5)] border-transparent"
+                                                    ? "bg-frosted-mint-500 text-white shadow-md shadow-frosted-mint-500/30 border-transparent"
                                                     : stage.isOpen
-                                                      ? "bg-frosted-mint-500/20 border-frosted-mint-500/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
-                                                      : "bg-white/5 border-white/10"
+                                                      ? "bg-frosted-mint-100 text-frosted-mint-600 border-frosted-mint-200"
+                                                      : "bg-slate-100 text-slate-400 border-slate-200"
                                             }`}
                                         >
                                             {isDone ? (
                                                 <CheckCircle size={22} />
                                             ) : stage.isOpen ? (
-                                                <CheckCircle2
-                                                    size={22}
-                                                    className="text-frosted-mint-400"
-                                                />
+                                                <CheckCircle2 size={22} />
                                             ) : (
-                                                <Lock
-                                                    size={22}
-                                                    className="text-slate-400"
-                                                />
+                                                <Lock size={22} />
                                             )}
                                         </div>
                                     </div>
 
                                     <div className="space-y-4 mb-10">
-                                        <div className="flex items-center gap-3 text-base text-slate-300">
-                                            <div className="p-1.5 bg-white/5 rounded-lg">
+                                        <div className="flex items-center gap-3 text-base text-muted-olive-600 font-medium">
+                                            <div className="p-1.5 bg-fern-50 rounded-lg">
                                                 <Clock
                                                     size={18}
-                                                    className="text-slate-400"
+                                                    className="text-muted-olive-400"
                                                 />
                                             </div>
                                             <span>
                                                 Waktu:{" "}
-                                                <strong className="text-white font-semibold ml-1">
+                                                <strong className="text-muted-olive-900 font-bold ml-1">
                                                     {stage.duration}
                                                 </strong>
                                             </span>
                                         </div>
-                                        <div className="flex items-center gap-3 text-base text-slate-300">
-                                            <div className="p-1.5 bg-white/5 rounded-lg">
+                                        <div className="flex items-center gap-3 text-base text-muted-olive-600 font-medium">
+                                            <div className="p-1.5 bg-fern-50 rounded-lg">
                                                 <FileText
                                                     size={18}
-                                                    className="text-slate-400"
+                                                    className="text-muted-olive-400"
                                                 />
                                             </div>
                                             <span>
                                                 Jumlah:{" "}
-                                                <strong className="text-white font-semibold ml-1">
+                                                <strong className="text-muted-olive-900 font-bold ml-1">
                                                     {stage.questions}
                                                 </strong>
                                             </span>
@@ -385,7 +382,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                                     {isDone ? (
                                         <button
                                             disabled
-                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-frosted-mint-900/40 text-frosted-mint-400 cursor-not-allowed border border-frosted-mint-500/30"
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-frosted-mint-100 text-frosted-mint-600 cursor-not-allowed border border-frosted-mint-200"
                                         >
                                             <CheckCircle size={18} /> Selesai
                                             Dikerjakan
@@ -393,14 +390,14 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                                     ) : stage.isOpen ? (
                                         <Link
                                             href={stage.url}
-                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-spruce-950 bg-gradient-to-r from-frosted-mint-600 to-frosted-mint-500 hover:from-frosted-mint-500 hover:to-frosted-mint-400 text-white shadow-lg shadow-frosted-mint-500/20 active:scale-[0.98] border border-frosted-mint-400/50 focus:ring-frosted-mint-500"
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white bg-gradient-to-r from-frosted-mint-500 to-frosted-mint-600 hover:from-frosted-mint-600 hover:to-frosted-mint-700 text-white shadow-lg shadow-frosted-mint-500/25 active:scale-[0.98] border border-frosted-mint-500 focus:ring-frosted-mint-500"
                                         >
                                             Mulai Mengerjakan
                                         </Link>
                                     ) : (
                                         <button
                                             disabled
-                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-white/5 text-slate-500 cursor-not-allowed border border-white/5"
+                                            className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200"
                                         >
                                             <Lock size={16} /> Terkunci
                                         </button>
@@ -408,7 +405,7 @@ const Dashboard = ({ team_name, school_name, members, current_stage }) => {
                                 </div>
 
                                 {isLockedByAdmin && !isDone && (
-                                    <div className="absolute inset-0 bg-dark-spruce-950/10 pointer-events-none"></div>
+                                    <div className="absolute inset-0 bg-slate-50/10 pointer-events-none"></div>
                                 )}
                             </motion.div>
                         );

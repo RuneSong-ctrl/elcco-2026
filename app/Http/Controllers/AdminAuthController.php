@@ -14,7 +14,7 @@ class AdminAuthController extends Controller
     public function showLoginForm()
     {
         if (Session::has('admin_user')) {
-            if (Session::get('admin_user') === 'Game Master ELSMART') {
+            if (Session::get('admin_user') === 'Game Master LCC' || Session::get('admin_user') === 'Game Master ELSMART'){
                 return redirect()->route('admin.elsmart.dashboard');
             }
             return redirect()->route('admin.dashboard');
@@ -29,7 +29,8 @@ class AdminAuthController extends Controller
             'SuperAdminELCCO',
             'Sekretaris ELCCO',
             'Bendahara ELCCO',
-            'Game Master ELSMART' 
+            'Game Master ELSMART',
+            'Game Master LCC',
         ];
 
         $globalPassword = 'FosteringTheYouth2026';
@@ -37,7 +38,7 @@ class AdminAuthController extends Controller
         if (in_array($request->username, $allowedAdmins) && $request->password === $globalPassword) {
             Session::put('admin_user', $request->username);
             
-            if ($request->username === 'Game Master ELSMART') {
+            if (in_array($request->username, ['Game Master ELSMART', 'Game Master LCC'])) {
                 return redirect()->route('admin.elsmart.dashboard');
             }
             
@@ -57,7 +58,7 @@ class AdminAuthController extends Controller
     {
         $user = Session::get('admin_user');
         
-        if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART'])) {
+        if (!$user || !in_array($user, ['SuperAdminELCCO', 'Game Master ELSMART', 'Game Master LCC'])) {
             return redirect()->route('admin.dashboard')->withErrors(['akses' => 'Anda tidak memiliki akses ke halaman ini.']);
         }
 
