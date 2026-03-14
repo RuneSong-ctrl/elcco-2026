@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Head, router } from "@inertiajs/react";
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Clock,
@@ -36,6 +37,51 @@ const MatchTheBox = ({ team_name }) => {
     const [cheatWarningCount, setCheatWarningCount] = useState(0);
     const cheatCounter = useRef(0);
     const lastCheatTime = useRef(0);
+    const isSubmitting = useRef(false);
+
+    // --- TAMBAHAN UNTUK AUTO SUBMIT SAAT ADMIN TUTUP TAHAP ---
+    const answersRef = useRef(answers);
+    const timeLeftRef = useRef(timeLeft);
+
+    useEffect(() => {
+        answersRef.current = answers;
+        timeLeftRef.current = timeLeft;
+    }, [answers, timeLeft]);
+
+    useEffect(() => {
+        const checkAdminStatus = () => {
+            axios
+                .get("/elsmart/game-status")
+                .then((response) => {
+                    // Karena ini halaman Match The Box (Tahap 3), kita cek stage_3
+                    if (
+                        response.data.stage_3 == false ||
+                        response.data.stage_3 === "false" ||
+                        response.data.stage_3 == 0
+                    ) {
+                        if (isSubmitting.current) return;
+                        isSubmitting.current = true;
+
+                        let score = 0;
+                        items.forEach((item) => {
+                            if (answersRef.current[item.id] === item.correct)
+                                score += 10;
+                        });
+
+                        router.post("/elsmart/quiz/submit-stage3", {
+                            answers: answersRef.current,
+                            time_used: 15 * 60 - timeLeftRef.current,
+                            score: score,
+                        });
+                    }
+                })
+                .catch((error) => console.error(error));
+        };
+
+        // Lakukan pengecekan setiap 3 detik, interval aman karena dependency kosong
+        const statusInterval = setInterval(checkAdminStatus, 3000);
+        return () => clearInterval(statusInterval);
+    }, []);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -90,6 +136,9 @@ const MatchTheBox = ({ team_name }) => {
     };
 
     const handleSubmit = () => {
+        if (isSubmitting.current) return;
+        isSubmitting.current = true;
+
         let score = 0;
         items.forEach((item) => {
             if (answers[item.id] === item.correct) score += 10;
@@ -319,8 +368,8 @@ const MatchTheBox = ({ team_name }) => {
                             exit={{ scale: 0.95, opacity: 0 }}
                             className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-slate-100"
                         >
-                            <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
-                                <AlertCircle size={40} />
+                            <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-blue-200">
+                                <Send size={36} />
                             </div>
                             <h2 className="text-2xl font-bold text-slate-800 mb-3">
                                 Selesaikan Tahap 3?

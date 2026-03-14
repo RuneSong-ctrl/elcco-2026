@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Head, router } from "@inertiajs/react";
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Clock,
@@ -9,7 +10,6 @@ import {
     AlertCircle,
     AlertTriangle,
 } from "lucide-react";
-import LCC from "/public/images/LCC.png";
 
 const MultipleChoice = ({ team_name }) => {
     const questions = [
@@ -297,14 +297,56 @@ const MultipleChoice = ({ team_name }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState({});
-    const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 Menit
+    const [timeLeft, setTimeLeft] = useState(30 * 60);
     const [showSubmitWarning, setShowSubmitWarning] = useState(false);
 
-    // Sistem Anti Cheat (Maksimal 3 peringatan, ke-4 otomatis blokir)
     const [hasCheated, setHasCheated] = useState(false);
     const [cheatWarningCount, setCheatWarningCount] = useState(0);
     const cheatCounter = useRef(0);
     const lastCheatTime = useRef(0);
+    const isSubmitting = useRef(false);
+
+    // --- TAMBAHAN UNTUK AUTO SUBMIT SAAT ADMIN TUTUP TAHAP ---
+    const answersRef = useRef(answers);
+    const timeLeftRef = useRef(timeLeft);
+
+    useEffect(() => {
+        answersRef.current = answers;
+        timeLeftRef.current = timeLeft;
+    }, [answers, timeLeft]);
+
+    useEffect(() => {
+        const checkAdminStatus = () => {
+            axios
+                .get("/elsmart/game-status")
+                .then((response) => {
+                    if (
+                        response.data.stage_1 == false ||
+                        response.data.stage_1 === "false" ||
+                        response.data.stage_1 == 0
+                    ) {
+                        if (isSubmitting.current) return;
+                        isSubmitting.current = true;
+
+                        let score = 0;
+                        questions.forEach((q, idx) => {
+                            if (answersRef.current[idx] === q.correct)
+                                score += 2.5;
+                        });
+
+                        router.post("/elsmart/quiz/submit", {
+                            answers: answersRef.current,
+                            time_used: 30 * 60 - timeLeftRef.current,
+                            score: score,
+                        });
+                    }
+                })
+                .catch((error) => console.error(error));
+        };
+
+        const statusInterval = setInterval(checkAdminStatus, 3000);
+        return () => clearInterval(statusInterval);
+    }, []);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -317,7 +359,6 @@ const MultipleChoice = ({ team_name }) => {
 
     useEffect(() => {
         const handleCheating = () => {
-            // Mencegah double trigger dalam waktu 2 detik (karena blur & visibility hidden jalan bersamaan)
             const now = Date.now();
             if (now - lastCheatTime.current > 2000 && !hasCheated) {
                 lastCheatTime.current = now;
@@ -326,7 +367,6 @@ const MultipleChoice = ({ team_name }) => {
                     cheatCounter.current += 1;
                     setCheatWarningCount(cheatCounter.current);
                 } else {
-                    // Peringatan ke-4 = Auto Submit / Block
                     setHasCheated(true);
                     setCheatWarningCount(0);
                 }
@@ -361,8 +401,10 @@ const MultipleChoice = ({ team_name }) => {
     };
 
     const handleSubmit = () => {
+        if (isSubmitting.current) return;
+        isSubmitting.current = true;
+
         let score = 0;
-        // Penilaian 2.5 per soal (40 soal * 2.5 = 100 poin)
         questions.forEach((q, idx) => {
             if (answers[idx] === q.correct) score += 2.5;
         });
@@ -385,7 +427,7 @@ const MultipleChoice = ({ team_name }) => {
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div className="flex items-center gap-4">
                         <img
-                            src={LCC}
+                            src="/images/lcc.png"
                             alt="LCC Logo"
                             className="h-12 w-auto"
                         />
@@ -557,7 +599,11 @@ const MultipleChoice = ({ team_name }) => {
                                     <div
                                         className="h-full bg-frosted-mint-500 transition-all duration-500 ease-out"
                                         style={{
-                                            width: `${(Object.keys(answers).length / questions.length) * 100}%`,
+                                            width: `${
+                                                (Object.keys(answers).length /
+                                                    questions.length) *
+                                                100
+                                            }%`,
                                         }}
                                     ></div>
                                 </div>
@@ -642,6 +688,7 @@ const MultipleChoice = ({ team_name }) => {
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
                             className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-slate-100"
                         >
                             <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-blue-200">

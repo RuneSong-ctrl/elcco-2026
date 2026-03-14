@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Head, router } from "@inertiajs/react";
+import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Clock,
@@ -10,6 +11,7 @@ import {
     Info,
     AlertTriangle,
 } from "lucide-react";
+import LCC from "/public/images/LCC.png";
 
 const FindWords = ({ team_name }) => {
     // Grid Baru (15x15)
@@ -335,6 +337,45 @@ const FindWords = ({ team_name }) => {
     const cheatCounter = useRef(0);
     const lastCheatTime = useRef(0);
 
+    const isSubmitting = useRef(false);
+
+    // --- TAMBAHAN UNTUK AUTO SUBMIT SAAT ADMIN TUTUP TAHAP ---
+    const foundWordsRef = useRef(foundWords);
+    const timeLeftRef = useRef(timeLeft);
+
+    useEffect(() => {
+        foundWordsRef.current = foundWords;
+        timeLeftRef.current = timeLeft;
+    }, [foundWords, timeLeft]);
+
+    useEffect(() => {
+        const checkAdminStatus = () => {
+            axios
+                .get("/elsmart/game-status")
+                .then((response) => {
+                    if (
+                        response.data.stage_2 == false ||
+                        response.data.stage_2 === "false" ||
+                        response.data.stage_2 == 0
+                    ) {
+                        if (isSubmitting.current) return;
+                        isSubmitting.current = true;
+
+                        const score = foundWordsRef.current.length * 10;
+                        router.post("/elsmart/quiz/submit-stage2", {
+                            found_words: foundWordsRef.current,
+                            time_used: 15 * 60 - timeLeftRef.current,
+                            score: score,
+                        });
+                    }
+                })
+                .catch((error) => console.error(error));
+        };
+
+        const statusInterval = setInterval(checkAdminStatus, 3000);
+        return () => clearInterval(statusInterval);
+    }, []);
+
     // Disesuaikan menjadi 15x15 array
     const [gridStatus, setGridStatus] = useState(
         Array(15)
@@ -483,6 +524,9 @@ const FindWords = ({ team_name }) => {
     };
 
     const handleSubmit = () => {
+        if (isSubmitting.current) return;
+        isSubmitting.current = true;
+
         const score = foundWords.length * 10;
         router.post("/elsmart/quiz/submit-stage2", {
             found_words: foundWords,
