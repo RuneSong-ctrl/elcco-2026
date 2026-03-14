@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Head, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -7,40 +7,35 @@ import {
     AlertCircle,
     CheckCircle2,
     Image as ImageIcon,
+    AlertTriangle,
 } from "lucide-react";
-import elsmart from "/public/images/elsmart.png";
-
-import gambar1 from "/public/images/gambar1.jpg";
-import gambar2 from "/public/images/gambar2.jpg";
-import gambar3 from "/public/images/gambar3.jpg";
-import gambar4 from "/public/images/gambar4.jpg";
-import gambar5 from "/public/images/gambar5.jpg";
-import gambar6 from "/public/images/gambar6.jpg";
-import gambar7 from "/public/images/gambar7.jpg";
-import gambar8 from "/public/images/gambar8.jpg";
-import gambar9 from "/public/images/gambar9.jpg";
-import gambar10 from "/public/images/gambar10.jpg";
 
 const MatchTheBox = ({ team_name }) => {
     const items = [
-        { id: 1, img: gambar1, correct: "Motherboard" },
-        { id: 2, img: gambar2, correct: "George Simon Ohm" },
-        { id: 3, img: gambar3, correct: "vscode" },
-        { id: 4, img: gambar4, correct: "Multimeter" },
-        { id: 5, img: gambar5, correct: "Mosvet" },
-        { id: 6, img: gambar6, correct: "Bipolar Junction Transistor (BJT)" },
-        { id: 7, img: gambar7, correct: "ESP32" },
-        { id: 8, img: gambar8, correct: "Akumulator" },
-        { id: 9, img: gambar9, correct: "motor" },
-        { id: 10, img: gambar10, correct: "Servo" },
+        { id: 1, img: "/images/gambar1.jpeg", correct: "Arduino" },
+        { id: 2, img: "/images/gambar2.jpeg", correct: "Kapasitor" },
+        { id: 3, img: "/images/gambar3.jpeg", correct: "Induktor" },
+        { id: 4, img: "/images/gambar4.jpeg", correct: "Nikola Tesla" },
+        { id: 5, img: "/images/gambar5.jpeg", correct: "Multiplexer" },
+        { id: 6, img: "/images/gambar6.jpeg", correct: "Proteus" },
+        { id: 7, img: "/images/gambar7.jpeg", correct: "Transistor" },
+        { id: 8, img: "/images/gambar8.jpeg", correct: "Michael Faraday" },
+        { id: 9, img: "/images/gambar9.jpeg", correct: "Dioda" },
+        { id: 10, img: "/images/gambar10.jpeg", correct: "Matlab" },
     ];
 
+    // Opsi dropdown diambil dari data jawaban yang benar, lalu diurutkan sesuai abjad
     const options = [...items].map((item) => item.correct).sort();
 
     const [timeLeft, setTimeLeft] = useState(15 * 60);
     const [answers, setAnswers] = useState({});
     const [showWarning, setShowWarning] = useState(false);
+
+    // Sistem Anti Cheat (3 Peringatan)
     const [hasCheated, setHasCheated] = useState(false);
+    const [cheatWarningCount, setCheatWarningCount] = useState(0);
+    const cheatCounter = useRef(0);
+    const lastCheatTime = useRef(0);
 
     useEffect(() => {
         if (timeLeft <= 0) {
@@ -53,23 +48,35 @@ const MatchTheBox = ({ team_name }) => {
 
     useEffect(() => {
         const handleCheating = () => {
-            if (document.visibilityState === "hidden" || document.hidden) {
-                setHasCheated(true);
+            const now = Date.now();
+            if (now - lastCheatTime.current > 2000 && !hasCheated) {
+                lastCheatTime.current = now;
+
+                if (cheatCounter.current < 3) {
+                    cheatCounter.current += 1;
+                    setCheatWarningCount(cheatCounter.current);
+                } else {
+                    setHasCheated(true);
+                    setCheatWarningCount(0);
+                }
             }
         };
 
-        const handleBlur = () => {
-            setHasCheated(true);
+        const handleVisibilityChange = () => {
+            if (document.hidden) handleCheating();
         };
 
-        document.addEventListener("visibilitychange", handleCheating);
-        window.addEventListener("blur", handleBlur);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        window.addEventListener("blur", handleCheating);
 
         return () => {
-            document.removeEventListener("visibilitychange", handleCheating);
-            window.removeEventListener("blur", handleBlur);
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+            );
+            window.removeEventListener("blur", handleCheating);
         };
-    }, []);
+    }, [hasCheated]);
 
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
@@ -88,6 +95,7 @@ const MatchTheBox = ({ team_name }) => {
             if (answers[item.id] === item.correct) score += 10;
         });
 
+        // Logika pengiriman backend utuh tidak diubah
         router.post("/elsmart/quiz/submit-stage3", {
             answers: answers,
             time_used: 15 * 60 - timeLeft,
@@ -101,19 +109,23 @@ const MatchTheBox = ({ team_name }) => {
     const progressPercent = Math.round((answeredCount / items.length) * 100);
 
     return (
-        <div className="min-h-screen bg-fern-50 text-slate-800 font-sans p-4 md:p-8">
-            <Head title="Tahap 3: Match The Box" />
+        <div className="min-h-screen bg-fern-50 text-slate-800 font-sans p-4 md:p-8 select-none">
+            <Head title="Tahap 3: Match The Box - LCC 2026" />
 
             <div className="max-w-[1400px] mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div className="flex items-center gap-4">
-                        <img src={elsmart} alt="Logo" className="h-12 w-auto" />
+                        <img
+                            src="/images/lcc.png"
+                            alt="LCC Logo"
+                            className="h-12 w-auto"
+                        />
                         <div>
                             <h1 className="text-xl font-bold text-dark-spruce-900 uppercase tracking-tight">
                                 Match The Box
                             </h1>
                             <p className="text-sm text-fern-600 font-medium">
-                                Penyisihan Tahap 3 • Tim {team_name}
+                                Penyisihan Tahap 3 - LCC 2026 • Tim {team_name}
                             </p>
                         </div>
                     </div>
@@ -127,7 +139,11 @@ const MatchTheBox = ({ team_name }) => {
                             {answeredCount} / {items.length} Terjawab
                         </div>
                         <div
-                            className={`flex items-center gap-3 px-6 py-2.5 rounded-xl border bg-white shadow-sm ${timeLeft < 180 ? "border-red-300 text-red-600 animate-pulse" : "border-slate-200 text-dark-spruce-900"}`}
+                            className={`flex items-center gap-3 px-6 py-2.5 rounded-xl border bg-white shadow-sm ${
+                                timeLeft < 180
+                                    ? "border-red-300 text-red-600 animate-pulse"
+                                    : "border-slate-200 text-dark-spruce-900"
+                            }`}
                         >
                             <Clock
                                 size={20}
@@ -143,14 +159,14 @@ const MatchTheBox = ({ team_name }) => {
                 </div>
 
                 <div className="bg-white border border-slate-200 p-6 md:p-8 rounded-3xl shadow-sm mb-8">
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
                         <div className="flex items-center gap-3 text-dark-spruce-900">
                             <ImageIcon className="text-fern-500" size={24} />
                             <h2 className="text-lg font-bold">
                                 Pasangkan Gambar
                             </h2>
                         </div>
-                        <div className="flex items-center gap-4 w-1/3 max-w-xs">
+                        <div className="flex items-center gap-4 w-full md:w-1/3 max-w-xs">
                             <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                                 <div
                                     className="h-full bg-frosted-mint-500 transition-all duration-500"
@@ -163,7 +179,7 @@ const MatchTheBox = ({ team_name }) => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                         {items.map((item) => (
                             <div
                                 key={item.id}
@@ -192,7 +208,7 @@ const MatchTheBox = ({ team_name }) => {
                                         className={`w-full text-sm font-medium rounded-xl border px-3 py-2.5 outline-none focus:ring-2 focus:ring-fern-500 transition-all cursor-pointer ${
                                             answers[item.id]
                                                 ? "bg-frosted-mint-50 border-frosted-mint-500 text-dark-spruce-900"
-                                                : "bg-white border-slate-300 text-slate-500"
+                                                : "bg-white border-slate-300 text-slate-600"
                                         } ${hasCheated ? "opacity-50 cursor-not-allowed" : ""}`}
                                     >
                                         <option value="" disabled>
@@ -225,6 +241,43 @@ const MatchTheBox = ({ team_name }) => {
                 </div>
             </div>
 
+            {/* Modal Peringatan Anti-Cheat 1 s.d 3 */}
+            <AnimatePresence>
+                {cheatWarningCount > 0 && !hasCheated && (
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-amber-200"
+                        >
+                            <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
+                                <AlertTriangle size={40} />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-3">
+                                Peringatan! ({cheatWarningCount}/3)
+                            </h2>
+                            <p className="text-slate-600 mb-8 leading-relaxed text-sm">
+                                Anda terdeteksi keluar dari halaman ujian.
+                                Tolong jangan membuka tab atau aplikasi lain
+                                selama ujian berlangsung.
+                                <strong>
+                                    {" "}
+                                    Jika peringatan mencapai 3 kali, ujian Anda
+                                    akan otomatis diakhiri.
+                                </strong>
+                            </p>
+                            <button
+                                onClick={() => setCheatWarningCount(0)}
+                                className="w-full py-4 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20"
+                            >
+                                Saya Mengerti
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Modal Blokir Mutlak (Cheat ke-4) */}
             <AnimatePresence>
                 {hasCheated && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md">
@@ -237,25 +290,26 @@ const MatchTheBox = ({ team_name }) => {
                                 <AlertCircle size={40} />
                             </div>
                             <h2 className="text-2xl font-bold text-slate-800 mb-3">
-                                Pelanggaran Terdeteksi!
+                                Pelanggaran Batas Maksimal!
                             </h2>
                             <p className="text-slate-600 mb-8 leading-relaxed text-sm">
-                                Anda terdeteksi membuka tab atau aplikasi lain
-                                di luar halaman ujian. Sesuai dengan peraturan
-                                kompetisi, ujian Anda diakhiri secara otomatis
-                                dan nilai Anda saat ini telah dikirim ke sistem.
+                                Anda telah mengabaikan peringatan sebanyak 3
+                                kali dengan membuka tab atau aplikasi lain di
+                                luar halaman ujian. Sesuai dengan peraturan,
+                                ujian Anda dihentikan secara otomatis.
                             </p>
                             <button
                                 onClick={handleSubmit}
                                 className="w-full py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-md shadow-red-600/20"
                             >
-                                Kembali ke Dashboard
+                                Kirim & Kembali ke Dashboard
                             </button>
                         </motion.div>
                     </div>
                 )}
             </AnimatePresence>
 
+            {/* Modal Submit Normal */}
             <AnimatePresence>
                 {showWarning && !hasCheated && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
