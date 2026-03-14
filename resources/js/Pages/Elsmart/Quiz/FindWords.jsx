@@ -8,513 +8,343 @@ import {
     CheckCircle2,
     FileText,
     Info,
+    AlertTriangle,
 } from "lucide-react";
-import elsmart from "/public/images/elsmart.png";
 
 const FindWords = ({ team_name }) => {
+    // Grid Baru (15x15)
     const initialGrid = [
         [
             "A",
-            "V",
-            "W",
+            "H",
+            "K",
+            "N",
+            "Q",
+            "A",
+            "H",
+            "A",
+            "M",
+            "I",
+            "I",
+            "A",
+            "G",
+            "Z",
             "R",
+        ],
+        [
+            "D",
+            "G",
+            "V",
+            "V",
+            "I",
+            "X",
+            "M",
+            "O",
+            "M",
+            "K",
+            "A",
+            "X",
+            "M",
             "E",
+            "O",
+        ],
+        [
+            "B",
+            "B",
+            "V",
+            "I",
+            "Z",
+            "L",
+            "D",
+            "T",
+            "W",
+            "L",
+            "H",
+            "Z",
+            "L",
+            "N",
+            "T",
+        ],
+        [
+            "F",
+            "M",
+            "E",
+            "D",
+            "S",
+            "U",
+            "H",
+            "N",
+            "I",
+            "B",
+            "E",
+            "O",
+            "P",
+            "H",
+            "K",
+        ],
+        [
+            "C",
+            "F",
+            "G",
+            "I",
+            "L",
+            "G",
+            "S",
             "S",
             "I",
-            "S",
+            "R",
+            "R",
+            "R",
+            "L",
+            "I",
+            "U",
+        ],
+        [
+            "I",
+            "B",
+            "O",
+            "A",
+            "K",
+            "C",
+            "F",
+            "O",
+            "U",
             "T",
             "O",
-            "R",
-            "E",
-            "N",
-            "L",
             "I",
-            "P",
-            "D",
-            "C",
-            "N",
-            "A",
-        ],
-        [
-            "S",
-            "R",
-            "A",
-            "Q",
-            "L",
-            "H",
-            "R",
-            "M",
             "E",
-            "N",
-            "L",
-            "U",
-            "C",
-            "H",
-            "S",
-            "Y",
+            "F",
             "D",
-            "R",
-            "A",
-            "W",
         ],
         [
-            "K",
-            "A",
-            "D",
-            "O",
-            "K",
-            "O",
+            "N",
+            "Z",
+            "S",
             "H",
-            "M",
-            "L",
-            "X",
+            "G",
+            "I",
+            "U",
+            "F",
+            "N",
+            "R",
+            "K",
             "G",
             "X",
+            "P",
+            "N",
+        ],
+        [
             "M",
+            "I",
+            "Y",
+            "L",
+            "H",
+            "D",
+            "N",
+            "O",
+            "P",
             "J",
+            "G",
+            "G",
+            "L",
             "E",
-            "A",
-            "D",
-            "H",
-            "N",
-            "G",
-        ],
-        [
-            "A",
-            "C",
-            "F",
-            "I",
-            "E",
-            "L",
-            "K",
-            "W",
-            "A",
-            "R",
-            "L",
-            "M",
-            "I",
-            "P",
-            "O",
-            "T",
-            "K",
-            "A",
-            "S",
             "O",
         ],
         [
-            "R",
-            "H",
-            "G",
-            "I",
+            "U",
             "K",
-            "B",
-            "P",
-            "T",
-            "R",
-            "A",
-            "F",
-            "O",
-            "I",
-            "A",
-            "P",
-            "H",
-            "S",
-            "B",
-            "B",
-            "R",
-        ],
-        [
-            "G",
-            "O",
-            "H",
-            "I",
-            "S",
-            "D",
-            "R",
-            "O",
-            "R",
-            "L",
-            "I",
-            "O",
             "V",
-            "I",
-            "R",
-            "E",
-            "O",
-            "I",
-            "A",
-            "T",
-        ],
-        [
-            "A",
-            "R",
-            "I",
-            "P",
-            "I",
-            "E",
-            "L",
+            "M",
             "S",
-            "M",
-            "A",
-            "R",
-            "T",
-            "K",
-            "T",
-            "I",
-            "B",
-            "L",
-            "A",
-            "R",
-            "K",
-        ],
-        [
-            "M",
-            "A",
-            "G",
-            "K",
-            "O",
-            "R",
-            "T",
-            "I",
-            "N",
             "C",
-            "N",
-            "O",
-            "T",
-            "R",
-            "O",
-            "Y",
-            "M",
-            "I",
-            "L",
-            "Q",
-        ],
-        [
-            "I",
-            "N",
-            "D",
-            "A",
-            "R",
-            "N",
-            "N",
-            "L",
-            "R",
-            "O",
-            "A",
-            "I",
             "K",
+            "Q",
+            "K",
+            "I",
+            "W",
             "E",
-            "G",
+            "P",
+            "A",
             "K",
-            "B",
-            "T",
-            "N",
-            "O",
         ],
         [
-            "W",
-            "G",
-            "W",
-            "O",
-            "Y",
+            "S",
             "D",
-            "K",
-            "F",
-            "D",
-            "K",
+            "P",
+            "B",
             "K",
             "O",
-            "Q",
-            "G",
-            "G",
             "R",
+            "A",
+            "Z",
+            "B",
+            "A",
+            "M",
+            "R",
+            "O",
             "I",
-            "G",
-            "Y",
-            "N",
         ],
         [
             "A",
+            "R",
+            "W",
+            "K",
+            "R",
+            "Q",
+            "E",
+            "I",
+            "B",
             "H",
-            "A",
-            "P",
-            "U",
-            "C",
-            "D",
-            "C",
-            "Y",
-            "I",
-            "A",
-            "K",
-            "A",
-            "A",
-            "G",
-            "A",
-            "B",
-            "U",
             "M",
-            "B",
-        ],
-        [
-            "I",
-            "E",
-            "S",
-            "K",
-            "I",
-            "E",
-            "R",
             "U",
-            "D",
-            "G",
             "P",
-            "K",
-            "R",
-            "I",
-            "S",
-            "K",
-            "N",
-            "V",
-            "U",
-            "N",
+            "G",
+            "M",
         ],
         [
+            "F",
+            "V",
+            "N",
+            "K",
+            "Q",
+            "Z",
+            "B",
+            "R",
+            "K",
+            "N",
+            "H",
+            "S",
             "T",
+            "M",
+            "E",
+        ],
+        [
+            "C",
+            "Z",
+            "I",
+            "M",
+            "O",
+            "T",
+            "O",
+            "R",
+            "N",
+            "P",
+            "L",
+            "Z",
+            "E",
+            "I",
+            "S",
+        ],
+        [
+            "H",
+            "M",
+            "T",
+            "P",
+            "F",
+            "N",
+            "P",
+            "L",
+            "U",
+            "T",
+            "F",
+            "K",
+            "O",
+            "H",
+            "M",
+        ],
+        [
+            "C",
+            "A",
+            "W",
+            "A",
+            "L",
+            "G",
+            "O",
+            "R",
+            "I",
+            "T",
+            "M",
+            "A",
+            "V",
             "X",
-            "T",
-            "H",
-            "D",
             "B",
-            "A",
-            "T",
-            "E",
-            "R",
-            "A",
-            "I",
-            "A",
-            "M",
-            "O",
-            "O",
-            "K",
-            "G",
-            "T",
-            "G",
-        ],
-        [
-            "K",
-            "O",
-            "A",
-            "O",
-            "Q",
-            "R",
-            "R",
-            "T",
-            "E",
-            "L",
-            "S",
-            "C",
-            "O",
-            "L",
-            "I",
-            "N",
-            "L",
-            "Q",
-            "A",
-            "D",
-        ],
-        [
-            "R",
-            "I",
-            "R",
-            "S",
-            "C",
-            "F",
-            "S",
-            "G",
-            "I",
-            "N",
-            "I",
-            "D",
-            "I",
-            "H",
-            "G",
-            "S",
-            "O",
-            "F",
-            "L",
-            "N",
-        ],
-        [
-            "A",
-            "I",
-            "U",
-            "A",
-            "K",
-            "A",
-            "F",
-            "H",
-            "E",
-            "C",
-            "T",
-            "S",
-            "I",
-            "I",
-            "L",
-            "E",
-            "P",
-            "Q",
-            "G",
-            "D",
-        ],
-        [
-            "S",
-            "O",
-            "S",
-            "D",
-            "H",
-            "R",
-            "T",
-            "E",
-            "H",
-            "F",
-            "O",
-            "N",
-            "I",
-            "D",
-            "U",
-            "R",
-            "A",
-            "R",
-            "T",
-            "Y",
-        ],
-        [
-            "R",
-            "D",
-            "A",
-            "K",
-            "O",
-            "N",
-            "D",
-            "U",
-            "K",
-            "S",
-            "R",
-            "O",
-            "L",
-            "E",
-            "I",
-            "K",
-            "T",
-            "Q",
-            "A",
-            "S",
-        ],
-        [
-            "A",
-            "W",
-            "F",
-            "H",
-            "A",
-            "S",
-            "A",
-            "Y",
-            "R",
-            "S",
-            "E",
-            "B",
-            "O",
-            "N",
-            "G",
-            "W",
-            "A",
-            "S",
-            "D",
-            "T",
-        ],
-        [
-            "W",
-            "R",
-            "D",
-            "S",
-            "E",
-            "I",
-            "G",
-            "R",
-            "E",
-            "W",
-            "T",
-            "E",
-            "G",
-            "Y",
-            "W",
-            "R",
-            "K",
-            "T",
-            "I",
-            "Q",
         ],
     ];
 
+    // Soal Baru
     const questionsList = [
         {
             id: 1,
-            q: "Komponen yang memiliki fungsi untuk menghambat arus listrik",
-            a: "RESISTOR",
-        },
-        { id: 2, q: "Aliran muatan listrik disebut juga?", a: "ARUS" },
-        { id: 3, q: "Sumber arus listrik searah", a: "DC" },
-        {
-            id: 4,
-            q: "Besaran listrik yang mempunyai satuan Volt",
-            a: "TEGANGAN",
-        },
-        {
-            id: 5,
-            q: "Komponen elektronika yang menyimpan energi dalam medan listrik",
-            a: "KAPASITOR",
-        },
-        {
-            id: 6,
-            q: "Komponen elektronika yang menyimpan energi dalam medan magnet",
-            a: "INDUKTOR",
-        },
-        {
-            id: 7,
-            q: "Hukum dasar yang menyebutkan terkait hubungan antara tegangan, arus dan hambatan",
+            q: "Satuan yang digunakan untuk mengukur hambatan listrik dalam rangkaian.",
             a: "OHM",
         },
         {
+            id: 2,
+            q: "Hukum dalam rangkaian listrik yang menjelaskan konservasi arus dan tegangan.",
+            a: "KIRCHHOFF",
+        },
+        {
+            id: 3,
+            q: "Material dengan konduktivitas antara konduktor dan isolator.",
+            a: "SEMIKONDUKTOR",
+        },
+        {
+            id: 4,
+            q: "Chip kecil yang digunakan untuk mengontrol perangkat elektronik.",
+            a: "MIKROKONTROLER",
+        },
+        {
+            id: 5,
+            q: "Perangkat yang mengubah energi listrik menjadi energi gerak.",
+            a: "MOTOR",
+        },
+        {
+            id: 6,
+            q: "Perusahaan teknologi yang dikenal sebagai pengembang GPU.",
+            a: "NVIDIA",
+        },
+        {
+            id: 7,
+            q: "Proses mengubah karakteristik sinyal dalam sistem komunikasi.",
+            a: "MODULASI",
+        },
+        {
             id: 8,
-            q: "Susunan rangkaian listrik dengan hanya ada satu jalur arus",
-            a: "SERI",
+            q: "Komponen komputer yang digunakan untuk memproses grafis.",
+            a: "GPU",
         },
         {
             id: 9,
-            q: "Alat untuk menaikan atau menurunkan tegangan",
-            a: "TRAFO",
+            q: "Langkah-langkah sistematis untuk menyelesaikan suatu masalah.",
+            a: "ALGORITMA",
         },
         {
             id: 10,
-            q: "Komponen yang dapat mengubah energi kimia menjadi arus listrik dan digunakan sumber energi",
-            a: "BATERAI",
+            q: "Lonjakan tegangan sesaat yang dapat merusak perangkat elektronik.",
+            a: "SURGE",
         },
     ];
 
     const [timeLeft, setTimeLeft] = useState(15 * 60);
     const [showWarning, setShowWarning] = useState(false);
     const [foundWords, setFoundWords] = useState([]);
-    const [hasCheated, setHasCheated] = useState(false);
 
+    // Sistem Anti Cheat (3 Peringatan)
+    const [hasCheated, setHasCheated] = useState(false);
+    const [cheatWarningCount, setCheatWarningCount] = useState(0);
+    const cheatCounter = useRef(0);
+    const lastCheatTime = useRef(0);
+
+    // Disesuaikan menjadi 15x15 array
     const [gridStatus, setGridStatus] = useState(
-        Array(20)
+        Array(15)
             .fill()
-            .map(() => Array(20).fill({ isFound: false })),
+            .map(() => Array(15).fill({ isFound: false })),
     );
 
     const [isDragging, setIsDragging] = useState(false);
     const [selectionStart, setSelectionStart] = useState(null);
     const [selectedPath, setSelectedPath] = useState([]);
-
     const gridRef = useRef(null);
 
     useEffect(() => {
@@ -528,23 +358,35 @@ const FindWords = ({ team_name }) => {
 
     useEffect(() => {
         const handleCheating = () => {
-            if (document.visibilityState === "hidden" || document.hidden) {
-                setHasCheated(true);
+            const now = Date.now();
+            if (now - lastCheatTime.current > 2000 && !hasCheated) {
+                lastCheatTime.current = now;
+
+                if (cheatCounter.current < 3) {
+                    cheatCounter.current += 1;
+                    setCheatWarningCount(cheatCounter.current);
+                } else {
+                    setHasCheated(true);
+                    setCheatWarningCount(0);
+                }
             }
         };
 
-        const handleBlur = () => {
-            setHasCheated(true);
+        const handleVisibilityChange = () => {
+            if (document.hidden) handleCheating();
         };
 
-        document.addEventListener("visibilitychange", handleCheating);
-        window.addEventListener("blur", handleBlur);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        window.addEventListener("blur", handleCheating);
 
         return () => {
-            document.removeEventListener("visibilitychange", handleCheating);
-            window.removeEventListener("blur", handleBlur);
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+            );
+            window.removeEventListener("blur", handleCheating);
         };
-    }, []);
+    }, [hasCheated]);
 
     const formatTime = (seconds) => {
         const m = Math.floor(seconds / 60);
@@ -578,7 +420,8 @@ const FindWords = ({ team_name }) => {
         let r = r1;
         let c = c1;
         for (let i = 0; i <= steps; i++) {
-            if (r >= 0 && r < 20 && c >= 0 && c < 20) {
+            // Batas grid diubah menjadi 15
+            if (r >= 0 && r < 15 && c >= 0 && c < 15) {
                 path.push([r, c]);
             }
             r += stepR;
@@ -654,18 +497,22 @@ const FindWords = ({ team_name }) => {
 
     return (
         <div className="min-h-screen bg-fern-50 text-slate-800 font-sans p-4 md:p-8 select-none">
-            <Head title="Tahap 2: Find Words" />
+            <Head title="Tahap 2: Find Words - LCC 2026" />
 
             <div className="max-w-[1400px] mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <div className="flex items-center gap-4">
-                        <img src={elsmart} alt="Logo" className="h-10 w-auto" />
+                        <img
+                            src="/images/lcc.png"
+                            alt="LCC Logo"
+                            className="h-10 w-auto"
+                        />
                         <div>
                             <h1 className="text-xl font-bold text-dark-spruce-900 tracking-tight">
                                 FIND WORDS
                             </h1>
                             <p className="text-xs text-fern-600 font-medium">
-                                Penyisihan Tahap 2 • Tim {team_name}
+                                Penyisihan Tahap 2 - LCC 2026 • Tim {team_name}
                             </p>
                         </div>
                     </div>
@@ -775,7 +622,8 @@ const FindWords = ({ team_name }) => {
                                 ref={gridRef}
                                 className="grid gap-[2px] touch-none bg-slate-100 border-4 border-slate-100 rounded-xl"
                                 style={{
-                                    gridTemplateColumns: `repeat(20, minmax(0, 1fr))`,
+                                    // Diubah menjadi 15 kolom agar proporsional
+                                    gridTemplateColumns: `repeat(15, minmax(0, 1fr))`,
                                 }}
                                 onPointerLeave={handlePointerUp}
                                 onPointerUp={handlePointerUp}
@@ -790,8 +638,9 @@ const FindWords = ({ team_name }) => {
                                         const isPermanentlyFound =
                                             gridStatus[r][c].isFound;
 
+                                        // Sedikit diperbesar karena kotaknya sekarang 15x15 bukan 20x20
                                         let cellClasses =
-                                            "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 flex items-center justify-center text-xs sm:text-sm md:text-base font-bold font-mono transition-colors cursor-pointer ";
+                                            "w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 flex items-center justify-center text-sm sm:text-base md:text-lg font-bold font-mono transition-colors cursor-pointer ";
 
                                         if (isPermanentlyFound) {
                                             cellClasses +=
@@ -844,6 +693,43 @@ const FindWords = ({ team_name }) => {
                 </div>
             </div>
 
+            {/* Modal Peringatan Anti-Cheat 1 s.d 3 */}
+            <AnimatePresence>
+                {cheatWarningCount > 0 && !hasCheated && (
+                    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-8 rounded-[2rem] max-w-md w-full shadow-2xl text-center border border-amber-200"
+                        >
+                            <div className="w-20 h-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-200">
+                                <AlertTriangle size={40} />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-3">
+                                Peringatan! ({cheatWarningCount}/3)
+                            </h2>
+                            <p className="text-slate-600 mb-8 leading-relaxed text-sm">
+                                Anda terdeteksi keluar dari halaman ujian.
+                                Tolong jangan membuka tab atau aplikasi lain
+                                selama ujian berlangsung.
+                                <strong>
+                                    {" "}
+                                    Jika peringatan mencapai 3 kali, ujian Anda
+                                    akan otomatis diakhiri.
+                                </strong>
+                            </p>
+                            <button
+                                onClick={() => setCheatWarningCount(0)}
+                                className="w-full py-4 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 transition-all shadow-md shadow-amber-500/20"
+                            >
+                                Saya Mengerti
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Modal Blokir Mutlak (Cheat ke-4) */}
             <AnimatePresence>
                 {hasCheated && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md">
@@ -856,19 +742,19 @@ const FindWords = ({ team_name }) => {
                                 <AlertCircle size={40} />
                             </div>
                             <h2 className="text-2xl font-bold text-slate-800 mb-3">
-                                Pelanggaran Terdeteksi!
+                                Pelanggaran Batas Maksimal!
                             </h2>
                             <p className="text-slate-600 mb-8 leading-relaxed text-sm">
-                                Anda terdeteksi membuka tab atau aplikasi lain
-                                di luar halaman ujian. Sesuai dengan peraturan
-                                kompetisi, ujian Anda diakhiri secara otomatis
-                                dan nilai Anda saat ini telah dikirim ke sistem.
+                                Anda telah mengabaikan peringatan sebanyak 3
+                                kali dengan membuka tab atau aplikasi lain di
+                                luar halaman ujian. Sesuai dengan peraturan,
+                                ujian Anda dihentikan secara otomatis.
                             </p>
                             <button
                                 onClick={handleSubmit}
                                 className="w-full py-4 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-md shadow-red-600/20"
                             >
-                                Kembali ke Dashboard
+                                Kirim & Kembali ke Dashboard
                             </button>
                         </motion.div>
                     </div>
