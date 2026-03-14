@@ -115,8 +115,8 @@ export default function Navbar() {
                                 className="group flex items-center justify-center w-full py-3.5 bg-[#005f32] border-2 border-white rounded-2xl shadow-[0_4px_20px_rgba(34,197,94,0.3)] active:scale-95 transition-all"
                             >
                                 <img
-                                    src={Elsmart}
-                                    alt="Elsmart"
+                                    src={LCC}
+                                    alt="LCC"
                                     className="h-8 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                                 />
                             </Link>
