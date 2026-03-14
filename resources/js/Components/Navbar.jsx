@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ElccoLogoText from "/public/images/logo-logo.png";
 import Elsmart from "/public/images/elsmart.png";
-import LCC from "/public/images/lcc.png";
+import LCC from "/public/images/LCC.png";
 
 const navLinks = [
     { name: "Home", href: "/" },

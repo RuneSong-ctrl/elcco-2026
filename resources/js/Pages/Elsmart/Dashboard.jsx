@@ -15,7 +15,7 @@ import {
     Lock,
     CheckCircle,
 } from "lucide-react";
-import LCC from "/public/images/lcc.png";
+import LCC from "/public/images/LCC.png";
 
 const Dashboard = ({ team_name, school_name, members, current_stage }) => {
     const { post } = useForm();

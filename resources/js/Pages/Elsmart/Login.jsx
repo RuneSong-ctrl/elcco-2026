@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Head, Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { Users, Lock, LogIn } from "lucide-react";
-import LCC from "/public/images/lcc.png";
+import LCC from "/public/images/LCC.png";
 
 const Login = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -12,7 +12,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-      
+
         post("/elsmart/login");
     };
 

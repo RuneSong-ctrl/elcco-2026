@@ -16,7 +16,7 @@ import {
     Key,
     Trash2,
 } from "lucide-react";
-import LCC from "/public/images/lcc.png"; // Diubah ke logo LCC saja karena yang Elsmart sudah dihapus
+import LCC from "/public/images/LCC.png";
 
 const ElsmartDashboard = ({ admin_name, registeredTeams, gameStatus }) => {
     const { post } = useForm();

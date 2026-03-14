@@ -9,7 +9,7 @@ import {
     User,
     ShieldCheck,
 } from "lucide-react";
-import LCC from "/public/images/lcc.png";
+import LCC from "/public/images/LCC.png";
 
 const Register = () => {
     const { data, setData, post, processing, errors } = useForm({
