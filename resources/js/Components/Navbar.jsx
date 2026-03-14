@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ElccoLogoText from "/public/images/logo-logo.png";
 import Elsmart from "/public/images/elsmart.png";
+import LCC from "/public/images/lcc.png";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -62,10 +63,13 @@ export default function Navbar() {
                         className="group flex items-center justify-center px-6 py-2 bg-[#005f32] border-2 border-white rounded-full transition-all duration-300 shadow-[0_4px_15px_rgba(34,197,94,0.3)] hover:shadow-[0_6px_25px_rgba(34,197,94,0.5)] hover:-translate-y-0.5"
                     >
                         <img
-                            src={Elsmart}
-                            alt="Elsmart"
+                            src={LCC}
+                            alt="LCC"
                             className="h-6 lg:h-7 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                         />
+                        <h1 className="text-white font-bold text-lg ml-2 shadow-black/20">
+                            LCC
+                        </h1>
                     </Link>
                 </div>
 
