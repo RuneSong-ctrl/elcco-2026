@@ -1,6 +1,6 @@
 import React from "react";
 import { Bracket, Seed, SeedItem, SeedTeam } from "react-brackets";
-import { Trophy, Timer, Medal } from "lucide-react";
+import { Trophy, Timer, Medal, Users } from "lucide-react";
 
 const CustomSeed = ({ seed, breakpoint }) => {
     return (
@@ -30,20 +30,71 @@ const CustomSeed = ({ seed, breakpoint }) => {
 };
 
 export default function LineFollowerStandings() {
-    const leaderboardData = [
+    const groupData = [
         {
-            rank: 1,
-            team: "GRED | Hype abizZ",
-            school: "Univ. A",
-            time: "01:12.45",
+            id: "A",
+            name: "Grup A",
+            teams: [
+                "GRED | Hype abizZ",
+                "GRED | Nyemek Bangladesh",
+                "GRED | Karie Ayam",
+                "CyberTron",
+            ],
         },
-        { rank: 2, team: "JASUKE", school: "Univ. B", time: "01:15.20" },
-        { rank: 3, team: "UDUN_PLANCK", school: "Univ. C", time: "01:16.88" },
-        { rank: 4, team: "CyberTron", school: "Univ. D", time: "01:18.05" },
-        { rank: 5, team: "Corvus Own", school: "Univ. E", time: "01:19.30" },
+        {
+            id: "B",
+            name: "Grup B",
+            teams: [
+                "JASUKE",
+                "Panom LineHunters",
+                "UDUN_LAGRANGIAN",
+                "Corvus Own",
+            ],
+        },
+        {
+            id: "C",
+            name: "Grup C",
+            teams: [
+                "GRED | Baso Granat",
+                "UDUN_LORENTZ",
+                "GRED | iga penyett",
+                "UDUN_BOYLE",
+            ],
+        },
+        {
+            id: "D",
+            name: "Grup D",
+            teams: [
+                "UDUN_PLANCK",
+                "UDUN_MAXWELL",
+                "MONELT Arbian Daptar MAN",
+                "MONELT KANARAZU KATSU",
+            ],
+        },
+        {
+            id: "E",
+            name: "Grup E",
+            teams: [
+                "GRED | Jeletot",
+                "Corvus RJ Parley",
+                "ThecnoTracker",
+                "GRED | Gacoan lvlmax",
+            ],
+        },
+        {
+            id: "F",
+            name: "Grup F",
+            teams: [
+                "Tom&Jerry",
+                "TETAP DI JALUR",
+                "Bravos",
+                "ARITMA TRON SYSTEM",
+            ],
+        },
+        { id: "G", name: "Grup G", teams: ["MONELT Harra Hetta"] },
     ];
 
-    const rounds = [
+    const mainBracket = [
         {
             title: "16 Besar",
             seeds: [
@@ -139,7 +190,7 @@ export default function LineFollowerStandings() {
             ],
         },
         {
-            title: "Semi Final",
+            title: "Top 4 (Race 1 & 2)",
             seeds: [
                 {
                     id: 13,
@@ -158,13 +209,28 @@ export default function LineFollowerStandings() {
             ],
         },
         {
-            title: "Final",
+            title: "Final (Juara 1 & 2)",
             seeds: [
                 {
                     id: 15,
                     teams: [
-                        { name: "Pemenang M13", score: "" },
-                        { name: "Pemenang M14", score: "" },
+                        { name: "Menang Race 1", score: "" },
+                        { name: "Menang Race 2", score: "" },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    const thirdPlaceBracket = [
+        {
+            title: "Perebutan Juara 3",
+            seeds: [
+                {
+                    id: 16,
+                    teams: [
+                        { name: "Kalah Race 1", score: "" },
+                        { name: "Kalah Race 2", score: "" },
                     ],
                 },
             ],
@@ -175,9 +241,53 @@ export default function LineFollowerStandings() {
         <div className="w-full flex flex-col gap-16">
             <section>
                 <div className="flex items-center gap-3 mb-6">
+                    <Users className="text-frosted-mint-400" size={28} />
+                    <div>
+                        <h2 className="text-2xl font-bold text-white">
+                            Daftar Tim & Grup
+                        </h2>
+                        <p className="text-sm text-slate-400 mt-1">
+                            Sistem Kualifikasi Global: Diambil 16 tim tercepat
+                            dan terjauh.
+                        </p>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {groupData.map((group) => (
+                        <div
+                            key={group.id}
+                            className="bg-dark-spruce-900/40 border border-white/10 rounded-2xl overflow-hidden shadow-xl flex flex-col"
+                        >
+                            <div className="bg-dark-spruce-950/80 px-4 py-3 border-b border-white/10">
+                                <h3 className="font-bold text-frosted-mint-400 uppercase tracking-widest text-sm text-center">
+                                    {group.name}
+                                </h3>
+                            </div>
+                            <div className="p-4">
+                                <ul className="space-y-3">
+                                    {group.teams.map((team, idx) => (
+                                        <li
+                                            key={idx}
+                                            className="flex items-center gap-3 text-sm font-medium text-slate-200"
+                                        >
+                                            <span className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-xs text-slate-400 shrink-0">
+                                                {idx + 1}
+                                            </span>
+                                            {team}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section>
+                <div className="flex items-center gap-3 mb-6">
                     <Timer className="text-frosted-mint-400" size={28} />
                     <h2 className="text-2xl font-bold text-white">
-                        Global Leaderboard (Top 16)
+                        Leaderboard Kualifikasi (Top 16 Lolos)
                     </h2>
                 </div>
                 <div className="overflow-x-auto rounded-2xl border border-white/10 shadow-xl bg-dark-spruce-900/40">
@@ -191,34 +301,34 @@ export default function LineFollowerStandings() {
                                     Nama Tim
                                 </th>
                                 <th className="p-4 text-sm font-semibold text-slate-400">
-                                    Instansi
+                                    Jarak
                                 </th>
                                 <th className="p-4 text-sm font-semibold text-frosted-mint-400 text-right">
-                                    Waktu (Best)
+                                    Waktu Tercepat
                                 </th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {leaderboardData.map((team, idx) => (
+                            {[...Array(16)].map((_, idx) => (
                                 <tr
                                     key={idx}
                                     className="hover:bg-white/5 transition-colors"
                                 >
                                     <td className="p-4 text-center">
                                         <span
-                                            className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${idx < 3 ? "bg-amber-500/20 text-amber-400" : "bg-white/5 text-slate-300"}`}
+                                            className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${idx < 3 ? "bg-amber-500/20 text-amber-400" : "bg-frosted-mint-500/20 text-frosted-mint-400"}`}
                                         >
-                                            {team.rank}
+                                            {idx + 1}
                                         </span>
                                     </td>
-                                    <td className="p-4 font-bold text-slate-200">
-                                        {team.team}
+                                    <td className="p-4 font-medium text-slate-400 italic">
+                                        Menunggu Hasil...
                                     </td>
-                                    <td className="p-4 text-slate-400 text-sm">
-                                        {team.school}
+                                    <td className="p-4 text-slate-500 text-sm">
+                                        -
                                     </td>
-                                    <td className="p-4 text-right font-mono text-frosted-mint-400 font-bold">
-                                        {team.time}
+                                    <td className="p-4 text-right font-mono text-slate-500">
+                                        -
                                     </td>
                                 </tr>
                             ))}
@@ -237,7 +347,26 @@ export default function LineFollowerStandings() {
                 <div className="overflow-x-auto w-full custom-scrollbar pb-10">
                     <div className="min-w-[1000px] flex items-center justify-start pt-4">
                         <Bracket
-                            rounds={rounds}
+                            rounds={mainBracket}
+                            renderSeedComponent={CustomSeed}
+                            lineColor="rgba(255, 255, 255, 0.2)"
+                            lineWidth={2}
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div className="flex items-center gap-3 mb-6">
+                    <Medal className="text-slate-400" size={28} />
+                    <h2 className="text-2xl font-bold text-white">
+                        Perebutan Juara 3
+                    </h2>
+                </div>
+                <div className="overflow-x-auto w-full custom-scrollbar pb-10">
+                    <div className="min-w-[300px] flex items-center justify-start pt-4">
+                        <Bracket
+                            rounds={thirdPlaceBracket}
                             renderSeedComponent={CustomSeed}
                             lineColor="rgba(255, 255, 255, 0.2)"
                             lineWidth={2}
