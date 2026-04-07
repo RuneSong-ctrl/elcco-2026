@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Head } from "@inertiajs/react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/Components/Navbar";
 import FooterSection from "@/Components/FooterSection";
 import { Trophy } from "lucide-react";
+import LineFollowerStandings from "@/Components/LineFollowerStandings";
+import SumobotStandings from "@/Components/SumobotStandings";
 
 export default function Standings() {
     const [activeTab, setActiveTab] = useState("line-follower");
@@ -28,7 +30,7 @@ export default function Standings() {
 
             <Navbar />
 
-            <main className="flex-grow relative z-10 flex flex-col items-center pt-36 md:pt-40 pb-20 px-4 sm:px-6">
+            <main className="flex-grow relative z-10 flex flex-col items-center pt-36 md:pt-40 pb-20 px-4 sm:px-6 max-w-7xl mx-auto w-full">
                 <div className="text-center mb-10" data-aos="fade-down">
                     <div className="flex items-center justify-center gap-3 mb-4">
                         <Trophy className="text-frosted-mint-400" size={32} />
@@ -38,7 +40,7 @@ export default function Standings() {
                     </div>
                     <p className="text-slate-300 font-light tracking-wide max-w-2xl mx-auto text-sm md:text-base">
                         Pantau langsung hasil pertandingan, perolehan waktu, dan
-                        bagan kompetisi  ELCCO 2026 secara real-time.
+                        bagan kompetisi ELCCO 2026 secara real-time.
                     </p>
                 </div>
 
@@ -93,21 +95,42 @@ export default function Standings() {
                     </button>
                 </div>
 
-                <div
-                    className="w-full max-w-6xl min-h-[500px] bg-dark-spruce-900/40 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-10 shadow-2xl flex items-center justify-center"
-                    data-aos="fade-up"
-                    data-aos-delay="200"
-                >
-                    <p className="text-slate-400 font-medium text-lg animate-pulse">
-                        Menampilkan bagan turnamen untuk{" "}
-                        {activeTab === "line-follower"
-                            ? "Line Follower"
-                            : "SumoBot"}
-                        ...
-                    </p>
+                <div className="w-full" data-aos="fade-up" data-aos-delay="200">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            {activeTab === "line-follower" ? (
+                                <LineFollowerStandings />
+                            ) : (
+                                <SumobotStandings />
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </main>
             <FooterSection />
+
+            <style jsx="true">{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    height: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.2);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(52, 211, 153, 0.5);
+                }
+            `}</style>
         </div>
     );
 }
