@@ -8,10 +8,10 @@ import LCC from "/public/images/LCC.png";
 
 const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
     { name: "Timeline", href: "#timeline" },
     { name: "Gallery", href: "#gallery" },
     { name: "FAQ", href: "#faq" },
+    { name: "Standings", href: "/standings" },
 ];
 
 export default function Navbar() {
@@ -46,15 +46,26 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center gap-1 bg-dark-spruce-900/40 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
-                    {navLinks.map((link, index) => (
-                        <a
-                            key={index}
-                            href={link.href}
-                            className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
-                        >
-                            {link.name}
-                        </a>
-                    ))}
+                    {navLinks.map((link, index) => {
+                        const isExternalRoute = link.href.startsWith("/");
+                        return isExternalRoute && link.href !== "/" ? (
+                            <Link
+                                key={index}
+                                href={link.href}
+                                className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
+                            >
+                                {link.name}
+                            </Link>
+                        ) : (
+                            <a
+                                key={index}
+                                href={link.href}
+                                className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
+                            >
+                                {link.name}
+                            </a>
+                        );
+                    })}
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
@@ -91,21 +102,39 @@ export default function Navbar() {
                         className="pointer-events-auto absolute top-24 w-[92%] max-w-sm bg-dark-spruce-900/95 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:hidden"
                     >
                         <div className="p-4 flex flex-col gap-2">
-                            {navLinks.map((link, idx) => (
-                                <a
-                                    key={idx}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-between p-4 rounded-2xl text-slate-200 hover:text-white hover:bg-white/5 hover:pl-6 transition-all duration-300 border border-transparent hover:border-white/5"
-                                >
-                                    <span className="font-bold">
-                                        {link.name}
-                                    </span>
-                                    <span className="text-white/20 text-xs font-mono">
-                                        0{idx + 1}
-                                    </span>
-                                </a>
-                            ))}
+                            {navLinks.map((link, idx) => {
+                                const isExternalRoute =
+                                    link.href.startsWith("/");
+                                return isExternalRoute && link.href !== "/" ? (
+                                    <Link
+                                        key={idx}
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="flex items-center justify-between p-4 rounded-2xl text-slate-200 hover:text-white hover:bg-white/5 hover:pl-6 transition-all duration-300 border border-transparent hover:border-white/5"
+                                    >
+                                        <span className="font-bold">
+                                            {link.name}
+                                        </span>
+                                        <span className="text-white/20 text-xs font-mono">
+                                            0{idx + 1}
+                                        </span>
+                                    </Link>
+                                ) : (
+                                    <a
+                                        key={idx}
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="flex items-center justify-between p-4 rounded-2xl text-slate-200 hover:text-white hover:bg-white/5 hover:pl-6 transition-all duration-300 border border-transparent hover:border-white/5"
+                                    >
+                                        <span className="font-bold">
+                                            {link.name}
+                                        </span>
+                                        <span className="text-white/20 text-xs font-mono">
+                                            0{idx + 1}
+                                        </span>
+                                    </a>
+                                );
+                            })}
                         </div>
 
                         <div className="p-4 pt-0">

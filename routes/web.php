@@ -53,4 +53,8 @@ Route::post('/elsmart/quiz/submit-stage3', [ElsmartAuthController::class, 'submi
 Route::post('/admin/elsmart-master/reset-password', [App\Http\Controllers\AdminAuthController::class, 'resetPassword'])->name('admin.elsmart.resetPassword');
 Route::post('/admin/elsmart-master/delete-team', [App\Http\Controllers\AdminAuthController::class, 'deleteTeam'])->name('admin.elsmart.deleteTeam');
 
+Route::get('/standings', function () {
+    return Inertia::render('Standings');
+})->name('standings');
+
 require __DIR__.'/auth.php';
